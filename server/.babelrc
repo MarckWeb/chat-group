@@ -1,0 +1,16 @@
+// {
+//     "presets": [
+//         //quiero traducir codigo a nuevo que venga desde
+//         "@babel/preset-env"
+//     ]
+// }
+
+{
+   "presets": [
+     ["@babel/env", {
+       "targets": {
+         "node": "current"
+       }
+     }]
+   ]
+ }
