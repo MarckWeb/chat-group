@@ -1,0 +1,5 @@
+# Ignorar la carpeta de construcción
+dist/
+
+# Ignorar la carpeta de dependencias
+node_modules/

@@ -1,0 +1,5 @@
+# Ignorar la carpeta de construcción
+dist/
+
+# Ignorar archivos de configuración
+.prettierrc.js
