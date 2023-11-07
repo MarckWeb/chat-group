@@ -1,6 +1,6 @@
 import pool from '../db/connection.js';
 import UserModel from '../models/user.js';
-import { uuid } from 'uuidv4'
+import { v4 as uuid } from 'uuid';
 import { encryptPassword, comparePassword } from '../helpers/generateBcrypt.js';
 import tokenSing from '../helpers/generateToken.js';
 
@@ -49,45 +49,43 @@ const loginUser = async (req, res) => {
    try {
       console.log(req.body)
       const { email, password } = req.body
-      if (email) {
+      if (email && password) {
 
          const [userSelected] = await pool.query('SELECT * FROM user WHERE email=?', [email])
          console.log(userSelected)
-         if (userSelected.length === 0) {
-            return res.send('usuario no encontrado')
-         }
 
-         if (!userSelected) return res.status(401).send({
-            status: 401,
-            ok: false,
-            message: 'El usuario con el email indicado no existe'
-         })
+         if (userSelected.length === 0) {
+            return res.status(401).send({
+               status: 401,
+               ok: false,
+               message: 'El usuario con el email indicado no existe'
+            })
+         }
 
          console.log(userSelected[0].password)
          console.log(password)
          const passwordVerify = await comparePassword(password, userSelected[0].password)
+         const tokenSession = await tokenSing(userSelected[0])
          console.log('el resultado de las contrseñas')
          console.log(passwordVerify)
-
-         const tokenSession = await tokenSing(userSelected[0])
-
-         if (passwordVerify) {
-            return res.status(200).send({
+         if (!passwordVerify) {
+            res.status(409).send({
+               status: 409,
+               ok: false,
+               message: 'contraseña incorrecta'
+            })
+         } else {
+            res.status(200).send({
                status: 200,
                ok: true,
                message: 'contraseña correcta',
                tokenSession
             })
-         } else {
-            res.status(409).send({
-               status: 409,
-               ok: false,
-               message: 'contraseña invalida'
-            })
          }
+
       } else {
          return res.status(404).send({
-            message: 'error hay campos vacios'
+            message: 'error hay campos vacios existentes'
          })
       }
 

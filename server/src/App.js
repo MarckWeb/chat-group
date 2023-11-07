@@ -15,7 +15,7 @@ app.use(express.static('public'));
 
 //routes
 app.use('/api/user', user);
-app.use('/api/user', authuser)
+app.use('/api/auth', authuser)
 
 
 //not found-. si no exite ninguna de las rutas
