@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import user from './routes/user.js'
+import authuser from './routes/authUser.js';
 
 const app = express()
 
@@ -14,6 +15,7 @@ app.use(express.static('public'));
 
 //routes
 app.use('/api/user', user);
+app.use('/api/user', authuser)
 
 
 //not found-. si no exite ninguna de las rutas

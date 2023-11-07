@@ -1,7 +1,5 @@
 import pool from '../db/connection.js';
-import UserModel from '../models/user.js';
 
-import bcrypt from 'bcrypt'
 //GET:Id
 const getUser = async (req, res) => {
    try {
@@ -30,51 +28,6 @@ const getUsers = async (req, res) => {
    }
 }
 
-
-//cambiar al archivo auht
-const createUser = async (req, res) => {
-   try {
-      console.log(req.body)
-      if (req.body) {
-
-         const { id, name, lastname, username, email, password } = req.body
-
-         const user = new UserModel(req.body)
-         const validationErrors = user.validate();
-         if (validationErrors) {
-            res.send({
-               message: 'error de validacio',
-               error: validationErrors
-            })
-         } else {
-            const passwordHash = await bcrypt.hash(password, 8);
-            const row = "INSERT INTO user (id, name, lastname, username, email, password) VALUES (?, ?, ?, ?, ?, ?)";
-            const values = [id, name, lastname, username, email, passwordHash];
-
-            const [result] = await pool.query(row, values);
-            if (!result) {
-               res.send({
-                  message: 'error al guardar el dato del usuario',
-                  state: 404,
-               })
-            }
-            res.send({
-               id: result.insertId,
-               name,
-               lastname,
-               username,
-               email,
-               password: passwordHash
-            })
-         }
-
-      }
-
-   } catch (e) {
-      console.error(e)
-      return res.status(500).send("Error al crear el usuario");
-   }
-}
 
 const updateUser = async (req, res) => {
 
@@ -122,7 +75,6 @@ const deleteUser = async (req, res) => {
 const userController = {
    getUser,
    getUsers,
-   createUser,
    updateUser,
    deleteUser
 }
