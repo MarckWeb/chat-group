@@ -8,6 +8,7 @@ import tokenSing from '../helpers/generateToken.js';
 const createUser = async (req, res) => {
    try {
       const { name, lastname, username, email, password } = req.body
+      console.log(req.body)
 
       //comparamos que los datos cumplan con los requisitos del modelo
       const user = new UserModel(req.body)
@@ -23,6 +24,7 @@ const createUser = async (req, res) => {
 
          const row = "INSERT INTO user (id, name, lastname, username, email, password) VALUES (?, ?, ?, ?, ?, ?)";
          const userId = uuid(); // Genera un nuevo UUID
+
          const values = [userId, name, lastname, username, email, passwordHash];
 
          const [result] = await pool.query(row, values);
@@ -52,7 +54,7 @@ const loginUser = async (req, res) => {
       if (email && password) {
 
          const [userSelected] = await pool.query('SELECT * FROM user WHERE email=?', [email])
-         console.log(userSelected)
+         console.log(userSelected[0])
 
          if (userSelected.length === 0) {
             return res.status(401).send({
@@ -62,24 +64,26 @@ const loginUser = async (req, res) => {
             })
          }
 
-         console.log(userSelected[0].password)
-         console.log(password)
+         console.log(password, userSelected[0].password)
          const passwordVerify = await comparePassword(password, userSelected[0].password)
          const tokenSession = await tokenSing(userSelected[0])
          console.log('el resultado de las contrseñas')
          console.log(passwordVerify)
+         if (passwordVerify) {
+            res.status(200).send({
+               status: 200,
+               ok: true,
+               message: 'welcome login',
+               tokenSession
+            })
+            return
+         }
+
          if (!passwordVerify) {
             res.status(409).send({
                status: 409,
                ok: false,
-               message: 'contraseña incorrecta'
-            })
-         } else {
-            res.status(200).send({
-               status: 200,
-               ok: true,
-               message: 'contraseña correcta',
-               tokenSession
+               message: 'Password Invalid'
             })
          }
 
