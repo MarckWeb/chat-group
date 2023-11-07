@@ -7,7 +7,7 @@ import tokenSing from '../helpers/generateToken.js';
 //funcion que crea un usuario con contraseña encriptada
 const createUser = async (req, res) => {
    try {
-      const { id, name, lastname, username, email, password } = req.body
+      const { name, lastname, username, email, password } = req.body
 
       //comparamos que los datos cumplan con los requisitos del modelo
       const user = new UserModel(req.body)
@@ -65,7 +65,7 @@ const loginUser = async (req, res) => {
 
          console.log(userSelected[0].password)
          console.log(password)
-         const passwordVerify = await comparePassword(password, userSelected[0].password.trim())
+         const passwordVerify = await comparePassword(password, userSelected[0].password)
          console.log('el resultado de las contrseñas')
          console.log(passwordVerify)
 
