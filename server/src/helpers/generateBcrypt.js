@@ -2,13 +2,15 @@ import bcrypt from 'bcryptjs';
 
 //funcion que encripta la contraseña
 const encryptPassword = async (password) => {
-   return await bcrypt.hash(password, 8);
+   const passwordEncrypt = await bcrypt.hash(password, 8);
+   return passwordEncrypt
 
 }
 
 //funcion que compra la contraseña plana y la encriptada
 const comparePassword = async (password, passwordHash) => {
-   return await bcrypt.compare(password, passwordHash);
+   const statusPassword = await bcrypt.compare(password, passwordHash);
+   return statusPassword
 }
 
 export {

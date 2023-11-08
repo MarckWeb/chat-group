@@ -10,6 +10,12 @@ const createUser = async (req, res) => {
       const { name, lastname, username, email, password } = req.body
       console.log(req.body)
 
+      const [userVeriry] = await pool.query('SELECT * FROM user WHERE email=?', [email])
+      console.log('aqui empieza el verify', userVeriry)
+      if (userVeriry[0]) {
+         return res.send('el correo ya se encuentra resgistrado con otro usuario')
+      }
+
       //comparamos que los datos cumplan con los requisitos del modelo
       const user = new UserModel(req.body)
       const validationErrors = user.validate();
@@ -65,10 +71,13 @@ const loginUser = async (req, res) => {
          }
 
          console.log(password, userSelected[0].password)
-         const passwordVerify = await comparePassword(password, userSelected[0].password)
+         const passwordVerify = await comparePassword(
+            password,
+            userSelected[0].password
+         )
          const tokenSession = await tokenSing(userSelected[0])
-         console.log('el resultado de las contrseñas')
-         console.log(passwordVerify)
+         console.log('el resultado de las contrseñas', passwordVerify)
+
          if (passwordVerify) {
             res.status(200).send({
                status: 200,
