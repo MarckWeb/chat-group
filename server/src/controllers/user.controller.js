@@ -34,7 +34,6 @@ const updateUser = async (req, res) => {
    try {
       const { id } = req.params
       const { name, lastname, username, email } = req.body
-      console.log(req.body)
 
       const [user] = await pool.query('UPDATE user SET name = ?, lastname = ?, username = ?, email = ? WHERE id = ?', [name, lastname, username, email, id])
 
@@ -47,7 +46,7 @@ const updateUser = async (req, res) => {
       res.send({
          message: 'Usuario actualizado',
          state: 200,
-         data: updateUser
+         data: updateUser[0]
       })
    } catch (error) {
       console.error(error)

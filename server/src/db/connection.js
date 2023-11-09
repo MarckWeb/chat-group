@@ -1,6 +1,6 @@
 //se nesecita instalar mysqlmp2
 //npm install --save mysql2
-import mysql from 'mysql2/promise'
+import mysql from 'mysql2/promise';
 
 import { DB_HOST, DB_DATABASE, DB_PASSWORD, DB_PORT, DB_USER } from '../config.js';
 

@@ -8,10 +8,10 @@ const tokenSing = async (user) => {
 
       //process.env.JWT_SECRET,
       'secret_key',
-      // {
-      //    //tiempo de expiracion del token
-      //    expideIn: '2h',
-      // }
+      {
+         //tiempo de expiracion del token
+         expiresIn: '2h',
+      }
    )
 }
 

@@ -8,7 +8,7 @@ CREATE TABLE user (
    lastname VARCHAR (50),
    username VARCHAR (50),
    email VARCHAR (50),
-   password VARCHAR (50),
+   password VARCHAR (100),
    PRIMARY KEY (id)
 );
 
