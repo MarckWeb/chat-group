@@ -64,7 +64,7 @@ const createUser = async (req, res) => {
       console.log(req.body)
 
       //verificamos que no exita un usuario con el mismo email
-      const [userVeriry] = await pool.query('SELECT * FROM user WHERE email=?', [email])
+      const [userVeriry] = await pool.execute('SELECT * FROM user WHERE email=?', [email])
 
       if (userVeriry[0]) {
          return res.send('el correo ya se encuentra resgistrado con otro usuario')
@@ -90,7 +90,7 @@ const createUser = async (req, res) => {
 
          const values = [userId, name, lastname, username, email, passwordHash];
 
-         const result = await pool.query(row, values);
+         const result = await pool.execute(row, values);
          // console.log(result[0].affectedRows)
          if (result[0].affectedRows > 0) {
             return res.status(200).send({
