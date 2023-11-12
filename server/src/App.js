@@ -3,12 +3,13 @@ import cors from 'cors';
 import passport from 'passport';
 import session from 'express-session';
 import cookieParser from 'cookie-parser';
-import pool from './db/connection.js';
 
 import { configureGoogleStrategy } from './middleware/loginGoogle.js';
+import { passport as passportConfig } from './middleware/passportConfig.js';
 
 import user from './routes/user.js';
 import authUser from './routes/authUser.js';
+import authGoogle from './routes/authGoogle.js';
 
 const app = express();
 
@@ -32,40 +33,32 @@ app.use(passport.session());
 // Rutas
 app.use('/api/user', user);
 app.use('/api/auth', authUser);
-
+app.use('/auth/google', authGoogle)
 app.get('/success', (req, res) => {
    console.log('Usuario registrado con éxito');
-   console.log(req.body);
+   console.log(req.user);
    res.send('<h1>El usuario se ha logeado con éxito</h1>');
 });
 
-app.get('/error', (req, res) => res.send("Error logging in"));
+configureGoogleStrategy();
 
 passport.serializeUser((user, cb) => {
    console.log('En serializer', user);
    cb(null, user);
 });
 
-passport.deserializeUser((user, cb) => {
+passport.deserializeUser(async (user, cb) => {
    console.log('En deserializer', user);
-   pool.execute('SELECT * FROM user WHERE id = ?', [user.id], (err, results) => {
-      console.log('En deserializer - Resultados:', results);
-      return cb(null, results);
-   });
-});
-
-configureGoogleStrategy();
-
-// Rutas para la autenticación con Google
-app.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
-
-app.get('/auth/google/callback',
-   passport.authenticate('google', { failureRedirect: '/error' }),
-   (req, res) => {
-      console.log('Callback de Google - Redirigiendo a /success');
-      res.redirect('/success');
+   try {
+      const [result] = await pool.execute('SELECT * FROM user WHERE id = ?', [user.id])
+      if (result.length > 0) {
+         console.log('el usuario se encuentra por enviar y logearse', result[0])
+         return cb(null, result[0]);
+      }
+   } catch (error) {
+      console.log(error)
    }
-);
+});
 
 // Manejo de Endpoint no encontrado
 app.use((req, res, next) => {

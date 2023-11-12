@@ -12,9 +12,11 @@ const configureGoogleStrategy = () => {
       state: true
    },
       async (accessToken, refreshToken, profile, cb) => {
+         console.log(profile)
          try {
             const [result] = await pool.execute('SELECT * FROM user WHERE email=?', [profile.emails[0].value]);
-
+            console.log(result)
+            //VERIFICAR QUE NO ESTA MOSTRANDO DATOS COMO DEBERIA SER SINO NUMEROS COMO GUARAD LA BASE DE DATOS
             if (result.length > 0) {
                console.log('Usuario encontrado en la base de datos:', result);
                return cb(null, result[0]);
@@ -42,40 +44,4 @@ const configureGoogleStrategy = () => {
 };
 
 export { configureGoogleStrategy };
-
-
-
-
-//informacion que nesecitamos, pasar del objeto a un dato pequeño id
-// passport.serializeUser((user, done) => {
-//    console.log('estoy en e serial', user.id)
-//    done(null, user.id);
-// });
-
-//Passport utiliza el ID del usuario guardado en la sesión para llamar a deserializeUser. Si todo está configurado correctamente, deserializeUser recibirá el ID del usuario,
-// passport.deserializeUser((id, done) => {
-//    console.log(id)
-//    // Busca en la base de datos usando el ID del usuario
-//    pool.query('SELECT * FROM user WHERE id = ?', [id], (err, results) => {
-//       if (err) {
-//          console.error('Error al buscar usuario en la base de datos:', err);
-//          return done(err, null);
-//       }
-
-//       // Si el usuario existe, carga el usuario en req.user
-//       if (results.length > 0) {
-//          const user = results[0];
-//          console.log('Usuario encontrado en la base de datos:', user);
-//          return done(null, user);
-//       } else {
-//          // Si el usuario no existe, puedes manejarlo según tus necesidades
-//          return done(null, null);
-//       }
-//    });
-// });
-
-//El término done es una convención utilizada en las funciones de Passport para indicar que la operación ha sido completada, y se utiliza como una función de devolución de llamada. La palabra "done" en inglés significa "hecho" o "completado", y en este contexto se refiere al final de la operación.
-
-//PROBLAMAS SOLO SALE ID NO GUARDA DATO
-
 
