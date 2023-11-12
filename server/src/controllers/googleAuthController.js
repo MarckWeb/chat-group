@@ -6,7 +6,6 @@ const googleAuthController = {
    googleCallback: passport.authenticate('google', { failureRedirect: '/error' }),
 
    successRedirect: (req, res) => {
-      console.log('Callback de Google - Redirigiendo a /success');
       res.redirect('/success');
    },
 };
