@@ -57,7 +57,7 @@ const updateUser = async (req, res) => {
 const deleteUser = async (req, res) => {
    try {
       const [user] = await pool.query('DELETE FROM user WHERE id = ?', [req.params.id])
-      console.log(user)
+      console.log('delete user', user)
       if (user.affectedRows <= 0) return res.status(404).send({
          message: 'usuario no encontrado',
          state: 404

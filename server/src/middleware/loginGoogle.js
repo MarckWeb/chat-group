@@ -53,7 +53,6 @@ const configureGoogleStrategy = () => {
 
 // Serializar al usuario para almacenar en la sesión
 passport.serializeUser((user, cb) => {
-   console.log('En serializer', user);
    cb(null, user);
 });
 
