@@ -29,3 +29,13 @@ CREATE TABLE channel (
    PRIMARY KEY (id),
    FOREIGN KEY (creator_id) REFERENCES user(id)
 );
+
+-- tabla de members
+CREATE TABLE members (
+   id INT NOT NULL AUTO_INCREMENT, 
+   user_id INT,
+   channel_id INT,
+   PRIMARY KEY (id),
+   FOREIGN KEY (user_id) REFERENCES user(id),
+   FOREIGN KEY (channel_id) REFERENCES channel(id)
+);

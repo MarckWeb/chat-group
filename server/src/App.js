@@ -9,6 +9,7 @@ import user from './routes/user.js';
 import authUser from './routes/authUser.js';
 import authGoogle from './routes/authGoogle.js';
 import channel from './routes/channel.js';
+import members from './routes/members.js';
 
 const app = express();
 
@@ -37,6 +38,7 @@ app.get('/success', (req, res) => {
    res.send('<h1>El usuario se ha logeado con éxito</h1>');
 });
 app.use('/api/channel', channel);
+app.use('/api/members', members);
 
 // Configurar la estrategia de autenticación con Google
 configureGoogleStrategy();
