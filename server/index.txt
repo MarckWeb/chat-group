@@ -1,0 +1,30 @@
+tablas para chat group app
+
+1-. Usuarios:
+
+ID (clave primaria)
+Nombre de usuario
+Correo electrónico
+Otras información relevante del usuario
+
+2-. Canales:
+
+ID (clave primaria)
+Nombre del canal
+Descripción del canal
+ID del creador del canal (clave foránea referenciando la tabla de Usuarios)
+Otros detalles del canal
+
+3-. MiembrosDelCanal:
+
+ID (clave primaria)
+ID del usuario (clave foránea referenciando la tabla de Usuarios)
+ID del canal (clave foránea referenciando la tabla de Canales)
+
+4-. Mensajes:
+
+ID (clave primaria)
+Contenido del mensaje
+ID del remitente (clave foránea referenciando la tabla de Usuarios)
+ID del canal al que pertenece (clave foránea referenciando la tabla de Canales)
+Fecha y hora del mensaje

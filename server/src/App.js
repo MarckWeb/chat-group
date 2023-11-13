@@ -8,6 +8,7 @@ import { configureGoogleStrategy } from './middleware/loginGoogle.js';
 import user from './routes/user.js';
 import authUser from './routes/authUser.js';
 import authGoogle from './routes/authGoogle.js';
+import channel from './routes/channel.js';
 
 const app = express();
 
@@ -31,12 +32,15 @@ app.use(passport.initialize(), passport.session());
 app.use('/api/user', user);
 app.use('/api/auth', authUser);
 app.use('/auth/google', authGoogle)
+//app.use('/auth/facebook', authFacebook);
 app.get('/success', (req, res) => {
    res.send('<h1>El usuario se ha logeado con éxito</h1>');
 });
+app.use('/api/channel', channel);
 
 // Configurar la estrategia de autenticación con Google
 configureGoogleStrategy();
+//configureFacebookStrategy(); //vendra de facebook strategy
 
 // Manejo de Endpoint no encontrado
 app.use((req, res) => {

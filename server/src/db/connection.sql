@@ -2,6 +2,7 @@ CREATE DATABASE IF NOT EXISTS groupdb;
 
 USE groupdb;
 
+-- tabla de usuarios
 CREATE TABLE user (
    id INT NOT NULL AUTO_INCREMENT, 
    name VARCHAR (50),
@@ -18,3 +19,13 @@ describe user;
 
 INSERT INTO user VALUES
 (1, 'John', 'Doe', 'doe123', 'doe@gamil.com', '12345' );
+
+-- tabla de canales
+CREATE TABLE channel (
+   id INT NOT NULL AUTO_INCREMENT, 
+   name VARCHAR (50),
+   description VARCHAR(200),
+   creator_id INT,
+   PRIMARY KEY (id),
+   FOREIGN KEY (creator_id) REFERENCES user(id)
+);

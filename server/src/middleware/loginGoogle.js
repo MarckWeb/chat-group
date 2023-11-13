@@ -1,8 +1,9 @@
 import passport from 'passport';
 import pool from '../db/connection.js';
 import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
+// import { Strategy as FacebookTokenStrategy } from 'passport-facebook-token';
 
-import { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET } from '../config.js'
+import { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET } from '../config.js'//importar facebbokk
 
 // Configuración de la estrategia de Google para Passport
 const configureGoogleStrategy = () => {
@@ -50,6 +51,16 @@ const configureGoogleStrategy = () => {
          }
       }));
 };
+
+// Estrategia genérica para la autenticación con Facebook
+// const configureFacebookStrategy = () => {
+//    passport.use(new FacebookTokenStrategy({
+//       clientID: FACEBOOK_APP_ID,
+//       clientSecret: FACEBOOK_APP_SECRET,
+//    },
+//    // ... (mismo callback que tenías antes)
+//    ));
+// };
 
 // Serializar al usuario para almacenar en la sesión
 passport.serializeUser((user, cb) => {
