@@ -1,3 +1,11 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+@import './styles/style.css'
+
+
+/* colocar un formulario enciam de otro
+- al container primer div sacar un before combertir en redondo y  */
+
+/* https://www.youtube.com/watch?v=piG91X4sV2U */

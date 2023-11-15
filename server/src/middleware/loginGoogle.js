@@ -75,6 +75,7 @@ passport.deserializeUser(async (user, cb) => {
 
       // Si el usuario se encuentra, retornar el usuario
       if (result.length > 0) {
+         console.log(result[0])
 
          return cb(null, result[0]);
       }

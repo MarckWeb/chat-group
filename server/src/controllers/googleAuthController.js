@@ -6,7 +6,7 @@ const googleAuthController = {
    googleCallback: passport.authenticate('google', { failureRedirect: '/error' }),
 
    successRedirect: (req, res) => {
-      res.redirect('/success');
+      res.redirect('http://localhost:5173/');
    },
 };
 

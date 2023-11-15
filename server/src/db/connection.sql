@@ -39,3 +39,17 @@ CREATE TABLE members (
    FOREIGN KEY (user_id) REFERENCES user(id),
    FOREIGN KEY (channel_id) REFERENCES channel(id)
 );
+
+-- tabla de comments
+CREATE TABLE comments (
+   id INT NOT NULL AUTO_INCREMENT, 
+   content VARCHAR (500),
+   user_id INT,
+   channel_id INT,
+   date_creation DATETIME,
+   PRIMARY KEY (id),
+   FOREIGN KEY (user_id) REFERENCES user(id),
+   FOREIGN KEY (channel_id) REFERENCES channel(id),
+    INDEX (user_id),
+   INDEX (channel_id)
+);

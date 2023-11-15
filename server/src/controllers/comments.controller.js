@@ -1,0 +1,57 @@
+import pool from "../db/connection.js";
+
+//GET
+const getComments = async (req, res) => {
+   try {
+      const [comments] = await pool.query('SELECT * FROM comments')
+      res.send(comments)
+   } catch (e) {
+      console.error(e);
+      return res.status(500).send("Error al ingresar un comentario");
+   }
+}
+
+const createComment = async (req, res) => {
+   try {
+      const { content, userId, channelId } = req.body
+      console.log(req.body)
+
+      //verificamos que no exita un canal con el mismo nombre
+      // const [commentVeriry] = await pool.execute('SELECT * FROM channel WHERE channel_id=?', [channelId])
+
+      // console.log(commentVeriry)
+
+      // if (commentVeriry[0]) {
+      //    return res.send('el nombre del canal ya existe')
+      // }
+
+      const [resultComment] = await pool.execute('INSERT INTO comments ( content, user_id, channel_id) VALUES (?, ?, ?)', [content, userId, channelId]);
+      console.log('comemet resulatdo')
+      console.log(resultComment)
+
+      if (resultComment.affectedRows > 0) {
+         return res.status(200).send({
+            status: 200,
+            ok: true,
+            message: 'se registro un comentario correctamente'
+         });
+
+      } else {
+         res.send({
+            message: 'error al crear un nuevo comentario',
+            state: 404,
+         })
+      }
+
+   } catch (e) {
+      console.error(e)
+      return res.status(500).send("Error al crear el comentario catch");
+   }
+}
+
+const commentsController = {
+   getComments,
+   createComment
+}
+
+export default commentsController 
