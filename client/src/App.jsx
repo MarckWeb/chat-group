@@ -14,7 +14,7 @@ function App() {
   return (
     <AppProvider>
       <BrowserRouter>
-        <div className="container m-auto bg-primary text-customText ">
+        <div className="container m-auto">
           <Routes>
             <Route
               path='/home'

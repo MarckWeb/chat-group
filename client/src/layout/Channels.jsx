@@ -3,12 +3,15 @@ import React, { useEffect, useState } from 'react'
 import { useAppContext } from '../service/AppContext';
 
 import { IoIosArrowBack } from "react-icons/io";
+import { IoAdd } from "react-icons/io5";
 import { IoClose } from "react-icons/io5";
 import Profile from '../components/Profile';
+import { avatar } from '../assets/index.js'
 
 const Channels = ({ members, setMembers }) => {
 
    const [channels, setChannels] = useState();
+   const [showChannel, setShowChannel] = useState(true)
 
    const { users } = useAppContext()
    console.log(users)
@@ -23,33 +26,56 @@ const Channels = ({ members, setMembers }) => {
       setMembers(!members)
    }
 
+   const hanldeShowChannels = () => {
+      setShowChannel(!showChannel)
+   }
+
    useEffect(() => {
       apiChannels()
    }, [])
    return (
-      <article className={`w-full max-w-xs border border-red-700 h-screen flex flex-col bg-secondary absolute top-0 left-0 ${members ? 'transform translate-x-[-120%] transition-transform duration-500 ease-in-out' : ''}`}>
+      <article className={`w-full max-w-xs h-screen bg-primary text-customText flex flex-col  absolute top-0 left-0 ${members ? 'transform translate-x-[-120%] transition-transform duration-500 ease-in-out' : ''} z-10 lg:fixed lg:transform-none  `}>
          <header
             className=' flex flex-row justify-start items-center w-full h-16 p-3  relative'>
-            <IoIosArrowBack className='text-4xl cursor-pointer ' />
-            <h2 className='uppercase font-bold text-lg pl-3 '>Todos los Canales</h2>
-            <span className='w-14 h-14 rounded-xl  text-5xl bg-primary absolute left-80 border border-white cursor-pointer hover:bg-black '
+            {showChannel ? <IoIosArrowBack
+               className='text-4xl cursor-pointer '
+               onClick={hanldeShowChannels} /> : ''}
+
+
+
+            <h2 className='uppercase font-bold text-lg pl-3 '>{showChannel ? 'Todos los canales' : 'Canales'}</h2>
+            {showChannel ? '' : <IoAdd />}
+
+            <span className='w-14 h-14 rounded-xl  text-5xl bg-primary absolute left-80 border border-white cursor-pointer hover:bg-black lg:hidden'
                onClick={showMembersOrChannel}><IoClose /></span>
          </header>
          <section className='px-9 '>
-            <h3 className='uppercase font-bold py-4'>Canal de Bienvenida</h3>
-            <p className=''>Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium sit dignissimos voluptatum repellat, deserunt vitae cumque natus cupiditate illo excepturi molestiae</p>
+            {showChannel ? <>
+               <h3 className='uppercase font-bold py-4'>Canal de Bienvenida</h3>
+               <p className=''>Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium sit dignissimos voluptatum repellat, deserunt vitae cumque natus cupiditate illo excepturi molestiae</p>
 
-            <h2 className='uppercase py-5'>Miembros del canal</h2>
+               <h2 className='uppercase py-5'>Miembros del canal</h2>
+            </> : <input type="text" />}
 
             {channels ? channels.map(member => {
-               const user = users?.find((user) => user.id === member.creator_id);
+               if (showChannel) {
+                  const user = users?.find((user) => user.id === member.creator_id);
 
-               return (
-                  <div key={member.id}>
-                     <img src="#" alt="" />
-                     <p>{user ? `${user?.name} ${user.lastname}` : 'Usuario Desconocido'}</p>
-                  </div>
-               )
+                  return (
+                     <div className=' pb-5' key={member.id}>
+                        <img className='w-10 h-10 border border-white rounded p-1' src={avatar} alt="" />
+                        <p className='pt-2'>{user ? `${user?.name} ${user.lastname}` : 'Usuario Desconocido'}</p>
+                     </div>
+                  )
+               } else {
+                  return (
+                     <div className='flex flex-row items-center gap-4 pb-5' key={member.id}>
+
+                        <p className='pt-2'>{member.name}</p>
+                     </div>
+                  )
+               }
+
             }) : ''}
 
          </section>

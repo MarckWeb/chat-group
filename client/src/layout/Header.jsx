@@ -9,8 +9,8 @@ const Header = ({ members, setMembers }) => {
       setMembers(!members)
    }
    return (
-      <header className='flex flex-row items-center gap-3 p-2'>
-         <BiMenu className='text-4xl' onClick={handleNav} />
+      <header className='flex flex-row items-center gap-3 p-2 fixed top-0 w-full h-14 bg-blue-400 max-w-screen-lg lg:pl-12 lg:rounded-lg'>
+         <BiMenu className='text-4xl cursor-pointer lg:hidden' onClick={handleNav} />
          <h2 className='uppercase font-bold pt-2'>Canal de Bienvenida</h2>
       </header>
    )
