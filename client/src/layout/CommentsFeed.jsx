@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react'
 import Header from './Header'
 
 import { useAppContext } from '../service/AppContext';
+import { IoMdSend } from "react-icons/io";
 
-const CommentsFeed = () => {
+const CommentsFeed = ({ members, setMembers }) => {
    const [comments, setComments] = useState()
    const { users } = useAppContext()
 
@@ -18,21 +19,34 @@ const CommentsFeed = () => {
       handleApiComments()
    }, [])
    return (
-      <section>
-         <Header />
+      <section className=''>
+         <Header
+            members={members}
+            setMembers={setMembers} />
+         <article >
+            {comments ? comments.map(comment => {
+               const user = users?.find((user) => user.id === comment.user_id);
 
-         {comments ? comments.map(comment => {
-            const user = users?.find((user) => user.id === comment.user_id);
+               return <section key={comment.id} className='border border-indigo-600 mb-4 '>
+                  <img src="" alt="" />
+                  <div>
+                     <p>{`${user?.name} ${user?.lastname}`} <span>{comment.date_creation}</span></p>
+                     <p>{comment.content}</p>
+                  </div>
+               </section>
+            }) : ''}
+         </article>
 
-            return <section key={comment.id} className='border border-indigo-600 mb-4'>
-               <img src="" alt="" />
-               <div>
-                  <p>{`${user?.name} ${user?.lastname}`} <span>{comment.date_creation}</span></p>
-                  <p>{comment.content}</p>
-               </div>
-            </section>
-         }) : ''}
 
+
+         <section>
+            <input
+               type="text"
+               name='comment' />
+
+            <span><IoMdSend /></span>
+
+         </section>
 
       </section>
    )

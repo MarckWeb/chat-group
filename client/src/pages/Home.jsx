@@ -1,12 +1,17 @@
-import React from 'react'
+import React, { useState } from 'react'
 import CommentsFeed from '../layout/CommentsFeed'
 import Channels from '../layout/Channels'
 
 const Home = () => {
+   const [members, setMembers] = useState(true)
    return (
-      <div>
-         <Channels />
-         <CommentsFeed />
+      <div className='relative'>
+         <Channels
+            members={members}
+            setMembers={setMembers} />
+         <CommentsFeed
+            members={members}
+            setMembers={setMembers} />
       </div>
    )
 }
