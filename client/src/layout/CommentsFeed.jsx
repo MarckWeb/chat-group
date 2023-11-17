@@ -5,7 +5,7 @@ import { useAppContext } from '../service/AppContext';
 import { avatar } from '../assets/index.js';
 import { IoMdSend } from "react-icons/io";
 
-const CommentsFeed = ({ members, setMembers }) => {
+const CommentsFeed = ({ members, setMembers, channelTitle, setChannelTitle }) => {
    const [comments, setComments] = useState()
    const { users } = useAppContext()
 
@@ -23,7 +23,10 @@ const CommentsFeed = ({ members, setMembers }) => {
       <section className='relative w-full max-w-7xl lg:pl-72'>
          <Header
             members={members}
-            setMembers={setMembers} />
+            setMembers={setMembers}
+            channelTitle={channelTitle}
+            setChannelTitle={setChannelTitle}
+         />
          <article className='pt-14 pb-20 lg:pl-12'>
             {comments ? comments.map(comment => {
                const user = users?.find((user) => user.id === comment.user_id);

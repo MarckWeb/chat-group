@@ -7,8 +7,7 @@ const Login = () => {
          <div className='border border-black max-w-sm w-full m-auto   '>
             <Form
                title='Iniciar Sesion' />
-            {/* <Form
-               title='Registrarme' /> */}
+
          </div>
       </div>
    )

@@ -1,9 +1,11 @@
 import React from 'react'
 
-const createChannel = () => {
+const CreateChannel = ({ setAddChannel }) => {
    return (
-      <div>createChannel</div>
+      <div onClick={() => setAddChannel(false)} className='w-full max-w-xs h-52 bg-red-400 rounded-xl absolute top-32 left-96 z-20 '>createChannel</div>
    )
+
+   //centrar al medio de la pantalla
 }
 
-export default createChannel
+export default CreateChannel
