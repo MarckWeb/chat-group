@@ -1,6 +1,7 @@
 import passport from 'passport';
 import pool from '../db/connection.js';
 import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
+import tokenSing from '../helpers/generateToken.js';
 // import { Strategy as FacebookTokenStrategy } from 'passport-facebook-token';
 
 import { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET } from '../config.js'//importar facebbokk
@@ -75,7 +76,8 @@ passport.deserializeUser(async (user, cb) => {
 
       // Si el usuario se encuentra, retornar el usuario
       if (result.length > 0) {
-         console.log(result[0])
+         console.log('resul deserializer', result[0])
+         //const tokenSession = await tokenSing(result[0])
 
          return cb(null, result[0]);
       }

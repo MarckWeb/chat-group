@@ -35,9 +35,7 @@ app.use('/api/user', user);
 app.use('/api/auth', authUser);
 app.use('/auth/google', authGoogle)
 //app.use('/auth/facebook', authFacebook);
-app.get('http://localhost:5173/', (req, res) => {
-   res.send('<h1>El usuario se ha logeado con éxito</h1>');
-});
+
 app.use('/api/channel', channel);
 app.use('/api/members', members);
 app.use('/api/comments', comments)
