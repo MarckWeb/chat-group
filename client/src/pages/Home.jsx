@@ -12,7 +12,11 @@ const Home = () => {
 
    return (
       <div className='relative lg:flex lg:flex-row'>
-         {addChannel ? <CreateChannel setAddChannel={setAddChannel} /> : ''}
+
+         {addChannel ? <>
+            <div className=' w-full h-screen bg-[#3c393f8a] fixed top-0 left-0 z-30 '></div>
+            <CreateChannel setAddChannel={setAddChannel} />
+         </> : ''}
 
          <Channels
             members={members}
