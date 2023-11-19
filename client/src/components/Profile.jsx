@@ -9,9 +9,10 @@ const Profile = () => {
 
    const [userSelect, setUserSelect] = useState()
 
-   //traemos el token de cookies
-   const user = document.cookie.split('=')[1]
+   //traemos el token de cookies o de localstorage
+   const user = document.cookie.split('=')[1] || localStorage.getItem('token')
 
+   //manejamos usuario señeccionado para el perfil
    const handleUserSelect = async () => {
       try {
 

@@ -9,25 +9,35 @@ import Login from './pages/Login'
 
 
 function App() {
-  const [isAutenticated, setIsAutenticated] = useState
-    (document.cookie.split('=')[1])
+  const [isAutenticated, setIsAutenticated] = useState('')
 
+  useEffect(() => {
+
+    const token = localStorage.getItem('token') || document.cookie.split('=')[1];
+
+    console.log(token)
+    if (token) {
+      setIsAutenticated(token)
+    }
+    else {
+      setIsAutenticated('')
+    }
+  }, [])
+  useEffect(() => {
+    console.log(isAutenticated)
+  }, [isAutenticated])
 
   return (
     <AppProvider>
-      <BrowserRouter>
-        <div className="container m-auto">
-          <Routes>
-            <Route
-              path='/home'
-              element={isAutenticated ? <Home /> : <Navigate to='/' />} />
-            <Route
-              path='/'
-              element={<Login />} />
-          </Routes>
-        </div>
-      </BrowserRouter>
 
+      <div className="container m-auto">
+        {isAutenticated
+          ? <Home
+            setIsAutenticated={setIsAutenticated} />
+          : <Login
+            isAutenticated={isAutenticated}
+            setIsAutenticated={setIsAutenticated} />}
+      </div>
     </AppProvider>
   )
 }

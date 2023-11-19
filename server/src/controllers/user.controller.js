@@ -35,7 +35,7 @@ const updateUser = async (req, res) => {
       const { id } = req.params
       const { name, lastname, username, email } = req.body
 
-      const [user] = await pool.query('UPDATE user SET name = ?, lastname = ?, username = ?, email = ? WHERE id = ?', [name, lastname, username, email, id])
+      const [user] = await pool.query('UPDATE user SET name = ?, lastname = ?, email = ? WHERE id = ?', [name, lastname, email, id])
 
       if (user.affectedRows === 0) return res.status(404).json({
          message: 'Usuario no encontrado con el id ' + id

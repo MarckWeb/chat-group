@@ -32,7 +32,7 @@ const loginUser = async (req, res) => {
             res.status(200).send({
                status: 200,
                ok: true,
-               message: 'welcome login',
+               message: 'Iniciar Sesion ',
                tokenSession
             })
             return
@@ -42,7 +42,7 @@ const loginUser = async (req, res) => {
             res.status(409).send({
                status: 409,
                ok: false,
-               message: 'Password Invalid'
+               message: 'Contraseña incorrecta'
             })
          }
 
@@ -60,14 +60,20 @@ const loginUser = async (req, res) => {
 //funcion que crea un usuario con contraseña encriptada
 const createUser = async (req, res) => {
    try {
-      const { name, lastname, username, email, password } = req.body
-      console.log(req.body)
+      const { name, lastname, email, password } = req.body
+      console.log('auth creando...', req.body)
 
       //verificamos que no exita un usuario con el mismo email
-      const [userVeriry] = await pool.execute('SELECT * FROM user WHERE email=?', [email])
+      const [userVerify] = await pool.execute('SELECT * FROM user WHERE email=?', [email])
+      console.log(userVerify)
 
-      if (userVeriry[0]) {
-         return res.send('el correo ya se encuentra resgistrado con otro usuario')
+      if (userVerify[0]) {
+
+         return res.status(404).send({
+            status: 404,
+            ok: false,
+            message: 'El correo ya se encuentra registrado con otro usuario'
+         })
       }
 
       //comparamos que los datos cumplan con los requisitos del modelo
@@ -85,10 +91,12 @@ const createUser = async (req, res) => {
          console.log(passwordHash)
 
          //insertamos el usuario a al base de datos
-         const row = "INSERT INTO user (id, name, lastname, username, email, password) VALUES (?, ?, ?, ?, ?, ?)";
+         const row = "INSERT INTO user (id, name, lastname, email, password) VALUES (?, ?, ?, ?, ?)";
          const userId = Math.floor(Math.random() * 1000) //uuid(); // Genera un nuevo UUID
 
-         const values = [userId, name, lastname, username, email, passwordHash];
+         const values = [userId, name, lastname, email, passwordHash];
+
+         console.log('values par alamacenar', values)
 
          const result = await pool.execute(row, values);
          // console.log(result[0].affectedRows)

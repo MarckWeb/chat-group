@@ -9,26 +9,14 @@ import { CiSearch } from "react-icons/ci";
 import Profile from '../components/Profile';
 import { avatar } from '../assets/index.js'
 
-const Channels = ({ members, setMembers, userLogin, setChannelTitle, setAddChannel, channelTitle }) => {
+const Channels = ({ members, setMembers, userLogin, setChannelTitle, setAddChannel, channelTitle, channels }) => {
    console.log(channelTitle)
 
-   const [channels, setChannels] = useState([]);
+
    const [showChannel, setShowChannel] = useState(true);
    const { users } = useAppContext();
 
-   const apiChannels = async () => {
-      try {
-         const response = await fetch('http://localhost:3000/api/channel');
-         const data = await response.json();
-         setChannels(data);
-      } catch (error) {
-         console.error('Error fetching channels:', error);
-      }
-   };
 
-   useEffect(() => {
-      apiChannels();
-   }, []);
 
    const showMembersOrChannel = () => {
       setMembers(!members)
@@ -57,6 +45,7 @@ const Channels = ({ members, setMembers, userLogin, setChannelTitle, setAddChann
       }
    }
    //hacer que el titlo del nav cambie la descripcion y lo smiembros para cada canal
+   //colocar comentario con id y id de canal
    return (
       <article className={`w-full max-w-xs h-screen bg-primary text-customText flex flex-col  fixed top-0 left-0 ${members ? 'transform translate-x-[-120%] transition-transform duration-500 ease-in-out' : ''} z-10 lg:fixed lg:transform-none  `}>
 
@@ -82,7 +71,8 @@ const Channels = ({ members, setMembers, userLogin, setChannelTitle, setAddChann
             </div>
 
             {showChannel
-               ? <span className='w-8 h-8 rounded-md  text-3xl absolute right-1 border border-white cursor-pointer hover:bg-black lg:hidden'
+               ? <span
+                  className='w-8 h-8 rounded-md  text-3xl absolute right-1 border border-white cursor-pointer hover:bg-black lg:hidden'
                   onClick={showMembersOrChannel}><IoClose /></span>
                : ''}
 

@@ -51,9 +51,28 @@ const createChannel = async (req, res) => {
    }
 }
 
+const deleteChannel = async (req, res) => {
+   try {
+      const [channel] = await pool.query('DELETE FROM channel WHERE id = ?', [req.params.id])
+      console.log('delete channel', channel)
+      if (channel.affectedRows <= 0) return res.status(404).send({
+         message: 'usuario no encontrado',
+         state: 404
+      })
+      res.send({
+         message: 'usuario elinado con exito'
+      })
+   } catch (error) {
+      console.log(error)
+      return res.status(500).send("Error al eliminar el usuario");
+   }
+}
+
+
 const channelController = {
    getChannels,
-   createChannel
+   createChannel,
+   deleteChannel
 }
 
 export default channelController 

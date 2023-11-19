@@ -1,8 +1,7 @@
 class UserModel {
-   constructor({ name, lastname, username, email, password }) {
+   constructor({ name, lastname, email, password }) {
       this.name = name;
       this.lastname = lastname;
-      this.username = username;
       this.email = email;
       this.password = password;
    }
@@ -11,7 +10,7 @@ class UserModel {
    validate() {
       const errors = [];
 
-      if (!this.name || !this.lastname || !this.username || !this.email || !this.password) {
+      if (!this.name || !this.lastname || !this.email || !this.password) {
          errors.push('Faltan campos obligatorios');
       }
 
