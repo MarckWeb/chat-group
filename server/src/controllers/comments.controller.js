@@ -49,9 +49,29 @@ const createComment = async (req, res) => {
    }
 }
 
+const deleteComments = async (req, res) => {
+   try {
+
+      const [comments] = await pool.query('DELETE FROM comments WHERE id = ?', [req.params.id])
+      console.log('delete comments', comments)
+      if (comments.affectedRows <= 0) return res.status(404).send({
+         message: 'comentario no encontrado',
+         state: 404
+      })
+      res.send({
+         message: 'comentario elinado con exito'
+      })
+   } catch (error) {
+      console.log(error)
+      return res.status(500).send("Error al eliminar el usuario");
+   }
+}
+
+
 const commentsController = {
    getComments,
-   createComment
+   createComment,
+   deleteComments
 }
 
 export default commentsController 

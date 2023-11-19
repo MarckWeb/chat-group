@@ -53,6 +53,7 @@ const createChannel = async (req, res) => {
 
 const deleteChannel = async (req, res) => {
    try {
+
       const [channel] = await pool.query('DELETE FROM channel WHERE id = ?', [req.params.id])
       console.log('delete channel', channel)
       if (channel.affectedRows <= 0) return res.status(404).send({

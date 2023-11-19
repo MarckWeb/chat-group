@@ -26,7 +26,9 @@ const Channels = ({ members, setMembers, userLogin, setChannelTitle, setAddChann
       setShowChannel(!showChannel)
    }
 
+   //selecionar el canal
    const handleChannelSelected = (id) => {
+      console.log(id)
       //cerramos nav
       setMembers(!members)
       setShowChannel(!showChannel)
@@ -35,6 +37,7 @@ const Channels = ({ members, setMembers, userLogin, setChannelTitle, setAddChann
       if (id === 0) {
          return setChannelTitle('canal de bienvenida')
       }
+
       //cambia titulo header segun su id
       if (channels) {
          const toGoChannel = channels.find(channel => channel.id === id)
@@ -44,8 +47,7 @@ const Channels = ({ members, setMembers, userLogin, setChannelTitle, setAddChann
          )
       }
    }
-   //hacer que el titlo del nav cambie la descripcion y lo smiembros para cada canal
-   //colocar comentario con id y id de canal
+
    return (
       <article className={`w-full max-w-xs h-screen bg-primary text-customText flex flex-col  fixed top-0 left-0 ${members ? 'transform translate-x-[-120%] transition-transform duration-500 ease-in-out' : ''} z-10 lg:fixed lg:transform-none  `}>
 
@@ -81,8 +83,8 @@ const Channels = ({ members, setMembers, userLogin, setChannelTitle, setAddChann
          <section className='px-9 '>
             {showChannel
                ? <>
-                  <h3 className='uppercase font-bold py-4'>xxx</h3>
-                  <p className=''>Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium sit dignissimos voluptatum repellat, deserunt vitae cumque natus cupiditate illo excepturi molestiae</p>
+                  <h3 className='uppercase font-bold py-4'>{channelTitle?.name}</h3>
+                  <p className=''>{channelTitle?.description}</p>
 
                   <h2 className='uppercase py-5 '>Miembros del canal</h2>
                </>
