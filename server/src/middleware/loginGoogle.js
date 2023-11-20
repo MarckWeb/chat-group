@@ -28,17 +28,15 @@ const configureGoogleStrategy = () => {
                const name = profile.name.givenName;
                const email = profile.emails[0].value;
                const lastname = '';
-               const username = '';
 
                // Insertar el nuevo usuario en la base de datos
-               const [insertResults] = await pool.query('INSERT INTO user (id, name,lastname, username, email) VALUES (?, ?, ?,?,?)', [userId, name, lastname, username, email]);
+               const [insertResults] = await pool.query('INSERT INTO user (id, name,lastname, email) VALUES (?, ?, ?,?)', [userId, name, lastname, email]);
 
                // Crear un objeto con la información del nuevo usuario
                const newUser = {
                   id: insertResults.insertId,
                   name: name,
                   lastname: lastname,
-                  username: username,
                   email: email,
                };
 

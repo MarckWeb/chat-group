@@ -15,19 +15,33 @@ const getMembers = async (req, res) => {
 const createMember = async (req, res) => {
    try {
       const { userId, channelId } = req.body
-      console.log(req.body)
+      console.log('creando un miembro')
+      console.log(req.body.channelId)
 
-      //verificamos que no exita un canal con el mismo nombre
+      //
       const [membersVeriry] = await pool.execute('SELECT * FROM members WHERE user_id=?', [userId])
 
-      console.log(membersVeriry)
 
-      if (membersVeriry[0]) {
-         return res.send('el nombre del canal ya existe')
+      console.log('canal que se registrara', membersVeriry)
+      const existingUser = membersVeriry
+         .filter(member => member.user_id === userId)
+         .filter(member => member.channel_id === channelId)
+      console.log(existingUser)
+      if (existingUser.length > 0) {
+         existingUser.forEach(element => {
+            console.log(element.channel_id, element.user_id)
+         });
+         return console.log(`ya existe el usuario`)
       }
+      // if (membersVeriry[0]?.channel_id === channelId && membersVeriry[0]?.user_id === userId) {
+      //    //hecer un foreach i filter para poder parar que se registren el usuario doblemnet en eun canal
+      //    return res.status(404).send({
+      //       message: 'el usuario ya esta registrado en el canal'
+      //    })
+      // }
 
       const [resultMembers] = await pool.execute('INSERT INTO members ( user_id, channel_id) VALUES ( ?, ?)', [userId, channelId]);
-      console.log('canal resulatdo')
+      console.log('canal resulatdo ingresado y guardado')
       console.log(resultMembers)
 
       if (resultMembers.affectedRows > 0) {
@@ -51,9 +65,27 @@ const createMember = async (req, res) => {
    }
 }
 
+const deleteMembers = async (req, res) => {
+   try {
+      const [members] = await pool.query('DELETE FROM members WHERE id = ?', [req.params.id])
+      console.log('delete members', members)
+      if (members.affectedRows <= 0) return res.status(404).send({
+         message: 'miembro del canal no encontrado',
+         state: 404
+      })
+      res.send({
+         message: 'miembro del canal elinado con exito'
+      })
+   } catch (error) {
+      console.log(error)
+      return res.status(500).send("Error al eliminar el miembro del canal");
+   }
+}
+
 const membersController = {
    getMembers,
-   createMember
+   createMember,
+   deleteMembers
 }
 
 export default membersController 
