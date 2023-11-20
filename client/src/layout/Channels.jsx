@@ -89,33 +89,47 @@ const Channels = ({ showMembers, setShowMembers, userLogin, setChannelTitle, set
                      placeholder='Search' />
                </div>}
             <ul className='h-52'>
-               {showChannel
+               {showChannel && channelTitle === ''
                   ? <>
-                     {members
-                        ? members
-                           .filter((member) => member.channel_id === channelTitle.id)
-                           .map((member) => {
-                              const user = users?.find((user) => user.id === member.user_id);
-                              return (
-                                 <li className='pb-5 flex flex-row gap-3'
-                                    key={member.id}>
-                                    <img
-                                       className='w-10 h-10 border border-white rounded p-1'
-                                       src={avatar}
-                                       alt="" />
-                                    <span
-                                       className='pt-2'>{user
-                                          ? `${user.name}  ${user.lastname}`
-                                          : 'Usuario Desconocido'}</span>
-                                 </li>
-                              )
-
-
-                           })
-                        : 'No hay miembros aun en este canal'}</> :
-                  <>
-                     {//contenedor de canales
-                        channels ? channels.map(channel => {
+                     {members?.filter(member => member.channel_id === 11)
+                        .map(member => {
+                           const user = users?.find((user) => user.id === member.user_id);
+                           return (
+                              <li className='pb-5 flex flex-row gap-3'
+                                 key={member.id}>
+                                 <img
+                                    className='w-10 h-10 border border-white rounded p-1'
+                                    src={avatar}
+                                    alt="" />
+                                 <span
+                                    className='pt-2'>{user
+                                       ? `${user.name}  ${user.lastname}`
+                                       : 'Usuario Desconocido'}</span>
+                              </li>
+                           )
+                        })}
+                  </> : ''}
+               {showChannel
+                  ? members?.filter(member => member.channel_id === channelTitle.id)
+                     .map((member) => {
+                        const user = users?.find((user) => user.id === member.user_id);
+                        return (
+                           <li className='pb-5 flex flex-row gap-3'
+                              key={member.id}>
+                              <img
+                                 className='w-10 h-10 border border-white rounded p-1'
+                                 src={avatar}
+                                 alt="" />
+                              <span
+                                 className='pt-2'>{user
+                                    ? `${user.name}  ${user.lastname}`
+                                    : 'Usuario Desconocido'}</span>
+                           </li>
+                        )
+                     })
+                  : <>
+                     {
+                        channels?.map(channel => {
                            return <li
                               key={channel.id}
                               className='cursor-pointer mt-4 hover:bg-[#3C393F] h-10 flex flex-row items-center p-2'
@@ -123,7 +137,8 @@ const Channels = ({ showMembers, setShowMembers, userLogin, setChannelTitle, set
                               <span className='bg-[#3C393F] p-1 rounded uppercase'>{channel.name.charAt('0')}</span>
                               <span className='ml-3'>{channel.name}</span>
                            </li>
-                        }) : ''}
+                        })
+                     }
                   </>}
             </ul>
 

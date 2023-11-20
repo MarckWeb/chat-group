@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import Header from './Header'
 
 import { useContextUsers } from '../service/UserContext.jsx';
@@ -8,12 +8,20 @@ import { avatar } from '../assets/index.js';
 import { IoMdSend } from "react-icons/io";
 
 const CommentsFeed = ({ showMembers, setShowMembers, channelTitle, userSelect }) => {
-   console.log(channelTitle)
-   console.log(userSelect)
+   const commentsListRef = useRef();
    const [formState, setFormState] = useState({ comment: '' });
    const { users } = useContextUsers()
    const { comments, handleComments } = useContextComments()
    const { members, handleMembers } = useContextMembers()
+
+
+   useEffect(() => {
+      // Desplazar automáticamente hacia abajo cuando se actualizan los comentarios
+      if (commentsListRef.current) {
+         commentsListRef.current.scrollTop = commentsListRef.current.scrollHeight;
+      }
+   }, [comments]);
+
 
    const handleMemberChannel = async () => {
       const data = {
@@ -24,7 +32,7 @@ const CommentsFeed = ({ showMembers, setShowMembers, channelTitle, userSelect })
          body: JSON.stringify(
             {
                userId: userSelect.id,
-               channelId: channelTitle?.id
+               channelId: channelTitle ? channelTitle.id : 11
             })
       }
       try {
@@ -52,7 +60,7 @@ const CommentsFeed = ({ showMembers, setShowMembers, channelTitle, userSelect })
             {
                content: formState.comment,
                userId: userSelect.id,
-               channelId: channelTitle.id
+               channelId: channelTitle ? channelTitle.id : 11
             })
       }
       try {
@@ -65,6 +73,13 @@ const CommentsFeed = ({ showMembers, setShowMembers, channelTitle, userSelect })
             })
             handleMemberChannel()
             handleComments()
+            // Verifica que este mensaje se imprima en la consola.
+            console.log('Desplazando hacia abajo después de agregar un nuevo comentario');
+
+            // Desplazar automáticamente hacia abajo después de agregar un nuevo comentario
+            if (commentsListRef.current) {
+               commentsListRef.current.scrollTop = commentsListRef.current.scrollHeight;
+            }
          }
 
          if (resData.ok === false) {
@@ -83,7 +98,9 @@ const CommentsFeed = ({ showMembers, setShowMembers, channelTitle, userSelect })
             channelTitle={channelTitle}
          />
 
-         <article className='pt-14 pb-20 lg:pl-12'>
+         <article className='h-full max-h-[800px] pt-14 mb-24 lg:ml-12 overflow-y-auto'
+            style={{ overflowY: 'hidden' }}
+            ref={commentsListRef}>
             {channelTitle === ''
                ? comments?.filter(comment => comment.channel_id === 11)
                   .map(comment => {
