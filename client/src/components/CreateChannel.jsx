@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { jwtDecode } from "jwt-decode";
+import { useContextChannels } from '../service/Channel.config.context';
 
-const CreateChannel = ({ setAddChannel, channels, apiChannels }) => {
+const CreateChannel = ({ setAddChannel }) => {
    const [userId, setUserId] = useState('')
    const [titleChannel, setTitleChannel] = useState('')
-
    const [descripcionChannel, setDescriptionChannel] = useState('')
+   const { handleChannels } = useContextChannels()
 
    useEffect(() => {
       const user = document.cookie.split('=')[1] || localStorage.getItem('token')
@@ -40,7 +41,7 @@ const CreateChannel = ({ setAddChannel, channels, apiChannels }) => {
             setTitleChannel('')
             setDescriptionChannel('')
             setAddChannel(false)
-            apiChannels()
+            handleChannels()
             return alert(resData.message)
          }
 
@@ -50,8 +51,11 @@ const CreateChannel = ({ setAddChannel, channels, apiChannels }) => {
       } catch (error) {
          console.error('Error al registrar usuario:', error);
       }
+   }
 
-
+   const cancelCreateChannel = (e) => {
+      e.preventDefault()
+      setAddChannel(false)
    }
    return (
       <div className='w-full max-w-[500px] h-80 bg-[#120F13] text-white rounded-xl fixed top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] z-30 p-5'>
@@ -75,9 +79,14 @@ const CreateChannel = ({ setAddChannel, channels, apiChannels }) => {
 
             </textarea>
 
-            <button className='w-24 h-10  rounded-lg bg-[#2F80ED] ml-auto' onClick={hanldeCreateChannelForm}>
-               Crear Canal
-            </button>
+            <div className='flex flex-row gap-6'>
+               <button className='w-24 h-10  rounded-lg bg-[#2F80ED] ml-auto' onClick={cancelCreateChannel}>
+                  Cancelar
+               </button>
+               <button className='w-24 h-10  rounded-lg bg-[#2F80ED] ml-auto' onClick={hanldeCreateChannelForm}>
+                  Crear Canal
+               </button>
+            </div>
 
          </form>
       </div>

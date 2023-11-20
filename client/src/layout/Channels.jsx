@@ -12,22 +12,17 @@ import Profile from '../components/Profile';
 import { avatar } from '../assets/index.js'
 
 const Channels = ({ showMembers, setShowMembers, userLogin, setChannelTitle, setAddChannel, channelTitle, userSelect }) => {
-   console.log(channelTitle)
+
    const [showChannel, setShowChannel] = useState(true);
-   const [membersChannel, setMembersChannel] = useState([])
    const { users } = useContextUsers();
    const { channels } = useContextChannels()
    const { members } = useContextMembers()
-   console.log(channels)
-   console.log(users)
-
-
 
    const showMembersOrChannel = () => {
       setShowMembers(!showMembers)
    }
 
-   const hanldeShowChannels = () => {
+   const handleShowChannels = () => {
       setShowChannel(!showChannel)
    }
 
@@ -47,13 +42,6 @@ const Channels = ({ showMembers, setShowMembers, userLogin, setChannelTitle, set
       }
    }
 
-   useEffect(() => {
-      const membersOfChannel = members?.filter(members => members.channel_id === channelTitle.id)
-      console.log(membersChannel)
-      setMembersChannel(membersOfChannel)
-      //problemas no maneja parejo channel se atraza verificar
-   }, [channelTitle, members])
-
    return (
       <article className={`w-full max-w-xs h-screen bg-primary text-customText flex flex-col  fixed top-0 left-0 ${members ? 'transform translate-x-[-120%] transition-transform duration-500 ease-in-out' : ''} z-10 lg:fixed lg:transform-none  `}>
 
@@ -63,7 +51,7 @@ const Channels = ({ showMembers, setShowMembers, userLogin, setChannelTitle, set
                {showChannel
                   ? <IoIosArrowBack
                      className='text-4xl cursor-pointer '
-                     onClick={hanldeShowChannels} />
+                     onClick={handleShowChannels} />
                   : ''}
 
                <h2 className='uppercase font-bold text-lg pl-3 '>
@@ -101,28 +89,30 @@ const Channels = ({ showMembers, setShowMembers, userLogin, setChannelTitle, set
                      placeholder='Search' />
                </div>}
             <ul className='h-52'>
-               {showChannel ? <>
-                  {membersChannel && membersChannel.length > 0 ? membersChannel.map(member => {
+               {showChannel
+                  ? <>
+                     {members
+                        ? members
+                           .filter((member) => member.channel_id === channelTitle.id)
+                           .map((member) => {
+                              const user = users?.find((user) => user.id === member.user_id);
+                              return (
+                                 <li className='pb-5 flex flex-row gap-3'
+                                    key={member.id}>
+                                    <img
+                                       className='w-10 h-10 border border-white rounded p-1'
+                                       src={avatar}
+                                       alt="" />
+                                    <span
+                                       className='pt-2'>{user
+                                          ? `${user.name}  ${user.lastname}`
+                                          : 'Usuario Desconocido'}</span>
+                                 </li>
+                              )
 
 
-                     const user = users?.find(user => user.id === member.creator_id);
-                     console.log(user)
-
-                     return (
-                        <li className='pb-5 flex flex-row gap-3'
-                           key={member.id}>
-                           <img
-                              className='w-10 h-10 border border-white rounded p-1'
-                              src={avatar}
-                              alt="" />
-                           <span
-                              className='pt-2'>{user
-                                 ? `${user?.name} ${user.lastname}`
-                                 : 'Usuario Desconocido'}</span>
-                        </li>
-                     )
-
-                  }) : 'No hay miembros aun en este canal'}</> :
+                           })
+                        : 'No hay miembros aun en este canal'}</> :
                   <>
                      {//contenedor de canales
                         channels ? channels.map(channel => {

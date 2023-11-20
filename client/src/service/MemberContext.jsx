@@ -17,7 +17,7 @@ export const AppProviderMembers = ({ children }) => {
    }, [])
 
    return (
-      <AppContext.Provider value={{ members }}>
+      <AppContext.Provider value={{ members, handleMembers }}>
          {children}
       </AppContext.Provider>
    );

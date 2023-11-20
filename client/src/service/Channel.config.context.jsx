@@ -17,7 +17,7 @@ export const AppProviderChannels = ({ children }) => {
    }, [])
 
    return (
-      <AppContext.Provider value={{ channels }}>
+      <AppContext.Provider value={{ channels, handleChannels }}>
          {children}
       </AppContext.Provider>
    );

@@ -22,9 +22,7 @@ function App() {
       setIsAutenticated('')
     }
   }, [])
-  useEffect(() => {
-    console.log(isAutenticated)
-  }, [isAutenticated])
+
 
   return (
     <AppProviderUsers>

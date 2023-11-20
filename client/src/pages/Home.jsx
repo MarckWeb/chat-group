@@ -14,6 +14,10 @@ const Home = () => {
 
    //traemos el token de cookies o de localstorage
    const user = document.cookie.split('=')[1] || localStorage.getItem('token')
+   useEffect(() => {
+      console.log(user)
+   }, [user])
+
 
    //manejamos usuario señeccionado para el perfil
    const handleUserSelect = async () => {
