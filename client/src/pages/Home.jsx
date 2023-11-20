@@ -1,28 +1,39 @@
 import React, { useEffect, useState } from 'react'
+import { jwtDecode } from "jwt-decode";
+
+
 import CommentsFeed from '../layout/CommentsFeed'
 import Channels from '../layout/Channels'
 import CreateChannel from '../components/createChannel'
 
 const Home = () => {
-   const [members, setMembers] = useState(true)
+   const [showMembers, setShowMembers] = useState(true)
    const [channelTitle, setChannelTitle] = useState('')
    const [addChannel, setAddChannel] = useState(false)
-   const [channels, setChannels] = useState([]);
+   const [userSelect, setUserSelect] = useState()
 
+   //traemos el token de cookies o de localstorage
+   const user = document.cookie.split('=')[1] || localStorage.getItem('token')
 
-   const apiChannels = async () => {
+   //manejamos usuario señeccionado para el perfil
+   const handleUserSelect = async () => {
       try {
-         const response = await fetch('http://localhost:3000/api/channel');
-         const data = await response.json();
-         setChannels(data);
+
+         if (user) {
+            const res = await fetch(`http://localhost:3000/api/user/${jwtDecode(user).id}`)
+            const data = await res.json()
+            setUserSelect(data)
+         }
       } catch (error) {
-         console.error('Error fetching channels:', error);
+         console.error(error)
       }
-   };
+   }
+
 
    useEffect(() => {
-      apiChannels();
-   }, []);
+      handleUserSelect()
+   }, [])
+
 
 
 
@@ -31,24 +42,26 @@ const Home = () => {
 
          {addChannel ? <>
             <div className=' w-full h-screen bg-[#3c393f8a] fixed top-0 left-0 z-30 '></div>
-            <CreateChannel setAddChannel={setAddChannel}
-               channels={channels}
-               apiChannels={apiChannels} />
+            <CreateChannel
+               setAddChannel={setAddChannel}
+               userSelect={userSelect}
+
+            />
          </> : ''}
 
          <Channels
-            members={members}
-            setMembers={setMembers}
+            showMembers={showMembers}
+            setShowMembers={setShowMembers}
             channelTitle={channelTitle}
             setChannelTitle={setChannelTitle}
             setAddChannel={setAddChannel}
-            channels={channels}
-            setChannels={setChannels} />
+            userSelect={userSelect} />
          <CommentsFeed
-            members={members}
-            setMembers={setMembers}
+            showMembers={showMembers}
+            setShowMembers={setShowMembers}
             channelTitle={channelTitle}
-            setChannelTitle={setChannelTitle} />
+            setChannelTitle={setChannelTitle}
+            userSelect={userSelect} />
       </div>
    )
 }

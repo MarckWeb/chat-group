@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 
-import { useAppContext } from '../service/AppContext';
+import { useContextUsers } from '../service/UserContext.jsx';
+import { useContextChannels } from '../service/Channel.config.context.jsx'
+import { useContextMembers } from '../service/MemberContext.jsx';
 
 import { IoIosArrowBack } from "react-icons/io";
 import { IoAdd } from "react-icons/io5";
@@ -9,17 +11,20 @@ import { CiSearch } from "react-icons/ci";
 import Profile from '../components/Profile';
 import { avatar } from '../assets/index.js'
 
-const Channels = ({ members, setMembers, userLogin, setChannelTitle, setAddChannel, channelTitle, channels }) => {
+const Channels = ({ showMembers, setShowMembers, userLogin, setChannelTitle, setAddChannel, channelTitle, userSelect }) => {
    console.log(channelTitle)
-
-
    const [showChannel, setShowChannel] = useState(true);
-   const { users } = useAppContext();
+   const [membersChannel, setMembersChannel] = useState([])
+   const { users } = useContextUsers();
+   const { channels } = useContextChannels()
+   const { members } = useContextMembers()
+   console.log(channels)
+   console.log(users)
 
 
 
    const showMembersOrChannel = () => {
-      setMembers(!members)
+      setShowMembers(!showMembers)
    }
 
    const hanldeShowChannels = () => {
@@ -28,25 +33,26 @@ const Channels = ({ members, setMembers, userLogin, setChannelTitle, setAddChann
 
    //selecionar el canal
    const handleChannelSelected = (id) => {
-      console.log(id)
       //cerramos nav
-      setMembers(!members)
+      setShowMembers(!showMembers)
       setShowChannel(!showChannel)
-
-      //cambia titulo header por defecto a bienenida
-      if (id === 0) {
-         return setChannelTitle('canal de bienvenida')
-      }
 
       //cambia titulo header segun su id
       if (channels) {
          const toGoChannel = channels.find(channel => channel.id === id)
-         console.log(toGoChannel)
+
          return (
             setChannelTitle(toGoChannel)
          )
       }
    }
+
+   useEffect(() => {
+      const membersOfChannel = members?.filter(members => members.channel_id === channelTitle.id)
+      console.log(membersChannel)
+      setMembersChannel(membersOfChannel)
+      //problemas no maneja parejo channel se atraza verificar
+   }, [channelTitle, members])
 
    return (
       <article className={`w-full max-w-xs h-screen bg-primary text-customText flex flex-col  fixed top-0 left-0 ${members ? 'transform translate-x-[-120%] transition-transform duration-500 ease-in-out' : ''} z-10 lg:fixed lg:transform-none  `}>
@@ -77,14 +83,12 @@ const Channels = ({ members, setMembers, userLogin, setChannelTitle, setAddChann
                   className='w-8 h-8 rounded-md  text-3xl absolute right-1 border border-white cursor-pointer hover:bg-black lg:hidden'
                   onClick={showMembersOrChannel}><IoClose /></span>
                : ''}
-
-
          </header>
          <section className='px-9 '>
-            {showChannel
+            {showChannel && channels
                ? <>
-                  <h3 className='uppercase font-bold py-4'>{channelTitle?.name}</h3>
-                  <p className=''>{channelTitle?.description}</p>
+                  <h3 className='uppercase font-bold py-4'>{channelTitle ? channelTitle.name : channels[0].name}</h3>
+                  <p className=''>{channelTitle ? channelTitle.description : channels[0].description}</p>
 
                   <h2 className='uppercase py-5 '>Miembros del canal</h2>
                </>
@@ -96,44 +100,47 @@ const Channels = ({ members, setMembers, userLogin, setChannelTitle, setAddChann
                      name='channel'
                      placeholder='Search' />
                </div>}
-            <ul className='h-52 '>
-               {showChannel
-                  ? ''
-                  : <li className='cursor-pointer mt-4 hover:bg-[#3C393F] h-10 flex flex-row items-center p-2' onClick={() => handleChannelSelected(0)}>
-                     <span className=' p-1 bg-[#3C393F] rounded'>
-                        C
-                     </span>
-                     <span className='ml-3'>Canal de Bienvenida</span>
-                  </li>}
+            <ul className='h-52'>
+               {showChannel ? <>
+                  {membersChannel && membersChannel.length > 0 ? membersChannel.map(member => {
 
-               {channels ? channels.map(member => {
-                  if (showChannel) {
-                     const user = users?.find((user) => user.id === member.creator_id);
+
+                     const user = users?.find(user => user.id === member.creator_id);
+                     console.log(user)
 
                      return (
-                        <li className='pb-5 flex flex-row gap-3' key={member.id}>
-                           <img className='w-10 h-10 border border-white rounded p-1' src={avatar} alt="" />
-                           <span className='pt-2'>{user ? `${user?.name} ${user.lastname}` : 'Usuario Desconocido'}</span>
+                        <li className='pb-5 flex flex-row gap-3'
+                           key={member.id}>
+                           <img
+                              className='w-10 h-10 border border-white rounded p-1'
+                              src={avatar}
+                              alt="" />
+                           <span
+                              className='pt-2'>{user
+                                 ? `${user?.name} ${user.lastname}`
+                                 : 'Usuario Desconocido'}</span>
                         </li>
                      )
-                  } else {
-                     return (
 
-                        <li id={member.id} key={member.id} className='cursor-pointer mt-4 hover:bg-[#3C393F] h-10 flex flex-row items-center p-2'
-                           onClick={() => handleChannelSelected(member.id)}>
-                           <span className='bg-[#3C393F] p-1 rounded uppercase'>{member.name.charAt('0')}</span>
-                           <span className='ml-3'>{member.name}</span>
-                        </li>
-                     )
-                  }
-
-               }) : ''}
+                  }) : 'No hay miembros aun en este canal'}</> :
+                  <>
+                     {//contenedor de canales
+                        channels ? channels.map(channel => {
+                           return <li
+                              key={channel.id}
+                              className='cursor-pointer mt-4 hover:bg-[#3C393F] h-10 flex flex-row items-center p-2'
+                              onClick={() => handleChannelSelected(channel.id)}>
+                              <span className='bg-[#3C393F] p-1 rounded uppercase'>{channel.name.charAt('0')}</span>
+                              <span className='ml-3'>{channel.name}</span>
+                           </li>
+                        }) : ''}
+                  </>}
             </ul>
-
 
          </section>
          <Profile
-            userLogin={userLogin} />
+            userLogin={userLogin}
+            userSelect={userSelect} />
       </article>
    )
 }

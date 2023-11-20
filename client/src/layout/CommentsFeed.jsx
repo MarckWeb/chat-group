@@ -1,43 +1,109 @@
 import React, { useEffect, useState } from 'react'
 import Header from './Header'
 
-import { useAppContext } from '../service/AppContext';
+import { useContextUsers } from '../service/UserContext.jsx';
+import { useContextComments } from '../service/CommentContext.jsx';
 import { avatar } from '../assets/index.js';
 import { IoMdSend } from "react-icons/io";
 
-const CommentsFeed = ({ members, setMembers, channelTitle, setChannelTitle }) => {
-   const [comments, setComments] = useState()
-   const { users } = useAppContext()
+const CommentsFeed = ({ members, setMembers, channelTitle, userSelect }) => {
+   console.log(channelTitle.id)
+   console.log(userSelect?.id)
+   const [inputComment, setInputComment] = useState()
+   const { users } = useContextUsers()
+   const { comments, handleComments } = useContextComments()
 
-   useEffect(() => {
-      const handleApiComments = async () => {
-         const response = await fetch('http://localhost:3000/api/comments')
-         const data = await response.json()
-         setComments(data)
-         console.log(data)
+   const handleMemberChannel = async () => {
+      const data = {
+         method: 'POST',
+         headers: {
+            'Content-Type': 'application/json'
+         },
+         body: JSON.stringify(
+            {
+               userId: userSelect.id,
+               channelId: channelTitle.id
+            })
+      }
+      try {
+         const res = await fetch('http://localhost:3000/api/members', data)
+         const resData = await res.json()
+         console.log(resData)
+
+         if (resData.ok === true && resData.status === 200) {
+            alert('Ahora eres miembro del canal: ' + channelTitle.name)
+         }
+
+         if (resData.ok === false) {
+            return alert(resData.message)
+         }
+      } catch (error) {
+         console.error('Error al registrar usuario:', error);
+      }
+   }
+
+
+   const handleSendComment = async (e) => {
+      e.preventDefault()
+      console.log(inputComment)
+      const data = {
+         method: 'POST',
+         headers: {
+            'Content-Type': 'application/json'
+         },
+         body: JSON.stringify(
+            {
+               content: inputComment,
+               userId: userSelect.id,
+               channelId: channelTitle.id
+            })
+      }
+      try {
+         const res = await fetch('http://localhost:3000/api/comments', data)
+         const resData = await res.json()
+         console.log(resData)
+
+         if (resData.ok === true && resData.status === 200) {
+            setInputComment('')
+            handleComments()
+            return alert(resData.message)
+         }
+
+         if (resData.ok === false) {
+            return alert(resData.message)
+         }
+      } catch (error) {
+         console.error('Error al registrar usuario:', error);
       }
 
-      handleApiComments()
-   }, [])
+   }
+
    return (
       <section className='relative w-full max-w-7xl lg:pl-72'>
          <Header
             members={members}
             setMembers={setMembers}
             channelTitle={channelTitle}
-            setChannelTitle={setChannelTitle}
          />
+
+         {/* TRUE || TRUE = TRUE : NESECITAMOS IMPRIMIR COMENTARISO DEL PRIMER CANAL por defecto al ingresar a la pagina */}
          <article className='pt-14 pb-20 lg:pl-12'>
             {comments ? comments.map(comment => {
-               const user = users?.find((user) => user.id === comment.user_id);
+               // verificamos que todos los comentarios esten en su canal
+               if (channelTitle.id === comment.channel_id) {
 
-               return <section key={comment.id} className=' mb-4 flex flex-row gap-3 m-5'>
-                  <img className='w-10 h-10 bg-gray-400 rounded p-1' src={avatar} alt="" />
-                  <div>
-                     <p>{`${user?.name} ${user?.lastname}`} <span>{comment.date_creation}</span></p>
-                     <p>{comment.content}</p>
-                  </div>
-               </section>
+                  //pintamos los usuarios que quedaron del filtro de comentarios y canal
+                  const user = users?.find(user => user.id === comment.user_id);
+
+                  return <section key={comment.id} className=' mb-4 flex flex-row gap-3 m-5'>
+                     <img className='w-10 h-10 bg-gray-400 rounded p-1' src={avatar} alt="" />
+                     <div>
+                        <p>{`${user?.name} ${user?.lastname}`} <span>{comment.date_creation}</span></p>
+                        <p>{comment.content}</p>
+                     </div>
+                  </section>
+               }
+
             }) : ''}
          </article>
 
@@ -47,8 +113,10 @@ const CommentsFeed = ({ members, setMembers, channelTitle, setChannelTitle }) =>
                <input
                   className='w-full bg-transparent outline-none'
                   type="text"
-                  name='comment' />
-               <span className='w-10 flex text-2xl bg-blue-600 rounded-lg'><IoMdSend className='m-auto text-white' /></span>
+                  name='comment'
+                  value={inputComment}
+                  onChange={(e) => setInputComment(e.target.value)} />
+               <span onClick={handleSendComment} className='w-10 flex text-2xl bg-blue-600 rounded-lg'><IoMdSend className='m-auto text-white' /></span>
             </div>
 
          </section>

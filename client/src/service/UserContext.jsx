@@ -3,7 +3,7 @@ import React, { createContext, useContext, useEffect, useState } from 'react';
 const VITE_URL = import.meta.env.VITE_URL;
 const AppContext = createContext();
 
-export const AppProvider = ({ children }) => {
+export const AppProviderUsers = ({ children }) => {
    const [users, setUsers] = useState();
 
    const handleUsers = async () => {
@@ -23,6 +23,6 @@ export const AppProvider = ({ children }) => {
    );
 }
 
-export const useAppContext = () => {
+export const useContextUsers = () => {
    return useContext(AppContext);
 };

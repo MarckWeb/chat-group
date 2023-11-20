@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react'
 import './App.css'
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 
-
-import { AppProvider } from './service/AppContext'
+import { AppProviderUsers } from './service/UserContext'
+import { AppProviderMembers } from './service/MemberContext'
+import { AppProviderChannels } from './service/Channel.config.context'
+import { AppProviderComments } from './service/CommentContext'
 import Home from './pages/Home'
 import Login from './pages/Login'
 
@@ -14,8 +15,6 @@ function App() {
   useEffect(() => {
 
     const token = localStorage.getItem('token') || document.cookie.split('=')[1];
-
-    console.log(token)
     if (token) {
       setIsAutenticated(token)
     }
@@ -28,17 +27,22 @@ function App() {
   }, [isAutenticated])
 
   return (
-    <AppProvider>
-
-      <div className="container m-auto">
-        {isAutenticated
-          ? <Home
-            setIsAutenticated={setIsAutenticated} />
-          : <Login
-            isAutenticated={isAutenticated}
-            setIsAutenticated={setIsAutenticated} />}
-      </div>
-    </AppProvider>
+    <AppProviderUsers>
+      <AppProviderChannels>
+        <AppProviderMembers>
+          <AppProviderComments>
+            <div className="container m-auto">
+              {isAutenticated
+                ? <Home
+                  setIsAutenticated={setIsAutenticated} />
+                : <Login
+                  isAutenticated={isAutenticated}
+                  setIsAutenticated={setIsAutenticated} />}
+            </div>
+          </AppProviderComments>
+        </AppProviderMembers>
+      </AppProviderChannels>
+    </AppProviderUsers>
   )
 }
 
