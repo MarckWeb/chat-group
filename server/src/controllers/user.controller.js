@@ -1,4 +1,5 @@
 import pool from '../db/connection.js';
+import { uploadImage, deleteImage } from '../libs/clodudinary.js'
 
 //GET:Id
 const getUser = async (req, res) => {
@@ -19,7 +20,6 @@ const getUser = async (req, res) => {
 //GET
 const getUsers = async (req, res) => {
    try {
-      //el resultado de esto envia un [ ] de [] pro lo tanto hay que desestructurar para traer solo el dato deseado
       const [users] = await pool.query('SELECT * FROM user')
       res.send(users)
    } catch (e) {
@@ -28,26 +28,52 @@ const getUsers = async (req, res) => {
    }
 }
 
-
 const updateUser = async (req, res) => {
-
    try {
       const { id } = req.params
-      const { name, lastname, username, email } = req.body
-
-      const [user] = await pool.query('UPDATE user SET name = ?, lastname = ?, email = ? WHERE id = ?', [name, lastname, email, id])
-
-      if (user.affectedRows === 0) return res.status(404).json({
-         message: 'Usuario no encontrado con el id ' + id
-      })
+      const { name, lastname, email } = req.body
 
       const [updateUser] = await pool.query('SELECT * FROM user WHERE id = ?', [id])
+      console.log(updateUser)
 
-      res.send({
+      if (updateUser.length === 0) {
+         return res.status(404).json({
+            message: 'Usuario no encontrado con el id ' + id
+         })
+      }
+
+      let avatar = updateUser[0].image;
+      let imageId = updateUser[0].image_id;
+
+      if (req.files && req.files.image) {
+
+         const fileImage = req.files.image
+         const result = await uploadImage(fileImage.tempFilePath)
+
+         if (updateUser[0].image && updateUser[0].image_id) {
+            await deleteImage(updateUser[0].image_id);
+         }
+
+         avatar = result.secure_url
+         imageId = result.public_id
+      }
+
+      const [user] = await pool.query('UPDATE user SET name = ?, lastname = ?, email = ?, image=?, image_id =? WHERE id = ?', [name, lastname, email, avatar, imageId, id])
+
+      console.log(user)
+      if (user.affectedRows <= 0) {
+         return req.status(404).send({
+            message: 'Usuario no actualizado',
+            state: 404
+         })
+      }
+
+      return res.status(200).send({
          message: 'Usuario actualizado',
          state: 200,
-         data: updateUser[0]
+         data: { id, name, lastname, email, avatar, imageId }
       })
+
    } catch (error) {
       console.error(error)
       return res.status(500).send("Error al actualizar el usuario");
@@ -57,7 +83,7 @@ const updateUser = async (req, res) => {
 const deleteUser = async (req, res) => {
    try {
       const [user] = await pool.query('DELETE FROM user WHERE id = ?', [req.params.id])
-      console.log('delete user', user)
+
       if (user.affectedRows <= 0) return res.status(404).send({
          message: 'usuario no encontrado',
          state: 404
@@ -65,6 +91,7 @@ const deleteUser = async (req, res) => {
       res.send({
          message: 'usuario elinado con exito'
       })
+
    } catch (error) {
       console.log(error)
       return res.status(500).send("Error al eliminar el usuario");

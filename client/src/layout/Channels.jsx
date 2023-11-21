@@ -99,7 +99,7 @@ const Channels = ({ showMembers, setShowMembers, userLogin, setChannelTitle, set
                                  key={member.id}>
                                  <img
                                     className='w-10 h-10 border border-white rounded p-1'
-                                    src={avatar}
+                                    src={user.image}
                                     alt="" />
                                  <span
                                     className='pt-2'>{user
@@ -118,7 +118,7 @@ const Channels = ({ showMembers, setShowMembers, userLogin, setChannelTitle, set
                               key={member.id}>
                               <img
                                  className='w-10 h-10 border border-white rounded p-1'
-                                 src={avatar}
+                                 src={user?.image}
                                  alt="" />
                               <span
                                  className='pt-2'>{user

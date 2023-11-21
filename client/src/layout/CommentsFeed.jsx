@@ -107,7 +107,7 @@ const CommentsFeed = ({ showMembers, setShowMembers, channelTitle, userSelect })
                      const user = users?.find(user => user.id === comment.user_id);
 
                      return <section key={comment.id} className=' mb-4 flex flex-row gap-3 m-5'>
-                        <img className='w-10 h-10 bg-gray-400 rounded p-1' src={avatar} alt="" />
+                        <img className='w-10 h-10 bg-gray-400 rounded p-1' src={user?.image} alt="" />
                         <div>
                            <p>{`${user?.name} ${user?.lastname}`} <span>{comment.date_creation}</span></p>
                            <p>{comment.content}</p>
@@ -122,7 +122,7 @@ const CommentsFeed = ({ showMembers, setShowMembers, channelTitle, userSelect })
                      const user = users?.find(user => user.id === comment.user_id);
 
                      return <section key={comment.id} className=' mb-4 flex flex-row gap-3 m-5'>
-                        <img className='w-10 h-10 bg-gray-400 rounded p-1' src={avatar} alt="" />
+                        <img className='w-10 h-10 bg-gray-400 rounded p-1' src={user?.image} alt="" />
                         <div>
                            <p>{`${user?.name} ${user?.lastname}`} <span>{comment.date_creation}</span></p>
                            <p>{comment.content}</p>

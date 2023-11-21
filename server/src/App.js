@@ -3,6 +3,7 @@ import cors from 'cors';
 import passport from 'passport';
 import session from 'express-session';
 import cookieParser from 'cookie-parser';
+import fileUpload from 'express-fileupload';
 
 import { configureGoogleStrategy } from './middleware/loginGoogle.js';
 import user from './routes/user.js';
@@ -27,6 +28,11 @@ app.use(session({
    resave: true,
    saveUninitialized: true
 }));
+//guardar imagen directo a cloudinary
+app.use(fileUpload({
+   useTempFiles: true,
+   tempFileDir: '/tmp/'
+}))
 
 app.use(passport.initialize(), passport.session());
 
