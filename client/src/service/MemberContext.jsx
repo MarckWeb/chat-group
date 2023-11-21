@@ -9,7 +9,6 @@ export const AppProviderMembers = ({ children }) => {
    const handleMembers = async () => {
       const response = await fetch('http://localhost:3000/api/members')
       const data = await response.json()
-      console.log(data)
       setMembers(data)
    }
    useEffect(() => {

@@ -9,7 +9,6 @@ export const AppProviderUsers = ({ children }) => {
    const handleUsers = async () => {
       const response = await fetch('http://localhost:3000/api/user')
       const data = await response.json()
-      console.log(data)
       setUsers(data)
    }
    useEffect(() => {

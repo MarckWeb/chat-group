@@ -43,7 +43,7 @@ const Channels = ({ showMembers, setShowMembers, userLogin, setChannelTitle, set
    }
 
    return (
-      <article className={`w-full max-w-xs h-screen bg-primary text-customText flex flex-col  fixed top-0 left-0 ${members ? 'transform translate-x-[-120%] transition-transform duration-500 ease-in-out' : ''} z-10 lg:fixed lg:transform-none  `}>
+      <article className={`w-full max-w-xs h-screen bg-primary text-customText flex flex-col  fixed top-0 left-0 ${showMembers ? 'transform translate-x-[-120%] transition-transform duration-500 ease-in-out' : ''} z-10 lg:fixed lg:transform-none  `}>
 
          <header
             className=' flex flex-row justify-start items-center w-full h-16 p-3  relative border-collapse'>

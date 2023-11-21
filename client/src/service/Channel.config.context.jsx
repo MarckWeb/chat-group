@@ -9,7 +9,6 @@ export const AppProviderChannels = ({ children }) => {
    const handleChannels = async () => {
       const response = await fetch('http://localhost:3000/api/channel')
       const data = await response.json()
-      console.log(data)
       setChannels(data)
    }
    useEffect(() => {

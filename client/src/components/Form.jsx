@@ -38,8 +38,7 @@ const Form = ({ setIsAutenticated }) => {
    //resgistra al usuario en la base de datos
    const handleRegisterUser = async (e) => {
       e.preventDefault()
-      console.log('enviar datos')
-      console.log(inputValues)
+
       const data = {
          method: 'POST',
          headers: {
@@ -50,8 +49,6 @@ const Form = ({ setIsAutenticated }) => {
       try {
          const res = await fetch('http://localhost:3000/api/auth/register', data)
          const resData = await res.json()
-         console.log(resData)
-
          if (resData.ok === true && resData.status === 200) {
             setInputValues({
                name: '',
@@ -73,7 +70,6 @@ const Form = ({ setIsAutenticated }) => {
    }
 
    const handleUserLogin = async (e) => {
-      console.log('comparamos login')
       e.preventDefault()
       const { email, password } = inputValues
 
@@ -91,7 +87,6 @@ const Form = ({ setIsAutenticated }) => {
       try {
          const res = await fetch('http://localhost:3000/api/auth/login', data)
          const resData = await res.json()
-         console.log(resData)
          if (resData.ok === true) {
             setInputValues({
                email: '',
@@ -108,12 +103,8 @@ const Form = ({ setIsAutenticated }) => {
       }
    };
 
-   useEffect(() => {
-      console.log(inputValues)
-   }, [inputValues])
-
    return (
-      <form action="" className=' w-full border border-indigo-600 flex flex-col justify-center items-center gap-4 p-5'>
+      <form className=' w-full border border-indigo-600 flex flex-col justify-center items-center gap-4 p-5'>
          <h2 className='text-3xl font-bold'>{toggle ? 'Iniciar Sesion' : 'Registrarme'}</h2>
          {toggle ? '' : <>
             <Inputs

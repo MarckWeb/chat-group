@@ -17,7 +17,6 @@ const CreateChannel = ({ setAddChannel }) => {
 
    const hanldeCreateChannelForm = async (e) => {
       e.preventDefault()
-      console.log({ userId, titleChannel, descripcionChannel })
 
       const data = {
          method: 'POST',
@@ -35,8 +34,6 @@ const CreateChannel = ({ setAddChannel }) => {
       try {
          const res = await fetch('http://localhost:3000/api/channel', data)
          const resData = await res.json()
-         console.log(resData)
-
          if (resData.ok === true && resData.status === 200) {
             setTitleChannel('')
             setDescriptionChannel('')
