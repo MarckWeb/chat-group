@@ -48,9 +48,11 @@ const Channels = ({ showMembers, setShowMembers, userLogin, setChannelTitle, set
             className=' flex flex-row justify-start items-center w-full h-16 p-3  relative border-collapse border-b-2'>
             <div className='flex flex-row justify-between items-center '>
                {showChannel
-                  ? <IoIosArrowBack
-                     className='text-4xl cursor-pointer '
-                     onClick={handleShowChannels} />
+                  ? <span className='bg-gradient-to-r from-red-500 via-orange-500 to-yellow-500 w-8 h-8 rounded'>
+                     <IoIosArrowBack
+                        className='text-3xl cursor-pointer '
+                        onClick={handleShowChannels} />
+                  </span>
                   : ''}
 
                <h2 className='uppercase font-bold text-lg pl-3 '>
@@ -59,7 +61,7 @@ const Channels = ({ showMembers, setShowMembers, userLogin, setChannelTitle, set
                      : 'Canales'}</h2>
                {showChannel
                   ? ''
-                  : <span className='border border-white ml-40 w-8 rounded-md h-8 text-3xl cursor-pointer hover:bg-black'>
+                  : <span className=' ml-40 w-8 rounded-md h-8 bg-gradient-to-r from-red-500 via-orange-500 to-yellow-500 text-3xl cursor-pointer hover:bg-black'>
                      <IoAdd
                         onClick={() => setAddChannel(true)} />
                   </span>}
@@ -117,7 +119,7 @@ const Channels = ({ showMembers, setShowMembers, userLogin, setChannelTitle, set
                      .map((member) => {
                         const user = users?.find((user) => user.id === member.user_id);
                         return (
-                           <li className='p-1 rounded bg-gray-300 flex flex-row items-center gap-5 mb-2 text-black'
+                           <li className='p-1 rounded bg-gray-300 flex flex-row items-center gap-5 mb-2 text-black shadow-4xl'
                               key={member.id}>
                               <figure >
                                  <img
