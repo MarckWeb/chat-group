@@ -4,8 +4,9 @@ import Header from './Header'
 import { useContextUsers } from '../service/UserContext.jsx';
 import { useContextComments } from '../service/CommentContext.jsx';
 import { useContextMembers } from '../service/MemberContext.jsx';
-import { avatar } from '../assets/index.js';
 import { IoMdSend } from "react-icons/io";
+import { AiOutlineLink } from "react-icons/ai";
+import { CiFaceSmile } from "react-icons/ci";
 
 const CommentsFeed = ({ showMembers, setShowMembers, channelTitle, userSelect }) => {
    const commentsListRef = useRef();
@@ -98,7 +99,7 @@ const CommentsFeed = ({ showMembers, setShowMembers, channelTitle, userSelect })
             channelTitle={channelTitle}
          />
 
-         <article className='h-full max-h-[800px] pt-14 mb-24 lg:ml-12 overflow-y-auto'
+         <article className='h-full max-h-[800px] pt-16 mb-24 lg:ml-12 overflow-y-auto'
             style={{ overflowY: 'hidden' }}
             ref={commentsListRef}>
             {channelTitle === ''
@@ -106,7 +107,7 @@ const CommentsFeed = ({ showMembers, setShowMembers, channelTitle, userSelect })
                   .map(comment => {
                      const user = users?.find(user => user.id === comment.user_id);
 
-                     return <section key={comment.id} className=' mb-4 flex flex-row gap-3 m-5'>
+                     return <section key={comment.id} className=' mb-4 flex flex-row gap-3 m-5 bg-gray-200 p-3 rounded-lg '>
                         <img className='w-10 h-10 bg-gray-400 rounded p-1' src={user?.image} alt="" />
                         <div>
                            <p>{`${user?.name} ${user?.lastname}`} <span>{comment.date_creation}</span></p>
@@ -132,15 +133,18 @@ const CommentsFeed = ({ showMembers, setShowMembers, channelTitle, userSelect })
                : ''}
          </article>
 
-         <section className=' w-full max-w-screen-lg h-20  fixed bottom-0 bg-white grid items-center '>
-            <div className='h-14 w-11/12 m-auto rounded-lg  flex flex-row bg-gray-400 p-2'>
+         <section className=' w-full max-w-screen-lg h-20  fixed bottom-0 grid items-center '>
+            <div className='h-14 w-11/12 m-auto rounded-lg  flex flex-row items-center bg-gray-400 p-2'>
+               <span className='text-2xl cursor-pointer mx-3'><AiOutlineLink /></span>
                <input
                   className='w-full bg-transparent outline-none'
                   type="text"
                   name='comment'
+                  placeholder='Escribe tu comentario'
                   value={formState.comment}
                   onChange={(e) => setFormState({ ...formState, comment: e.target.value })} />
-               <span onClick={handleSendComment} className='w-10 flex text-2xl bg-blue-600 rounded-lg'><IoMdSend className='m-auto text-white' /></span>
+               <span className='text-2xl cursor-pointer mx-3'><CiFaceSmile /></span>
+               <span onClick={handleSendComment} className='w-10 h-10 text-2xl flex bg-blue-600 rounded-lg'><IoMdSend className='m-auto text-white' /></span>
             </div>
          </section>
       </section>

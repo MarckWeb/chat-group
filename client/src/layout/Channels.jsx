@@ -9,7 +9,6 @@ import { IoAdd } from "react-icons/io5";
 import { IoClose } from "react-icons/io5";
 import { CiSearch } from "react-icons/ci";
 import Profile from '../components/Profile';
-import { avatar } from '../assets/index.js'
 
 const Channels = ({ showMembers, setShowMembers, userLogin, setChannelTitle, setAddChannel, channelTitle, userSelect }) => {
 
@@ -46,7 +45,7 @@ const Channels = ({ showMembers, setShowMembers, userLogin, setChannelTitle, set
       <article className={`w-full max-w-xs h-screen bg-primary text-customText flex flex-col  fixed top-0 left-0 ${showMembers ? 'transform translate-x-[-120%] transition-transform duration-500 ease-in-out' : ''} z-10 lg:fixed lg:transform-none  `}>
 
          <header
-            className=' flex flex-row justify-start items-center w-full h-16 p-3  relative border-collapse'>
+            className=' flex flex-row justify-start items-center w-full h-16 p-3  relative border-collapse border-b-2'>
             <div className='flex flex-row justify-between items-center '>
                {showChannel
                   ? <IoIosArrowBack
@@ -60,7 +59,7 @@ const Channels = ({ showMembers, setShowMembers, userLogin, setChannelTitle, set
                      : 'Canales'}</h2>
                {showChannel
                   ? ''
-                  : <span className='border border-white ml-9 w-8 rounded-md h-8 text-3xl cursor-pointer hover:bg-black'>
+                  : <span className='border border-white ml-40 w-8 rounded-md h-8 text-3xl cursor-pointer hover:bg-black'>
                      <IoAdd
                         onClick={() => setAddChannel(true)} />
                   </span>}
@@ -72,15 +71,15 @@ const Channels = ({ showMembers, setShowMembers, userLogin, setChannelTitle, set
                   onClick={showMembersOrChannel}><IoClose /></span>
                : ''}
          </header>
-         <section className='px-9 '>
+         <section className='px-7 '>
             {showChannel && channels
                ? <>
                   <h3 className='uppercase font-bold py-4'>{channelTitle ? channelTitle.name : channels[0].name}</h3>
-                  <p className=''>{channelTitle ? channelTitle.description : channels[0].description}</p>
+                  <p className='italic'>{channelTitle ? channelTitle.description : channels[0].description}</p>
 
-                  <h2 className='uppercase py-5 '>Miembros del canal</h2>
+                  <h2 className='uppercase py-5 font-bold'>Miembros del canal</h2>
                </>
-               : <div className='flex flex-row gap-2 items-center w-64 h-12 rounded-lg bg-[#3C393F] p-2 '>
+               : <div className='flex flex-row gap-2 items-center w-64 h-12 rounded-lg bg-[#3C393F] p-2 mt-4'>
                   <CiSearch className='text-2xl' />
                   <input
                      className='w-full outline-none bg-transparent'
@@ -95,16 +94,20 @@ const Channels = ({ showMembers, setShowMembers, userLogin, setChannelTitle, set
                         .map(member => {
                            const user = users?.find((user) => user.id === member.user_id);
                            return (
-                              <li className='pb-5 flex flex-row gap-3'
+                              <li className='pl-4 p-1 rounded bg-gray-300 flex flex-row items-center gap-5 mb-4 text-black shadow-4xl'
                                  key={member.id}>
+
                                  <img
-                                    className='w-10 h-10 border border-white rounded p-1'
-                                    src={user.image}
+                                    className='w-10 h-10 border border-black  rounded-[50%]'
+                                    src={user?.image}
                                     alt="" />
+
+
                                  <span
                                     className='pt-2'>{user
                                        ? `${user.name}  ${user.lastname}`
                                        : 'Usuario Desconocido'}</span>
+
                               </li>
                            )
                         })}
@@ -114,12 +117,15 @@ const Channels = ({ showMembers, setShowMembers, userLogin, setChannelTitle, set
                      .map((member) => {
                         const user = users?.find((user) => user.id === member.user_id);
                         return (
-                           <li className='pb-5 flex flex-row gap-3'
+                           <li className='p-1 rounded bg-gray-300 flex flex-row items-center gap-5 mb-2 text-black'
                               key={member.id}>
-                              <img
-                                 className='w-10 h-10 border border-white rounded p-1'
-                                 src={user?.image}
-                                 alt="" />
+                              <figure >
+                                 <img
+                                    className='w-10 h-10 border border-black rounded-[50%]'
+                                    src={user?.image}
+                                    alt="" />
+                              </figure>
+
                               <span
                                  className='pt-2'>{user
                                     ? `${user.name}  ${user.lastname}`
@@ -134,7 +140,7 @@ const Channels = ({ showMembers, setShowMembers, userLogin, setChannelTitle, set
                               key={channel.id}
                               className='cursor-pointer mt-4 hover:bg-[#3C393F] h-10 flex flex-row items-center p-2'
                               onClick={() => handleChannelSelected(channel.id)}>
-                              <span className='bg-[#3C393F] p-1 rounded uppercase'>{channel.name.charAt('0')}</span>
+                              <span className='bg-[#3C393F] w-10 h-10 rounded uppercase flex justify-center items-center'>{channel.name.charAt('0')}</span>
                               <span className='ml-3'>{channel.name}</span>
                            </li>
                         })
@@ -151,3 +157,5 @@ const Channels = ({ showMembers, setShowMembers, userLogin, setChannelTitle, set
 }
 
 export default Channels
+
+//ARREGLAR LAS RUTAS CON DOTEV Y LA IMAGEN DE GOOGLE ELINAR ALGUNOS COMENTARIOS, UX

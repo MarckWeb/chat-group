@@ -13,12 +13,14 @@ export default {
       },
 
       fontFamily: {
-        primary: ['Noto Sans Mandaic', 'sans-serif'],
-        secondary: ['Roboto', 'sans-serif']
+        primary: ['Sometype Mono', 'monospace'],
 
-      }
+
+      },
+      boxShadow: {
+        '4xl': '0 0 15px rgba(255, 255, 255)'
+      },
     },
-  },
-  plugins: [],
+    plugins: [],
+  }
 }
-
