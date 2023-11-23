@@ -61,3 +61,6 @@ CREATE TABLE comment_images (
   image_url VARCHAR(255),
   FOREIGN KEY (comment_id) REFERENCES comments(id)
 );
+
+INSERT INTO comment_images (comment_id, image_url) 
+VALUES (121, 'https://res.cloudinary.com/datu6oki6/image/upload/v1694582552/samples/imagecon-group.jpg');

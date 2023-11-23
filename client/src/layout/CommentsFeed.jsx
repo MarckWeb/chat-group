@@ -13,7 +13,7 @@ const formatDate = (isoDate) => {
    const formattedDate = dayjs(isoDate).locale('es').format("dddd [a las] h:mm A");
    return formattedDate;
 };
-
+//pedir comentario images
 
 const CommentsFeed = ({ showMembers, setShowMembers, channelTitle, userSelect }) => {
    const commentsListRef = useRef();
