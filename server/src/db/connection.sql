@@ -53,3 +53,11 @@ CREATE TABLE comments (
     INDEX (user_id),
    INDEX (channel_id)
 );
+
+--tabla de imagenes comentario
+CREATE TABLE comment_images (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  comment_id INT,
+  image_url VARCHAR(255),
+  FOREIGN KEY (comment_id) REFERENCES comments(id)
+);

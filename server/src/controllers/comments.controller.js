@@ -16,15 +16,6 @@ const createComment = async (req, res) => {
       const { content, userId, channelId } = req.body
       console.log(req.body)
 
-      //verificamos que no exita un canal con el mismo nombre
-      // const [commentVeriry] = await pool.execute('SELECT * FROM channel WHERE channel_id=?', [channelId])
-
-      // console.log(commentVeriry)
-
-      // if (commentVeriry[0]) {
-      //    return res.send('el nombre del canal ya existe')
-      // }
-
       const [resultComment] = await pool.execute('INSERT INTO comments ( content, user_id, channel_id) VALUES (?, ?, ?)', [content, userId, channelId]);
       console.log('comemet resulatdo')
       console.log(resultComment)
