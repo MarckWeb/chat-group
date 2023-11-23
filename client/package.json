@@ -10,7 +10,6 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "date-fns": "^2.30.0",
     "dayjs": "^1.11.10",
     "emoji-picker-react": "^4.5.16",
     "jwt-decode": "^4.0.0",
