@@ -8,19 +8,23 @@ import { useContextUsers } from '../service/UserContext.jsx';
 import { useContextComments } from '../service/CommentContext.jsx';
 import BoxComent from '../components/BoxComent.jsx';
 
+// Función para formatear la fecha en el formato deseado.
+const formatDate = (isoDate) => {
+   const formattedDate = dayjs(isoDate).locale('es').format("dddd [a las] h:mm A");
+   return formattedDate;
+};
+
 
 const CommentsFeed = ({ showMembers, setShowMembers, channelTitle, userSelect }) => {
    const commentsListRef = useRef();
+   const [currentDay, setCurrentDay] = useState(null);
 
    // Contextos para obtener datos.
    const { users } = useContextUsers()
    const { comments } = useContextComments()
 
-   // Función para formatear la fecha en el formato deseado.
-   const formatDate = (isoDate) => {
-      const formattedDate = dayjs(isoDate).locale('es').format("dddd [a las] h:mm A");
-      return formattedDate;
-   };
+
+
 
    return (
       <section className='relative w-full max-w-7xl lg:pl-72'>
@@ -38,21 +42,7 @@ const CommentsFeed = ({ showMembers, setShowMembers, channelTitle, userSelect })
                      const user = users?.find(user => user.id === comment.user_id);
 
                      return <React.Fragment key={comment.id}>
-                        <ListComments
-                           userImage={user?.image}
-                           name={user?.name}
-                           lastname={user?.lastname}
-                           date={formatDate(comment.date_creation)}
-                           comment={comment.content} />
-                     </React.Fragment>
-                  }) : ''}
-            {comments
-               ? comments
-                  .filter(comment => comment.channel_id === channelTitle.id)
-                  .map(comment => {
-                     const user = users?.find(user => user.id === comment.user_id);
 
-                     return <React.Fragment key={comment.id}>
                         <ListComments
                            userImage={user?.image}
                            name={user?.name}
@@ -60,8 +50,25 @@ const CommentsFeed = ({ showMembers, setShowMembers, channelTitle, userSelect })
                            date={formatDate(comment.date_creation)}
                            comment={comment.content} />
                      </React.Fragment>
-                  })
-               : ''}
+                  }) : <>
+                  {comments
+                     ? comments
+                        .filter(comment => comment.channel_id === channelTitle.id)
+                        .map(comment => {
+                           const user = users?.find(user => user.id === comment.user_id);
+
+                           return <React.Fragment key={comment.id}>
+                              <ListComments
+                                 userImage={user?.image}
+                                 name={user?.name}
+                                 lastname={user?.lastname}
+                                 date={formatDate(comment.date_creation)}
+                                 comment={comment.content} />
+                           </React.Fragment>
+                        })
+                     : ''}
+               </>}
+
          </article>
          <BoxComent
             userSelect={userSelect}

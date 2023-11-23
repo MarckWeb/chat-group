@@ -88,8 +88,6 @@ const CreateChannel = ({ setAddChannel }) => {
          </form>
       </div>
    )
-
-   //centrar al medio de la pantalla
 }
 
 export default CreateChannel

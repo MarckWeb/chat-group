@@ -7,7 +7,6 @@ import { AiOutlineLink } from "react-icons/ai";
 import { CiFaceSmile } from "react-icons/ci";
 
 const BoxComent = ({ userSelect, channelTitle }) => {
-   console.log(userSelect)
    const commentsListRef = useRef();
    const [formState, setFormState] = useState({ comment: '' });
    const [seeEmogis, setSeeEmogis] = useState(false)
@@ -124,14 +123,7 @@ const BoxComent = ({ userSelect, channelTitle }) => {
 
 export default BoxComent
 
-// {
-//    isNewDay && (
-//       <div className='text-center my-2'>
-//          <p className='text-gray-500'>{commentDate.locale('es').format('dddd, D [de] MMMM')}</p>
-//          <hr className='border-t-2 border-gray-300' />
-//       </div>
-//    )
-// }
+
 
 
 
