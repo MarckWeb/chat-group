@@ -3,26 +3,26 @@ import React, { createContext, useContext, useEffect, useState } from 'react';
 const VITE_URL = import.meta.env.VITE_URL;
 const AppContext = createContext();
 
-export const AppProviderUsers = ({ children }) => {
-   const [commentImages, setCommentImages] = useState();
+export const AppProviderImages = ({ children }) => {
+   const [images, setImages] = useState();
 
-   const handleCommentImages = async () => {
+   const handleImages = async () => {
       const response = await fetch('http://localhost:3000/api/comments/image')
       const data = await response.json()
       console.log(data)
-      setCommentImages(data)
+      setImages(data)
    }
    useEffect(() => {
-      handleCommentImages()
+      handleImages()
    }, [])
 
    return (
-      <AppContext.Provider value={{ commentImages }}>
+      <AppContext.Provider value={{ images, handleImages }}>
          {children}
       </AppContext.Provider>
    );
 }
 
-export const useContextCommentImages = () => {
+export const useContextImages = () => {
    return useContext(AppContext);
 };

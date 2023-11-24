@@ -1,5 +1,5 @@
 import { Router } from "express";
-import commentsImagesController from '../controllers/image.comment.js'
+import commentsImagesController from '../controllers/imageComment.js'
 const { getCommentsImages, createCommentImages, deleteCommentsImages } = commentsImagesController;
 
 const commentsImages = Router();

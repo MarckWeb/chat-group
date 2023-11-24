@@ -7,6 +7,7 @@ import { AppProviderChannels } from './service/Channel.config.context'
 import { AppProviderComments } from './service/CommentContext'
 import Home from './pages/Home'
 import Login from './pages/Login'
+import { AppProviderImages } from './service/ImagesContext'
 
 
 function App() {
@@ -28,14 +29,16 @@ function App() {
       <AppProviderChannels>
         <AppProviderMembers>
           <AppProviderComments>
-            <div className="container m-auto">
-              {isAutenticated
-                ? <Home
-                  setIsAutenticated={setIsAutenticated} />
-                : <Login
-                  isAutenticated={isAutenticated}
-                  setIsAutenticated={setIsAutenticated} />}
-            </div>
+            <AppProviderImages>
+              <div className="container m-auto">
+                {isAutenticated
+                  ? <Home
+                    setIsAutenticated={setIsAutenticated} />
+                  : <Login
+                    isAutenticated={isAutenticated}
+                    setIsAutenticated={setIsAutenticated} />}
+              </div>
+            </AppProviderImages>
           </AppProviderComments>
         </AppProviderMembers>
       </AppProviderChannels>

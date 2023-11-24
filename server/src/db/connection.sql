@@ -64,3 +64,14 @@ CREATE TABLE comment_images (
 
 INSERT INTO comment_images (comment_id, image_url) 
 VALUES (121, 'https://res.cloudinary.com/datu6oki6/image/upload/v1694582552/samples/imagecon-group.jpg');
+
+--add column
+ALTER TABLE comment_images
+ADD COLUMN imageComment_id INT;
+
+--modify column
+ALTER TABLE comment_images
+MODIFY COLUMN imageComment_id VARCHAR(255);
+
+
+

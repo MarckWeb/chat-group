@@ -14,7 +14,7 @@ import authGoogle from './routes/authGoogle.js';
 import channel from './routes/channel.js';
 import members from './routes/members.js';
 import comments from './routes/coments.js';
-import commentsImages from './routes/image.comment.js'
+import commentsImages from './routes/imageComment.js'
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
