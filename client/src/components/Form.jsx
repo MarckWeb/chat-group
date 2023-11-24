@@ -39,12 +39,14 @@ const Form = ({ setIsAutenticated }) => {
    const handleRegisterUser = async (e) => {
       e.preventDefault()
 
+      const id = Math.floor(Math.random() * 1000)
+
       const data = {
          method: 'POST',
          headers: {
             'Content-Type': 'application/json'
          },
-         body: JSON.stringify(inputValues)
+         body: JSON.stringify({ ...inputValues, id })
       }
       try {
          const res = await fetch('http://localhost:3000/api/auth/register', data)

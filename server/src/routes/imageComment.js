@@ -1,15 +1,15 @@
-import { Router } from "express";
-import commentsImagesController from '../controllers/imageComment.js'
-const { getCommentsImages, createCommentImages, deleteCommentsImages } = commentsImagesController;
+// import { Router } from "express";
+// import commentsImagesController from '../controllers/imageComment.js'
+// const { getCommentsImages, createCommentImages, deleteCommentsImages } = commentsImagesController;
 
-const commentsImages = Router();
+// const commentsImages = Router();
 
-commentsImages.route('/')
-   .get(getCommentsImages)
-   .post(createCommentImages)
+// commentsImages.route('/')
+//    .get(getCommentsImages)
+//    .post(createCommentImages)
 
-commentsImages.route('/:id')
-   .delete(deleteCommentsImages)
+// commentsImages.route('/:id')
+//    .delete(deleteCommentsImages)
 
 
-export default commentsImages
+// export default commentsImages

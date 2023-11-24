@@ -1,4 +1,5 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
+import uuid from 'react-uuid';
 import { useContextComments } from '../service/CommentContext.jsx';
 import { useContextMembers } from '../service/MemberContext.jsx';
 import EmojiPicker from 'emoji-picker-react';
@@ -7,11 +8,16 @@ import { AiOutlineLink } from "react-icons/ai";
 import { CiFaceSmile } from "react-icons/ci";
 
 const BoxComent = ({ userSelect, channelTitle }) => {
+   console.log(userSelect)
+   console.log(channelTitle)
    const commentsListRef = useRef();
    const [formState, setFormState] = useState({ comment: '' });
+   const [imageComment, setImageComment] = useState(null)
    const [seeEmogis, setSeeEmogis] = useState(false)
    const { handleComments } = useContextComments()
    const { handleMembers } = useContextMembers()
+   const [idRandom, setidRandom] = useState(uuid());
+
 
    // Función para manejar la selección de emojis.
    const onEmojiClick = (emojiObject) => {
@@ -23,8 +29,30 @@ const BoxComent = ({ userSelect, channelTitle }) => {
       setSeeEmogis(!seeEmogis)
    };
 
+   //funcion para enviar la imagen de comentario
+   // const handleSenImageComment = async (e) => {
+   //    console.log(idRandom)
+   //    // e.preventDefault()
+   //    // console.log('ENVIANDO EL ARCHIVO FILE')
+   //    // // enviando mal el archivo para guardar ,verificar como enviar junto con el mismo id del comentario
+   //    // const file = new FormData();
+   //    // console.log(imageComment)
+   //    // if (imageComment) {
+   //    //    file.append('imageComment', imageComment);
+   //    // }
+   //    // file.append('commentsId', idRandom)
+   //    // const data = {
+   //    //    method: 'POST',
+   //    //    body: file,
+   //    // };
+   //    // const res = await fetch(`http://localhost:3000/api/comments`, data)
+   //    // const resDta = await res.json()
+   //    // console.log(resDta)
+   // }
+
    // Función para hacer que el usuario actual sea miembro del canal.
    const handleMemberChannel = async () => {
+      console.log(idRandom)
       const data = {
          method: 'POST',
          headers: {
@@ -33,7 +61,7 @@ const BoxComent = ({ userSelect, channelTitle }) => {
          body: JSON.stringify(
             {
                userId: userSelect.id,
-               channelId: channelTitle ? channelTitle.id : 11
+               channelId: channelTitle ? channelTitle.id : 1
             })
       }
       try {
@@ -51,8 +79,11 @@ const BoxComent = ({ userSelect, channelTitle }) => {
 
    // Función para enviar un comentario.
    const handleSendComment = async (e) => {
+      console.log(idRandom)
+
       console.log('desde otro compoenet')
       e.preventDefault()
+
       if (formState !== '') {
          const data = {
             method: 'POST',
@@ -61,9 +92,10 @@ const BoxComent = ({ userSelect, channelTitle }) => {
             },
             body: JSON.stringify(
                {
+                  id: idRandom,
                   content: formState.comment,
                   userId: userSelect.id,
-                  channelId: channelTitle ? channelTitle.id : 11
+                  channelId: channelTitle ? channelTitle.id : 1
                })
          }
          try {
@@ -74,8 +106,10 @@ const BoxComent = ({ userSelect, channelTitle }) => {
                setFormState({
                   comment: ''
                })
+
                handleMemberChannel()
                handleComments()
+               //handleSenImageComment()
                // Verifica que este mensaje se imprima en la consola.
                console.log('Desplazando hacia abajo después de agregar un nuevo comentario');
 
@@ -93,12 +127,25 @@ const BoxComent = ({ userSelect, channelTitle }) => {
          }
       }
    }
+
+   useEffect(() => {
+      console.log(imageComment)
+   }, [imageComment])
    return (
       <section className=' w-full max-w-screen-lg h-20  fixed bottom-0 grid items-center bg-white'>
          <div className='h-14 w-11/12 m-auto rounded-lg  flex flex-row items-center bg-gray-300 p-2 relative'>
-            <span className='text-2xl cursor-pointer mx-3 '><AiOutlineLink /></span>
+            <div>
+               <label className='text-2xl cursor-pointer mx-3' htmlFor="imageComment"><AiOutlineLink /></label>
+               <input
+                  className='hidden'
+                  type="file"
+                  name='imageComment'
+                  id='imageComment'
+                  onChange={(e) => setImageComment(e.target.files[0])} />
+            </div>
+
             <input
-               className='w-full bg-transparent outline-none'
+               className='w-full bg-transparent outline-none ml-5'
                type="text"
                name='comment'
                autoComplete='off'
@@ -115,7 +162,7 @@ const BoxComent = ({ userSelect, channelTitle }) => {
                <IoMdSend className='m-auto text-white ' />
             </span>
             {seeEmogis ? <div className='absolute bottom-14 right-0'> <EmojiPicker onEmojiClick={onEmojiClick} /></div> : ''}
-
+            <button >onclicj</button>
          </div>
       </section>
    )

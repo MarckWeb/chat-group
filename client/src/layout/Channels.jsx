@@ -92,7 +92,7 @@ const Channels = ({ showMembers, setShowMembers, userLogin, setChannelTitle, set
             <ul className='h-52'>
                {showChannel && channelTitle === ''
                   ? <>
-                     {members?.filter(member => member.channel_id === 11)
+                     {members?.filter(member => member.channel_id === 1)
                         .map(member => {
                            const user = users?.find((user) => user.id === member.user_id);
                            return (
@@ -101,7 +101,7 @@ const Channels = ({ showMembers, setShowMembers, userLogin, setChannelTitle, set
 
                                  <img
                                     className='w-10 h-10 border border-black  rounded-[50%]'
-                                    src={user?.image}
+                                    src={user?.profile_image}
                                     alt="" />
 
 
@@ -124,7 +124,7 @@ const Channels = ({ showMembers, setShowMembers, userLogin, setChannelTitle, set
                               <figure >
                                  <img
                                     className='w-10 h-10 border border-black rounded-[50%]'
-                                    src={user?.image}
+                                    src={user?.profile_image}
                                     alt="" />
                               </figure>
 

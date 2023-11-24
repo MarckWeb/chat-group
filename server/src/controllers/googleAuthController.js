@@ -23,3 +23,5 @@ const googleAuthController = {
 };
 
 export default googleAuthController;
+
+//colocar la foto de gogole a la base de datos

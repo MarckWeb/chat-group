@@ -10,6 +10,9 @@ const loginUser = async (req, res) => {
    try {
       console.log(req.body)
       const { email, password } = req.body
+      if (email === '') {
+         return res.send({ mesaage: 'rellenar el campo de email valido' })
+      }
 
       if (email && password) {
          //verificamos que exista un usuario con el email indicado
@@ -60,7 +63,7 @@ const loginUser = async (req, res) => {
 //funcion que crea un usuario con contraseña encriptada
 const createUser = async (req, res) => {
    try {
-      const { name, lastname, email, password } = req.body
+      const { id, name, lastname, email, password } = req.body
       console.log('auth creando...', req.body)
 
       //verificamos que no exita un usuario con el mismo email
@@ -92,10 +95,7 @@ const createUser = async (req, res) => {
 
          //insertamos el usuario a al base de datos
          const row = "INSERT INTO user (id, name, lastname, email, password) VALUES (?, ?, ?, ?, ?)";
-         const userId = Math.floor(Math.random() * 1000) //uuid(); // Genera un nuevo UUID
-
-         const values = [userId, name, lastname, email, passwordHash];
-
+         const values = [id, name, lastname, email, passwordHash];
          console.log('values par alamacenar', values)
 
          const result = await pool.execute(row, values);

@@ -1,9 +1,10 @@
 import pool from "../db/connection.js";
+import { uploadImage } from '../libs/clodudinary.js'
 
 //GET
 const getComments = async (req, res) => {
    try {
-      const [comments] = await pool.query('SELECT * FROM comments')
+      const [comments] = await pool.query('SELECT * FROM comments ORDER BY created_at ASC')
       res.send(comments)
    } catch (e) {
       console.error(e);
@@ -13,10 +14,10 @@ const getComments = async (req, res) => {
 
 const createComment = async (req, res) => {
    try {
-      const { content, userId, channelId } = req.body
-      console.log(req.body)
+      const { id, content, userId, channelId } = req.body
+      console.log(req.files, 'en comnet')
 
-      const [resultComment] = await pool.execute('INSERT INTO comments ( content, user_id, channel_id) VALUES (?, ?, ?)', [content, userId, channelId]);
+      const [resultComment] = await pool.execute('INSERT INTO comments (id, content, user_id, channel_id) VALUES (?, ?, ?, ?)', [id, content, userId, channelId]);
       console.log('comemet resulatdo')
       console.log(resultComment)
 
