@@ -82,12 +82,9 @@ CREATE TABLE comment_images (
 INSERT INTO channel ( name, description, creator_id) 
 VALUES (Comunidad JavaScript, Bienvenidos al canal, hablamso sobre codigos js noticas y mucho mas, 73);
 
-INSERT INTO comment_images (comment_id, image_url) 
-VALUES (121, 'https://res.cloudinary.com/datu6oki6/image/upload/v1694582552/samples/imagecon-group.jpg');
-
 --add column
 ALTER TABLE comment_images
-ADD COLUMN imageComment_id INT;
+ADD COLUMN imageComment_id VARCHAR(30);
 
 --modify column
 ALTER TABLE comment_images

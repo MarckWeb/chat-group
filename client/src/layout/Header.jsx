@@ -1,6 +1,4 @@
-import React from 'react'
 import { useContextChannels } from '../service/Channel.config.context'
-
 import { BiMenu } from 'react-icons/bi'
 
 const Header = ({ showMembers, setShowMembers, channelTitle }) => {

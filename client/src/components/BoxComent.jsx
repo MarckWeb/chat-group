@@ -1,23 +1,27 @@
 import React, { useState, useRef, useEffect } from 'react'
 import uuid from 'react-uuid';
+//appContext
 import { useContextComments } from '../service/CommentContext.jsx';
 import { useContextMembers } from '../service/MemberContext.jsx';
+import { useContextImages } from '../service/ImagesContext.jsx';
 import EmojiPicker from 'emoji-picker-react';
+//icons
 import { IoMdSend } from "react-icons/io";
 import { AiOutlineLink } from "react-icons/ai";
 import { CiFaceSmile } from "react-icons/ci";
 
+const VITE_URL = import.meta.env.VITE_URL;
+
 const BoxComent = ({ userSelect, channelTitle }) => {
-   console.log(userSelect)
-   console.log(channelTitle)
    const commentsListRef = useRef();
+
    const [formState, setFormState] = useState({ comment: '' });
    const [imageComment, setImageComment] = useState(null)
    const [seeEmogis, setSeeEmogis] = useState(false)
+
    const { handleComments } = useContextComments()
    const { handleMembers } = useContextMembers()
-   const [idRandom, setidRandom] = useState(uuid());
-
+   const { handleImages } = useContextImages()
 
    // Función para manejar la selección de emojis.
    const onEmojiClick = (emojiObject) => {
@@ -30,29 +34,27 @@ const BoxComent = ({ userSelect, channelTitle }) => {
    };
 
    //funcion para enviar la imagen de comentario
-   // const handleSenImageComment = async (e) => {
-   //    console.log(idRandom)
-   //    // e.preventDefault()
-   //    // console.log('ENVIANDO EL ARCHIVO FILE')
-   //    // // enviando mal el archivo para guardar ,verificar como enviar junto con el mismo id del comentario
-   //    // const file = new FormData();
-   //    // console.log(imageComment)
-   //    // if (imageComment) {
-   //    //    file.append('imageComment', imageComment);
-   //    // }
-   //    // file.append('commentsId', idRandom)
-   //    // const data = {
-   //    //    method: 'POST',
-   //    //    body: file,
-   //    // };
-   //    // const res = await fetch(`http://localhost:3000/api/comments`, data)
-   //    // const resDta = await res.json()
-   //    // console.log(resDta)
-   // }
+   const handleSendImageComment = async (newIdRandom) => {
+      const file = new FormData();
+
+      if (imageComment) {
+         file.append('imageComment', imageComment);
+      }
+      file.append('commentsId', newIdRandom)
+      const data = {
+         method: 'POST',
+         body: file,
+      };
+      const res = await fetch(`${VITE_URL}comments/image`, data)
+      const resDta = await res.json()
+      if (resDta.ok === true && resDta.status === 200) {
+         handleImages()
+      }
+   }
 
    // Función para hacer que el usuario actual sea miembro del canal.
-   const handleMemberChannel = async () => {
-      console.log(idRandom)
+   const handleMemberChannel = async (newIdRandom) => {
+      console.log(newIdRandom)
       const data = {
          method: 'POST',
          headers: {
@@ -65,12 +67,11 @@ const BoxComent = ({ userSelect, channelTitle }) => {
             })
       }
       try {
-         const res = await fetch('http://localhost:3000/api/members', data)
+         const res = await fetch(`${VITE_URL}members`, data)
          const resData = await res.json()
 
          if (resData.ok === true && resData.status === 200) {
             handleMembers()
-            alert('Ahora eres miembro del canal: ' + channelTitle.name)
          }
       } catch (error) {
          console.error('Error al registrar usuario:', error);
@@ -79,11 +80,8 @@ const BoxComent = ({ userSelect, channelTitle }) => {
 
    // Función para enviar un comentario.
    const handleSendComment = async (e) => {
-      console.log(idRandom)
-
-      console.log('desde otro compoenet')
+      const newIdRandom = uuid()
       e.preventDefault()
-
       if (formState !== '') {
          const data = {
             method: 'POST',
@@ -92,14 +90,14 @@ const BoxComent = ({ userSelect, channelTitle }) => {
             },
             body: JSON.stringify(
                {
-                  id: idRandom,
+                  id: newIdRandom,
                   content: formState.comment,
                   userId: userSelect.id,
                   channelId: channelTitle ? channelTitle.id : 1
                })
          }
          try {
-            const res = await fetch('http://localhost:3000/api/comments', data)
+            const res = await fetch(`${VITE_URL}comments`, data)
             const resData = await res.json()
 
             if (resData.ok === true && resData.status === 200) {
@@ -107,16 +105,10 @@ const BoxComent = ({ userSelect, channelTitle }) => {
                   comment: ''
                })
 
-               handleMemberChannel()
+               //manejamos el llamado a cada api
+               handleMemberChannel(newIdRandom)
                handleComments()
-               //handleSenImageComment()
-               // Verifica que este mensaje se imprima en la consola.
-               console.log('Desplazando hacia abajo después de agregar un nuevo comentario');
-
-               // Desplazar automáticamente hacia abajo después de agregar un nuevo comentario
-               if (commentsListRef.current) {
-                  commentsListRef.current.scrollTop = commentsListRef.current.scrollHeight;
-               }
+               handleSendImageComment(newIdRandom)
             }
 
             if (resData.ok === false) {
@@ -128,9 +120,7 @@ const BoxComent = ({ userSelect, channelTitle }) => {
       }
    }
 
-   useEffect(() => {
-      console.log(imageComment)
-   }, [imageComment])
+
    return (
       <section className=' w-full max-w-screen-lg h-20  fixed bottom-0 grid items-center bg-white'>
          <div className='h-14 w-11/12 m-auto rounded-lg  flex flex-row items-center bg-gray-300 p-2 relative'>
@@ -162,7 +152,6 @@ const BoxComent = ({ userSelect, channelTitle }) => {
                <IoMdSend className='m-auto text-white ' />
             </span>
             {seeEmogis ? <div className='absolute bottom-14 right-0'> <EmojiPicker onEmojiClick={onEmojiClick} /></div> : ''}
-            <button >onclicj</button>
          </div>
       </section>
    )

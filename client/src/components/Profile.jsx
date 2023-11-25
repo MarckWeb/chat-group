@@ -1,6 +1,4 @@
-
 import { CiSettings } from "react-icons/ci";
-
 
 const Profile = ({ userSelect }) => {
    console.log(userSelect)

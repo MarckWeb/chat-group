@@ -34,7 +34,6 @@ const updateUser = async (req, res) => {
       const { name, lastname, email } = req.body
 
       const [updateUser] = await pool.query('SELECT * FROM user WHERE id = ?', [id])
-      console.log(updateUser)
 
       if (updateUser.length === 0) {
          return res.status(404).json({
@@ -46,7 +45,6 @@ const updateUser = async (req, res) => {
       let imageId = updateUser[0].image_id;
 
       if (req.files && req.files.image) {
-
          const fileImage = req.files.image
          const result = await uploadImage(fileImage.tempFilePath)
 
@@ -58,7 +56,7 @@ const updateUser = async (req, res) => {
          imageId = result.public_id
       }
 
-      const [user] = await pool.query('UPDATE user SET name = ?, lastname = ?, email = ?, profile_image=?, image_id =? WHERE id = ?', [name, lastname, email, avatar, imageId, id])
+      const [user] = await pool.query('UPDATE user SET name = ?, lastname = ?, email = ?, profile_image=?, image_id =? WHERE id = ?', [name || updateUser[0].name, lastname || updateUser[0].lastname, email || updateUser[0].email, avatar, imageId, id])
 
       console.log(user)
       if (user.affectedRows <= 0) {

@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { jwtDecode } from "jwt-decode";
 
-
 import CommentsFeed from '../layout/CommentsFeed'
 import Channels from '../layout/Channels'
 import CreateChannel from '../components/createChannel'
+
+const VITE_URL = import.meta.env.VITE_URL;
 
 const Home = () => {
    const [showMembers, setShowMembers] = useState(true)
@@ -18,13 +19,12 @@ const Home = () => {
       console.log(showMembers)
    }, [showMembers])
 
-
-   //manejamos usuario señeccionado para el perfil
+   //manejamos usuario seleccionado para el perfil
    const handleUserSelect = async () => {
       try {
 
          if (user) {
-            const res = await fetch(`http://localhost:3000/api/user/${jwtDecode(user).id}`)
+            const res = await fetch(`${VITE_URL}user/${jwtDecode(user).id}`)
             const data = await res.json()
             setUserSelect(data)
          }
@@ -33,13 +33,9 @@ const Home = () => {
       }
    }
 
-
    useEffect(() => {
       handleUserSelect()
    }, [])
-
-
-
 
    return (
       <div className='relative lg:flex lg:flex-row'>

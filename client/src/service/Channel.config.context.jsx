@@ -7,7 +7,7 @@ export const AppProviderChannels = ({ children }) => {
    const [channels, setChannels] = useState();
 
    const handleChannels = async () => {
-      const response = await fetch('http://localhost:3000/api/channel')
+      const response = await fetch(`${VITE_URL}channel`)
       const data = await response.json()
       setChannels(data)
    }

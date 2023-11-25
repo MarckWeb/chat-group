@@ -7,7 +7,6 @@ const encryptPassword = async (password) => {
       return passwordEncrypt
    } catch (error) {
       console.error('Error al encriptar la contraseña:', error)
-
    }
 }
 

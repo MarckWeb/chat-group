@@ -9,6 +9,7 @@ import { RiLockPasswordFill } from "react-icons/ri";
 import { FaRegUser } from "react-icons/fa6";
 import { FiUsers } from "react-icons/fi";
 
+const VITE_URL = import.meta.env.VITE_URL;
 
 const Form = ({ setIsAutenticated }) => {
    const [toggle, setToggle] = useState(true)
@@ -38,9 +39,7 @@ const Form = ({ setIsAutenticated }) => {
    //resgistra al usuario en la base de datos
    const handleRegisterUser = async (e) => {
       e.preventDefault()
-
       const id = Math.floor(Math.random() * 1000)
-
       const data = {
          method: 'POST',
          headers: {
@@ -49,7 +48,7 @@ const Form = ({ setIsAutenticated }) => {
          body: JSON.stringify({ ...inputValues, id })
       }
       try {
-         const res = await fetch('http://localhost:3000/api/auth/register', data)
+         const res = await fetch(`${VITE_URL}auth/register`, data)
          const resData = await res.json()
          if (resData.ok === true && resData.status === 200) {
             setInputValues({
@@ -87,7 +86,7 @@ const Form = ({ setIsAutenticated }) => {
       }
 
       try {
-         const res = await fetch('http://localhost:3000/api/auth/login', data)
+         const res = await fetch(`${VITE_URL}auth/login`, data)
          const resData = await res.json()
          if (resData.ok === true) {
             setInputValues({

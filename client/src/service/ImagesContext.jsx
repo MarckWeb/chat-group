@@ -7,9 +7,8 @@ export const AppProviderImages = ({ children }) => {
    const [images, setImages] = useState();
 
    const handleImages = async () => {
-      const response = await fetch('http://localhost:3000/api/comments/image')
+      const response = await fetch(`${VITE_URL}comments/image`)
       const data = await response.json()
-      console.log(data)
       setImages(data)
    }
    useEffect(() => {

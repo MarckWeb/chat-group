@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 
 import { useContextUsers } from '../service/UserContext.jsx';
 import { useContextChannels } from '../service/Channel.config.context.jsx'
@@ -17,10 +17,12 @@ const Channels = ({ showMembers, setShowMembers, userLogin, setChannelTitle, set
    const { channels } = useContextChannels()
    const { members } = useContextMembers()
 
+   //muestra entre miembros y canal
    const showMembersOrChannel = () => {
       setShowMembers(!showMembers)
    }
 
+   //cierra y muestra los canales
    const handleShowChannels = () => {
       setShowChannel(!showChannel)
    }

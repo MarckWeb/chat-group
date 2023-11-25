@@ -15,20 +15,15 @@ const getChannels = async (req, res) => {
 const createChannel = async (req, res) => {
    try {
       const { name, description, creator_id } = req.body
-      console.log(req.body)
 
       //verificamos que no exita un canal con el mismo nombre
       const [channelVeriry] = await pool.execute('SELECT * FROM channel WHERE name=?', [name])
-
-      console.log(channelVeriry)
 
       if (channelVeriry[0]) {
          return res.send('el nombre del canal ya existe')
       }
 
       const [resultChannel] = await pool.execute('INSERT INTO channel ( name, description, creator_id) VALUES (?, ?, ?)', [name, description, creator_id]);
-      console.log('canal resulatdo')
-      console.log(resultChannel)
 
       if (resultChannel.affectedRows > 0) {
          return res.status(200).send({
@@ -43,8 +38,6 @@ const createChannel = async (req, res) => {
             state: 404,
          })
       }
-
-
    } catch (e) {
       console.error(e)
       return res.status(500).send("Error al crear el canal en catch");
@@ -55,7 +48,7 @@ const deleteChannel = async (req, res) => {
    try {
 
       const [channel] = await pool.query('DELETE FROM channel WHERE id = ?', [req.params.id])
-      console.log('delete channel', channel)
+
       if (channel.affectedRows <= 0) return res.status(404).send({
          message: 'usuario no encontrado',
          state: 404
@@ -68,7 +61,6 @@ const deleteChannel = async (req, res) => {
       return res.status(500).send("Error al eliminar el usuario");
    }
 }
-
 
 const channelController = {
    getChannels,

@@ -15,11 +15,8 @@ const getComments = async (req, res) => {
 const createComment = async (req, res) => {
    try {
       const { id, content, userId, channelId } = req.body
-      console.log(req.files, 'en comnet')
 
       const [resultComment] = await pool.execute('INSERT INTO comments (id, content, user_id, channel_id) VALUES (?, ?, ?, ?)', [id, content, userId, channelId]);
-      console.log('comemet resulatdo')
-      console.log(resultComment)
 
       if (resultComment.affectedRows > 0) {
          return res.status(200).send({

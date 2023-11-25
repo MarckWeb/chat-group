@@ -14,7 +14,7 @@ import authGoogle from './routes/authGoogle.js';
 import channel from './routes/channel.js';
 import members from './routes/members.js';
 import comments from './routes/coments.js';
-// import commentsImages from './routes/imageComment.js'
+import commentsImages from './routes/imageComment.js'
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -42,15 +42,9 @@ app.use(fileUpload({
 
 app.use(passport.initialize(), passport.session());
 
+// Hacer que node sirva los archivos de nuestro app React en la carpeta dist
+app.use(express.static(join(__dirname, '..', '..', 'client/dist')));
 
-// Ruta para el cliente React con Vite
-// Hacer que node sirva los archivos de nuestro app React
-//app.use(express.static(join(__dirname, '..', '..', 'client/dist')));
-
-// Todas las peticiones GET que no hayamos manejado en las líneas anteriores retornaran nuestro app React
-// app.get('*', (req, res) => {
-//    res.sendFile(join(__dirname, 'http://localhost:5173/', 'index.html'));
-// });
 // Rutas
 app.use('/api/user', user);
 app.use('/api/auth', authUser);
@@ -59,7 +53,7 @@ app.use('/auth/google', authGoogle)
 app.use('/api/channel', channel);
 app.use('/api/members', members);
 app.use('/api/comments', comments)
-// app.use('/api/comments/image', commentsImages)
+app.use('/api/comments/image', commentsImages)
 
 // Configurar la estrategia de autenticación con Google
 configureGoogleStrategy();

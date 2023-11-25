@@ -7,7 +7,7 @@ export const AppProviderMembers = ({ children }) => {
    const [members, setMembers] = useState();
 
    const handleMembers = async () => {
-      const response = await fetch('http://localhost:3000/api/members')
+      const response = await fetch(`${VITE_URL}members`)
       const data = await response.json()
       setMembers(data)
    }

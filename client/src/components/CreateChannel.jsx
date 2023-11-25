@@ -2,22 +2,24 @@ import React, { useEffect, useState } from 'react';
 import { jwtDecode } from "jwt-decode";
 import { useContextChannels } from '../service/Channel.config.context';
 
+const VITE_URL = import.meta.env.VITE_URL;
+
 const CreateChannel = ({ setAddChannel }) => {
    const [userId, setUserId] = useState('')
    const [titleChannel, setTitleChannel] = useState('')
    const [descripcionChannel, setDescriptionChannel] = useState('')
    const { handleChannels } = useContextChannels()
 
+   //verificamos si tiene autorizacion para crear un nuevo canal
    useEffect(() => {
       const user = document.cookie.split('=')[1] || localStorage.getItem('token')
       const decodeId = jwtDecode(user).id
       setUserId(decodeId)
    }, [])
 
-
+   //manejamos el registro de un nuevo canal
    const hanldeCreateChannelForm = async (e) => {
       e.preventDefault()
-
       const data = {
          method: 'POST',
          headers: {
@@ -25,14 +27,13 @@ const CreateChannel = ({ setAddChannel }) => {
          },
          body: JSON.stringify(
             {
-
                name: titleChannel,
                description: descripcionChannel,
                creator_id: userId
             })
       }
       try {
-         const res = await fetch('http://localhost:3000/api/channel', data)
+         const res = await fetch(`${VITE_URL}channel`, data)
          const resData = await res.json()
          if (resData.ok === true && resData.status === 200) {
             setTitleChannel('')
@@ -73,14 +74,17 @@ const CreateChannel = ({ setAddChannel }) => {
                placeholder='Descripcion de canales'
                value={descripcionChannel}
                onChange={(e) => setDescriptionChannel(e.target.value)}>
-
             </textarea>
 
             <div className='flex flex-row gap-6'>
-               <button className='w-24 h-10  rounded-lg bg-[#2F80ED] ml-auto' onClick={cancelCreateChannel}>
+               <button
+                  className='w-24 h-10  rounded-lg bg-[#2F80ED] ml-auto'
+                  onClick={cancelCreateChannel}>
                   Cancelar
                </button>
-               <button className='w-24 h-10  rounded-lg bg-[#2F80ED] ml-auto' onClick={hanldeCreateChannelForm}>
+               <button
+                  className='w-24 h-10  rounded-lg bg-[#2F80ED] ml-auto'
+                  onClick={hanldeCreateChannelForm}>
                   Crear Canal
                </button>
             </div>

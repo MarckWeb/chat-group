@@ -1,6 +1,5 @@
 import pool from '../db/connection.js';
 import UserModel from '../models/user.js';
-import { v4 as uuid } from 'uuid';
 import { encryptPassword, comparePassword } from '../helpers/generateBcrypt.js';
 import tokenSing from '../helpers/generateToken.js';
 
@@ -8,7 +7,6 @@ import tokenSing from '../helpers/generateToken.js';
 //funcion para login y verificar contraseña
 const loginUser = async (req, res) => {
    try {
-      console.log(req.body)
       const { email, password } = req.body
       if (email === '') {
          return res.send({ mesaage: 'rellenar el campo de email valido' })
@@ -17,7 +15,6 @@ const loginUser = async (req, res) => {
       if (email && password) {
          //verificamos que exista un usuario con el email indicado
          const [userSelected] = await pool.query('SELECT * FROM user WHERE email=?', [email])
-         console.log(userSelected[0])
 
          if (userSelected.length === 0) {
             return res.status(401).send({
