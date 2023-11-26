@@ -1,10 +1,10 @@
-import desk from './desk.svg'
+import peeople from './peeople.svg'
 import group from './group.svg'
 import avatar from './myAvatar.png'
 
 
 export {
-   desk,
+   peeople,
    group,
    avatar
 }

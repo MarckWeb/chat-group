@@ -19,15 +19,15 @@ import commentsImages from './routes/imageComment.js'
 const app = express();
 
 // Obtener la ruta del directorio actual del archivo
-// const __filename = fileURLToPath(import.meta.url);
-// const __dirname = dirname(__filename);
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 // Configurar middleware para servir archivos estáticos desde la carpeta "client"
-// const clientPath = join(__dirname, '..', '..', 'client');
+const clientPath = join(__dirname, '..', '..', 'client/dist');
 // console.log(clientPath)
 // const indexPath = join(clientPath, 'index.html');
 // console.log(indexPath)
-// app.use(express.static(indexPath));
+app.use(express.static(clientPath));
 
 // // Enviar todas las demás solicitudes a tu aplicación de React
 // app.get('*', (req, res) => {

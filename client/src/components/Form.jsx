@@ -11,20 +11,15 @@ import { FiUsers } from "react-icons/fi";
 
 const VITE_URL = import.meta.env.VITE_URL;
 
-const Form = ({ setIsAutenticated }) => {
-   const [toggle, setToggle] = useState(true)
+const Form = ({ setIsAutenticated, toggle, setToggle }) => {
+   console.log(toggle)
+
    const [inputValues, setInputValues] = useState({
       name: '',
       lastname: '',
       email: '',
       password: ''
    })
-
-   //cambia entre form inicia y resgistrarse
-   const statusOfForm = (e) => {
-      e.preventDefault()
-      setToggle(!toggle)
-   }
 
    //almacena datos del formulario
    const hanldeValuesInput = (e) => {
@@ -105,7 +100,7 @@ const Form = ({ setIsAutenticated }) => {
    };
 
    return (
-      <form className=' w-full border border-indigo-600 flex flex-col justify-center items-center gap-4 p-5'>
+      <form className=' w-full flex flex-col justify-center items-center gap-4 p-5 text-xl'>
          <h2 className='text-3xl font-bold'>{toggle ? 'Iniciar Sesion' : 'Registrarme'}</h2>
          {toggle ? '' : <>
             <Inputs
@@ -146,11 +141,6 @@ const Form = ({ setIsAutenticated }) => {
          <Button
             value={toggle ? 'Iniciar Sesion' : 'registrarme'}
             onClick={toggle ? handleUserLogin : handleRegisterUser} />
-
-         <Button
-
-            value={toggle ? 'registrase' : 'login'}
-            onClick={statusOfForm} />
 
          <p>o inicia sesion con redes</p>
 

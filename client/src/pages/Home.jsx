@@ -35,7 +35,7 @@ const Home = () => {
    }, [])
 
    return (
-      <div className='relative lg:flex lg:flex-row'>
+      <div className='text-sm relative lg:flex lg:flex-row'>
 
          {addChannel ? <>
             <div className=' w-full h-screen bg-[#3c393f8a] fixed top-0 left-0 z-30 '></div>

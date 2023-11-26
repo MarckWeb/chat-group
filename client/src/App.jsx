@@ -29,7 +29,7 @@ function App() {
         <AppProviderMembers>
           <AppProviderComments>
             <AppProviderImages>
-              <div className="container m-auto">
+              <div className="">
                 {isAutenticated
                   ? <Home
                     setIsAutenticated={setIsAutenticated} />
