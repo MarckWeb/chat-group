@@ -1,6 +1,6 @@
 import express from 'express';
 import { fileURLToPath } from 'url';
-import { dirname, join } from 'path';
+import { join, dirname } from 'path';
 import cors from 'cors';
 import passport from 'passport';
 import session from 'express-session';
@@ -16,10 +16,24 @@ import members from './routes/members.js';
 import comments from './routes/coments.js';
 import commentsImages from './routes/imageComment.js'
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
 const app = express();
+
+// Obtener la ruta del directorio actual del archivo
+// const __filename = fileURLToPath(import.meta.url);
+// const __dirname = dirname(__filename);
+
+// Configurar middleware para servir archivos estáticos desde la carpeta "client"
+// const clientPath = join(__dirname, '..', '..', 'client');
+// console.log(clientPath)
+// const indexPath = join(clientPath, 'index.html');
+// console.log(indexPath)
+// app.use(express.static(indexPath));
+
+// // Enviar todas las demás solicitudes a tu aplicación de React
+// app.get('*', (req, res) => {
+//    res.setHeader('Content-Type', 'text/html');
+//    res.sendFile(indexPath);
+// });
 
 // Middlewares
 app.use(cors());
@@ -42,8 +56,7 @@ app.use(fileUpload({
 
 app.use(passport.initialize(), passport.session());
 
-// Hacer que node sirva los archivos de nuestro app React en la carpeta dist
-app.use(express.static(join(__dirname, '..', '..', 'client/dist')));
+
 
 // Rutas
 app.use('/api/user', user);

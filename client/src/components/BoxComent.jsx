@@ -54,7 +54,7 @@ const BoxComent = ({ userSelect, channelTitle }) => {
 
    // Función para hacer que el usuario actual sea miembro del canal.
    const handleMemberChannel = async (newIdRandom) => {
-      console.log(newIdRandom)
+
       const data = {
          method: 'POST',
          headers: {

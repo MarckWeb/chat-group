@@ -155,8 +155,8 @@ const Form = ({ setIsAutenticated }) => {
          <p>o inicia sesion con redes</p>
 
          <div className='flex flex-row gap-4 text-4xl'>
-            <a className='border border-black rounded' href="http://localhost:3000/auth/google/"><FcGoogle /></a>
-            <a className='border border-black rounded' href=""><FaFacebook /></a>
+            <a className='' href="http://localhost:3000/auth/google/"><FcGoogle /></a>
+            <a className='' href=""><FaFacebook /></a>
          </div>
 
       </form>

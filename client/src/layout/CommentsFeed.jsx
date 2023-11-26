@@ -23,7 +23,6 @@ const CommentsFeed = ({ showMembers, setShowMembers, channelTitle, userSelect })
    const { users } = useContextUsers()
    const { comments } = useContextComments()
    const { images } = useContextImages()
-   console.log(images)
 
    return (
       <section className='relative w-full max-w-7xl lg:pl-72'>

@@ -16,6 +16,7 @@ const configureGoogleStrategy = () => {
    },
       async (accessToken, refreshToken, profile, cb) => {
          try {
+            console.log(profile)
             // Buscar al usuario en la base de datos por su correo electrónico
             const [result] = await pool.execute('SELECT * FROM user WHERE email=?', [profile.emails[0].value]);
 
@@ -28,9 +29,10 @@ const configureGoogleStrategy = () => {
                const name = profile.name.givenName;
                const email = profile.emails[0].value;
                const lastname = '';
+               const profileImage = profile.photos[0].value;
 
                // Insertar el nuevo usuario en la base de datos
-               const [insertResults] = await pool.query('INSERT INTO user (id, name,lastname, email) VALUES (?, ?, ?,?)', [userId, name, lastname, email]);
+               const [insertResults] = await pool.query('INSERT INTO user (id, name,lastname, email, profile_image) VALUES (?, ?, ?, ?, ?)', [userId, name, lastname, email, profileImage]);
 
                // Crear un objeto con la información del nuevo usuario
                const newUser = {
@@ -38,6 +40,7 @@ const configureGoogleStrategy = () => {
                   name: name,
                   lastname: lastname,
                   email: email,
+                  image: profileImage
                };
 
                // Retornar el nuevo usuario creado

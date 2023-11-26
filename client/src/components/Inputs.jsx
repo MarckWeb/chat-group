@@ -10,7 +10,8 @@ const Inputs = ({ icon, type, name, placeholder, values, onChange }) => {
             name={name}
             placeholder={placeholder}
             value={values}
-            onChange={onChange} />
+            onChange={onChange}
+            required />
       </div>
    )
 }

@@ -23,8 +23,7 @@
     "jsonwebtoken": "^9.0.2",
     "mysql2": "^3.6.3",
     "passport": "^0.6.0",
-    "passport-google-oauth20": "^2.0.0",
-    "uuid": "^9.0.1"
+    "passport-google-oauth20": "^2.0.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.23.0",

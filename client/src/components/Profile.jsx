@@ -1,7 +1,7 @@
 import { CiSettings } from "react-icons/ci";
 
 const Profile = ({ userSelect }) => {
-   console.log(userSelect)
+
    return (
       <section className='w-full max-w-xs h-20 mt-auto bg-black flex flex-row justify-between items-center px-5'>
          <figure className='relative'>
