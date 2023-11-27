@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react'
 import Inputs from './Inputs'
 import Button from './Button';
 
+import { toast } from 'react-toastify';
+//import { toastOptions, toastError } from '../../utils/toast';
+
 import { ImGoogle2 } from "react-icons/im";
 import { ImFacebook2 } from "react-icons/im";
 import { TfiEmail } from "react-icons/tfi";
@@ -12,7 +15,6 @@ import { ImLinkedin } from "react-icons/im";
 const VITE_URL = import.meta.env.VITE_URL;
 
 const Form = ({ setIsAutenticated, toggle, setToggle }) => {
-   console.log(toggle)
 
    const [inputValues, setInputValues] = useState({
       name: '',
@@ -52,13 +54,11 @@ const Form = ({ setIsAutenticated, toggle, setToggle }) => {
                email: '',
                password: ''
             })
-
-            return alert(resData.message)
-
+            return toast.info(resData.message)
          }
 
          if (resData.ok === false) {
-            return alert(resData.message)
+            toast.error(resData.message)
          }
       } catch (error) {
          console.error('Error al registrar usuario:', error);
@@ -68,7 +68,6 @@ const Form = ({ setIsAutenticated, toggle, setToggle }) => {
    const handleUserLogin = async (e) => {
       e.preventDefault()
       const { email, password } = inputValues
-
       if (!email && !password) {
          return alert('Ingrese los datos')
       }
@@ -91,7 +90,7 @@ const Form = ({ setIsAutenticated, toggle, setToggle }) => {
 
             localStorage.setItem('token', JSON.stringify(resData.tokenSession));
             setIsAutenticated(resData.tokenSession)
-            return alert(resData.message)
+            return toast.info('Bienvenido disfruta del grupo')
 
          }
       } catch (e) {
@@ -100,14 +99,14 @@ const Form = ({ setIsAutenticated, toggle, setToggle }) => {
    };
 
    return (
-      <form className='text-2xl w-full flex flex-col justify-center items-center gap-4 p-5'>
-         <h2 className='text-3xl font-bold'>{toggle ? 'Iniciar Sesion' : 'Registrarme'}</h2>
+      <form className=' text-xl md:text-2xl w-full flex flex-col justify-center items-center gap-4 p-5'>
+         <h2 className='md:text-3xl font-bold'>{toggle ? 'Iniciar Sesion' : 'Registrarme'}</h2>
          {toggle ? '' : <>
             <Inputs
                icon={<FaRegUser />}
                type='text'
                name='name'
-               placeholder='Jhon'
+               placeholder='Francisco'
                value={inputValues.name}
                onChange={hanldeValuesInput}
             />
@@ -115,7 +114,7 @@ const Form = ({ setIsAutenticated, toggle, setToggle }) => {
                icon={<FiUsers />}
                type='text'
                name='lastname'
-               placeholder='Doe'
+               placeholder='Molero'
                value={inputValues.lastname}
                onChange={hanldeValuesInput}
             />
@@ -125,7 +124,7 @@ const Form = ({ setIsAutenticated, toggle, setToggle }) => {
             icon={<TfiEmail />}
             type='text'
             name='email'
-            placeholder='Jhon@example.com'
+            placeholder='molero@example.com'
             value={inputValues.email}
             onChange={hanldeValuesInput}
          />

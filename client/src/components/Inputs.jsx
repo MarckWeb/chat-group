@@ -1,15 +1,15 @@
 import React from 'react'
 
-const Inputs = ({ icon, type, name, placeholder, values, onChange }) => {
+const Inputs = ({ icon, type, name, placeholder, value, onChange }) => {
    return (
-      <div className=' w-full h-14 flex flex-row items-center rounded-xl p-4 content-center bg-gray-200 text-2xl '>
-         <span className='col-span-1 text-3xl  lg:p-4'>{icon}</span>
+      <div className=' w-full h-14 flex flex-row items-center rounded-xl  content-center bg-gray-200 md:text-2xl '>
+         <span className='col-span-1 md:text-3xl p-4 '>{icon}</span>
          <input
-            className='col-span-9 outline-none h-full bg-transparent ml-2 '
+            className='col-span-9 outline-none w-full h-full bg-transparent lg:ml-2'
             type={type}
             name={name}
             placeholder={placeholder}
-            value={values}
+            value={value}
             onChange={onChange}
             required
             autoComplete='off' />

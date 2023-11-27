@@ -5,7 +5,7 @@ const ListComments = ({ userImage, name, lastname, date, comment, image }) => {
    return (
       <section className=' mb-4 flex flex-row gap-3 m-5 bg-gray-200 shadow-lg p-3 rounded-lg '>
          <img
-            className='w-10 h-10  rounded-[50%] p-1'
+            className='w-10 h-10 rounded-[50%] p-1'
             src={userImage}
             alt="" />
          <div>

@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import dayjs from 'dayjs';
 import 'dayjs/locale/es.js'
 import Header from './Header'
@@ -16,13 +16,27 @@ const formatDate = (isoDate) => {
 };
 
 const CommentsFeed = ({ showMembers, setShowMembers, channelTitle, userSelect }) => {
-   const commentsListRef = useRef();
-   const [currentDay, setCurrentDay] = useState(null);
+   const ref = useRef();
+
+   console.log(ref.current)
 
    // Contextos para obtener datos.
    const { users } = useContextUsers()
    const { comments } = useContextComments()
    const { images } = useContextImages()
+
+   console.log(comments)
+
+   useEffect(() => {
+      console.log('useEffect ejecutado');
+      const container = ref.current;
+      console.log('Container:', container);
+
+      if (container) {
+         container.scrollTop = container.scrollHeight;
+         console.log('Scroll al final:', container.scrollTop);
+      }
+   }, [comments, images]);
 
    return (
       <section className='relative w-full max-w-7xl lg:pl-72'>
@@ -32,8 +46,7 @@ const CommentsFeed = ({ showMembers, setShowMembers, channelTitle, userSelect })
             channelTitle={channelTitle}
          />
 
-         <article className='h-full pt-16 mb-28 lg:ml-12'
-            ref={commentsListRef}>
+         <article ref={ref} className='h-screen pt-16 pb-28 lg:ml-12 border border-red-600' style={{ overflowY: 'auto' }}>
             {channelTitle === ''
                ? comments?.filter(comment => comment.channel_id === 1)
                   .map(comment => {
@@ -48,6 +61,7 @@ const CommentsFeed = ({ showMembers, setShowMembers, channelTitle, userSelect })
                            date={formatDate(comment.created_at)}
                            comment={comment.content}
                            image={commentImage?.image_url}
+
                         />
 
                      </React.Fragment>
@@ -76,7 +90,8 @@ const CommentsFeed = ({ showMembers, setShowMembers, channelTitle, userSelect })
          </article>
          <BoxComent
             userSelect={userSelect}
-            channelTitle={channelTitle} />
+            channelTitle={channelTitle}
+            ref={ref} />
       </section>
    )
 }

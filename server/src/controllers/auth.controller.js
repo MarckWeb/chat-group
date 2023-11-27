@@ -61,7 +61,14 @@ const loginUser = async (req, res) => {
 const createUser = async (req, res) => {
    try {
       const { id, name, lastname, email, password } = req.body
-      console.log('auth creando...', req.body)
+
+      if (email === '' && password === '' && name === '') {
+         return res.status(500).send(
+            {
+               message: 'campos vacios',
+               ok: false
+            })
+      }
 
       //verificamos que no exita un usuario con el mismo email
       const [userVerify] = await pool.execute('SELECT * FROM user WHERE email=?', [email])

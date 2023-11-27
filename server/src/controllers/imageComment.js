@@ -15,7 +15,7 @@ const getCommentsImages = async (req, res) => {
 const createCommentImages = async (req, res) => {
    try {
       const { commentsId } = req.body
-      console.log('imagen en  comentImage', req.files)
+      console.log('imagen en comentImage', req.files)
 
       let imageUrl;
       let imageId;

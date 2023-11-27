@@ -32,6 +32,13 @@ const updateUser = async (req, res) => {
    try {
       const { id } = req.params
       const { name, lastname, email } = req.body
+      console.log('entrando al update controller')
+      console.log(req.files)
+      console.log(req.files.image)
+
+      // if (!req.files || !name && !email && !lastname) {
+      //    return res.send({ message: 'campos vacios' })
+      // }
 
       const [updateUser] = await pool.query('SELECT * FROM user WHERE id = ?', [id])
 
@@ -41,12 +48,16 @@ const updateUser = async (req, res) => {
          })
       }
 
-      let avatar = updateUser[0].image;
-      let imageId = updateUser[0].image_id;
+      let avatar = updateUser[0].image || '';
+      let imageId = updateUser[0].image_id || '';
 
       if (req.files && req.files.image) {
          const fileImage = req.files.image
+         console.log('entrando a la condicion')
+         console.log(fileImage)
          const result = await uploadImage(fileImage.tempFilePath)
+
+         console.log(result)
 
          if (updateUser[0].image && updateUser[0].image_id) {
             await deleteImage(updateUser[0].image_id);
@@ -69,7 +80,7 @@ const updateUser = async (req, res) => {
       return res.status(200).send({
          message: 'Usuario actualizado',
          state: 200,
-         data: { id, name, lastname, email, avatar, imageId }
+         ok: true
       })
 
    } catch (error) {

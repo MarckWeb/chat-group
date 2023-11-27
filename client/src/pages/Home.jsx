@@ -7,7 +7,7 @@ import CreateChannel from '../components/createChannel'
 
 const VITE_URL = import.meta.env.VITE_URL;
 
-const Home = () => {
+const Home = ({ setIsAutenticated }) => {
    const [showMembers, setShowMembers] = useState(true)
    const [channelTitle, setChannelTitle] = useState('')
    const [addChannel, setAddChannel] = useState(false)
@@ -35,14 +35,13 @@ const Home = () => {
    }, [])
 
    return (
-      <div className='text-sm relative lg:flex lg:flex-row'>
+      <div className='relative lg:flex lg:flex-row'>
 
          {addChannel ? <>
             <div className=' w-full h-screen bg-[#3c393f8a] fixed top-0 left-0 z-30 '></div>
             <CreateChannel
                setAddChannel={setAddChannel}
                userSelect={userSelect}
-
             />
          </> : ''}
 
@@ -52,7 +51,9 @@ const Home = () => {
             channelTitle={channelTitle}
             setChannelTitle={setChannelTitle}
             setAddChannel={setAddChannel}
-            userSelect={userSelect} />
+            userSelect={userSelect}
+            handleUserSelect={handleUserSelect}
+            setIsAutenticated={setIsAutenticated} />
          <CommentsFeed
             showMembers={showMembers}
             setShowMembers={setShowMembers}

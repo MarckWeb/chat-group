@@ -1,6 +1,9 @@
 import { useState, useEffect } from 'react'
 import './App.css'
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import { AppProviderUsers } from './service/UserContext'
 import { AppProviderMembers } from './service/MemberContext'
 import { AppProviderChannels } from './service/Channel.config.context'
@@ -36,6 +39,7 @@ function App() {
                   : <Login
                     isAutenticated={isAutenticated}
                     setIsAutenticated={setIsAutenticated} />}
+                <ToastContainer />
               </div>
             </AppProviderImages>
           </AppProviderComments>

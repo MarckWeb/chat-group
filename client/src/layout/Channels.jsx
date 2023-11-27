@@ -10,7 +10,7 @@ import { IoClose } from "react-icons/io5";
 import { CiSearch } from "react-icons/ci";
 import Profile from '../components/Profile';
 
-const Channels = ({ showMembers, setShowMembers, userLogin, setChannelTitle, setAddChannel, channelTitle, userSelect }) => {
+const Channels = ({ showMembers, setShowMembers, userLogin, setChannelTitle, setAddChannel, channelTitle, userSelect, handleUserSelect, setIsAutenticated }) => {
 
    const [showChannel, setShowChannel] = useState(true);
    const { users } = useContextUsers();
@@ -155,7 +155,9 @@ const Channels = ({ showMembers, setShowMembers, userLogin, setChannelTitle, set
          </section>
          <Profile
             userLogin={userLogin}
-            userSelect={userSelect} />
+            userSelect={userSelect}
+            handleUserSelect={handleUserSelect}
+            setIsAutenticated={setIsAutenticated} />
       </article>
    )
 }

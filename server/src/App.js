@@ -1,6 +1,4 @@
 import express from 'express';
-import { fileURLToPath } from 'url';
-import { join, dirname } from 'path';
 import cors from 'cors';
 import passport from 'passport';
 import session from 'express-session';
@@ -17,23 +15,6 @@ import comments from './routes/coments.js';
 import commentsImages from './routes/imageComment.js'
 
 const app = express();
-
-// Obtener la ruta del directorio actual del archivo
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
-// Configurar middleware para servir archivos estáticos desde la carpeta "client"
-const clientPath = join(__dirname, '..', '..', 'client/dist');
-// console.log(clientPath)
-// const indexPath = join(clientPath, 'index.html');
-// console.log(indexPath)
-app.use(express.static(clientPath));
-
-// // Enviar todas las demás solicitudes a tu aplicación de React
-// app.get('*', (req, res) => {
-//    res.setHeader('Content-Type', 'text/html');
-//    res.sendFile(indexPath);
-// });
 
 // Middlewares
 app.use(cors());

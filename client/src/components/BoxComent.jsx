@@ -13,8 +13,6 @@ import { CiFaceSmile } from "react-icons/ci";
 const VITE_URL = import.meta.env.VITE_URL;
 
 const BoxComent = ({ userSelect, channelTitle }) => {
-   const commentsListRef = useRef();
-
    const [formState, setFormState] = useState({ comment: '' });
    const [imageComment, setImageComment] = useState(null)
    const [seeEmogis, setSeeEmogis] = useState(false)
@@ -36,20 +34,21 @@ const BoxComent = ({ userSelect, channelTitle }) => {
    //funcion para enviar la imagen de comentario
    const handleSendImageComment = async (newIdRandom) => {
       const file = new FormData();
-
       if (imageComment) {
          file.append('imageComment', imageComment);
+         file.append('commentsId', newIdRandom)
+         const data = {
+            method: 'POST',
+            body: file,
+         };
+         const res = await fetch(`${VITE_URL}comments/image`, data)
+         const resDta = await res.json()
+         if (resDta.ok === true && resDta.status === 200) {
+            handleImages()
+            setImageComment(null)
+         }
       }
-      file.append('commentsId', newIdRandom)
-      const data = {
-         method: 'POST',
-         body: file,
-      };
-      const res = await fetch(`${VITE_URL}comments/image`, data)
-      const resDta = await res.json()
-      if (resDta.ok === true && resDta.status === 200) {
-         handleImages()
-      }
+
    }
 
    // Función para hacer que el usuario actual sea miembro del canal.
