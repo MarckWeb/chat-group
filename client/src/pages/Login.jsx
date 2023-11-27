@@ -14,8 +14,14 @@ const Login = ({ setIsAutenticated }) => {
    }
 
    return (
-      <div className={`border border-red-700 w-full h-screen before:w-[2000px] before:h-[2000px] before:rounded-[50%] before:bg-gradient-to-r from-red-500 via-orange-500 to-yellow-500 before:absolute before:top-[0] before:left-[50%] before:z-10 before:transform  before:translate-x-[-50%] before:transition-transform  before:duration-1000 before:ease-linear ${toggle ? 'before:translate-y-[-85%] ' : 'before:translate-y-[26%]'}   ${toggle ? 'md:before:translate-x-[-60%] md:before:translate-y-[-85%]' : 'md:before:translate-x-[-60%] md:before:translate-y-[30%]'} relative overflow-hidden`}>
-         <div className={`w-full absolute z-20 top-0 left-0 transform ${toggle ? 'translate-y-[20%]' : 'translate-y-[-100%]'} transition duration-500 ease-linear flex flex-row justify-between items-center p-2 `}>
+      <div className={`border border-red-700 w-full h-screen before:w-[2000px] before:h-[2000px] before:rounded-[50%] before:bg-gradient-to-r from-red-500 via-orange-500 to-yellow-500 before:absolute before:top-[0] before:left-[50%] before:z-10 before:transform  before:translate-x-[-50%] before:transition-transform  before:duration-1000 before:ease-linear relative overflow-hidden 
+      ${toggle
+            ? 'before:translate-y-[-85%] md:before:translate-x-[-60%] md:before:translate-y-[-85%] lg:before:translate-y-[-50%] lg:before:translate-x-[-100%]'
+            : 'before:translate-y-[28%] md:before:translate-x-[-60%] md:before:translate-y-[35%] lg:before:translate-x-[0%] lg:before:translate-y-[-50%]'}`}>
+         <div className={`w-full  absolute z-20 top-0 left-0 transform transition duration-500 ease-linear flex flex-row justify-between items-center p-2 lg:flex-col lg:top-[50%] lg:translate-y-[-50%] 
+         ${toggle
+               ? 'translate-y-[20%] lg:translate-x-[-25%]'
+               : 'translate-y-[-100%] lg:translate-x-[-100%]'}`}>
             <IntroForm
                className=' text-white flex flex-col items-center gap-2'
                title={'lorem lorem'}
@@ -23,16 +29,24 @@ const Login = ({ setIsAutenticated }) => {
                statusOfForm={statusOfForm}
                toggle={toggle} />
 
-            <img className='w-52 h-52 hidden md:block' src={group} alt="" />
+            <img className='w-52 h-52 hidden md:block lg:w-[500px] lg:h-[400px]' src={group} alt="" />
          </div>
 
-         <div className={`w-full max-w-md p-1 absolute transition duration-1000 ease-linear ${toggle ? 'top-[100%] transform translate-y-[-120%]' : 'top-0 transform translate-y-[0'}  left-[50%] transform translate-x-[-50%] `}>
+         <div className={`w-full max-w-md lg:max-w-lg text-3xl lg:text-4xl p-1 absolute transition duration-1000 ease-linear transform left-[50%] translate-x-[-50%] lg:top-[50%] lg:translate-y-[-50%] 
+         ${toggle
+               ? 'top-[100%] translate-y-[-120%] lg:left-[75%] lg:translate-x-[-35%]'
+               : 'top-0  translate-y-[0] lg:left-[2%] lg:translate-x-[10%]'}  
+                `}>
 
             <Form setIsAutenticated={setIsAutenticated}
                toggle={toggle} />
          </div>
 
-         <div className={`w-full absolute bottom-0 left-0 z-20 transform ${toggle ? 'translate-y-[100%]' : 'translate-y-[-20%]'} transition duration-500 ease-linear  flex flex-row justify-between items-center p-2 `}>
+         <div className={`absolute lg:right-0 z-20 transform  
+         ${toggle
+               ? 'translate-y-[100%]  lg:translate-x-[100%]'
+               : 'translate-y-[-10%] lg:top-[50%] lg:translate-y-[-50%] lg:left-[75%] lg:translate-x-[-35%]'} 
+               transition duration-500 ease-linear  flex flex-row justify-between items-center p-2 lg:flex-col lg:gap-11 lg:top-[50%] lg:translate-y-[-50%] `}>
             <IntroForm
                className=' text-white flex flex-col items-center gap-2'
                title={'lorem lorem'}
@@ -40,7 +54,7 @@ const Login = ({ setIsAutenticated }) => {
                statusOfForm={statusOfForm}
                toggle={toggle} />
 
-            <img className='w-48 h-48 hidden md:block' src={peeople} alt="" />
+            <img className='w-48 h-48 hidden md:block lg:w-[500px] lg:h-[400px]' src={peeople} alt="" />
          </div>
       </div>
    )

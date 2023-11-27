@@ -7,7 +7,7 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: '#252329',
+        primary: '#00001a',
         secondary: '#120F13',
         customText: '#E0E0E0',
       },
@@ -18,7 +18,8 @@ export default {
 
       },
       boxShadow: {
-        '4xl': '0 0 15px rgba(255, 255, 255)'
+        '4xl': '0 0 15px rgba(255, 255, 255)',
+        '5xl': '0 0 5px rgba(255, 165, 0, 1), 0 0 15px rgba(255, 165, 0, 1)'
       },
     },
     plugins: [],

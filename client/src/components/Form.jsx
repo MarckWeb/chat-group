@@ -2,13 +2,13 @@ import React, { useEffect, useState } from 'react'
 import Inputs from './Inputs'
 import Button from './Button';
 
-import { FcGoogle } from "react-icons/fc";
-import { FaFacebook } from "react-icons/fa";
+import { ImGoogle2 } from "react-icons/im";
+import { ImFacebook2 } from "react-icons/im";
 import { TfiEmail } from "react-icons/tfi";
 import { RiLockPasswordFill } from "react-icons/ri";
 import { FaRegUser } from "react-icons/fa6";
 import { FiUsers } from "react-icons/fi";
-
+import { ImLinkedin } from "react-icons/im";
 const VITE_URL = import.meta.env.VITE_URL;
 
 const Form = ({ setIsAutenticated, toggle, setToggle }) => {
@@ -100,7 +100,7 @@ const Form = ({ setIsAutenticated, toggle, setToggle }) => {
    };
 
    return (
-      <form className=' w-full flex flex-col justify-center items-center gap-4 p-5 text-xl'>
+      <form className='text-2xl w-full flex flex-col justify-center items-center gap-4 p-5'>
          <h2 className='text-3xl font-bold'>{toggle ? 'Iniciar Sesion' : 'Registrarme'}</h2>
          {toggle ? '' : <>
             <Inputs
@@ -145,11 +145,12 @@ const Form = ({ setIsAutenticated, toggle, setToggle }) => {
          <p>o inicia sesion con redes</p>
 
          <div className='flex flex-row gap-4 text-4xl'>
-            <a className='' href="http://localhost:3000/auth/google/"><FcGoogle /></a>
-            <a className='' href=""><FaFacebook /></a>
+            <a href="http://localhost:3000/auth/google/"><ImGoogle2 /></a>
+            <a href=""><ImFacebook2 /></a>
+            <a href=""><ImLinkedin /></a>
          </div>
 
-      </form>
+      </form >
    )
 }
 
