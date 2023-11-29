@@ -99,8 +99,8 @@ const Form = ({ setIsAutenticated, toggle, setToggle }) => {
    };
 
    return (
-      <form className=' text-xl md:text-2xl w-full flex flex-col justify-center items-center gap-4 p-5'>
-         <h2 className='md:text-3xl font-bold'>{toggle ? 'Iniciar Sesion' : 'Registrarme'}</h2>
+      <form className=' text-xl lg:text-2xl w-full flex flex-col justify-center items-center gap-4 p-5'>
+         <h2 className='lg:text-3xl font-bold'>{toggle ? 'Iniciar Sesion' : 'Registrarme'}</h2>
          {toggle ? '' : <>
             <Inputs
                icon={<FaRegUser />}

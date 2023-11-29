@@ -67,7 +67,7 @@ const updateUser = async (req, res) => {
          imageId = result.public_id
       }
 
-      const [user] = await pool.query('UPDATE user SET name = ?, lastname = ?, email = ?, image=?, image_id =? WHERE id = ?', [name || updateUser[0].name, lastname || updateUser[0].lastname, email || updateUser[0].email, avatar, imageId, id])
+      const [user] = await pool.query('UPDATE user SET name = ?, lastname = ?, email = ?, profile_image=?, image_id =? WHERE id = ?', [name || updateUser[0].name, lastname || updateUser[0].lastname, email || updateUser[0].email, avatar, imageId, id])
 
       console.log(user)
       if (user.affectedRows <= 0) {

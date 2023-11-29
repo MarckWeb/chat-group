@@ -9,6 +9,7 @@ import { PiUserSwitchFill } from "react-icons/pi";
 const VITE_URL = import.meta.env.VITE_URL;
 
 const Profile = ({ userSelect, handleUserSelect, setIsAutenticated }) => {
+   console.log(userSelect)
    const [showProfile, setShowProfile] = useState(false)
    const [profileFile, setProfileFile] = useState(null)
    const [selectedFile, setSelectedFile] = useState(null);
@@ -86,7 +87,7 @@ const Profile = ({ userSelect, handleUserSelect, setIsAutenticated }) => {
                   <div className="flex flex-col gap-2">
                      <button className="border border-white py-1 px-3 rounded hover:bg-orange-500 "
                         onClick={sendImageFileFromProfile}>
-                        Editar
+                        Aceptar
                      </button>
                      <button className="border border-white py-1 px-3 rounded hover:bg-orange-500 "
                         onClick={handleCloseSesion}>
@@ -103,7 +104,7 @@ const Profile = ({ userSelect, handleUserSelect, setIsAutenticated }) => {
             {showProfile
                ? ''
                : <figure className='relative'>
-                  {userSelect?.image ? <img src={userSelect?.image} alt="" className='w-10 h-10 rounded-[50%]' /> : <span className="text-5xl"><PiUserSwitchFill /></span>}
+                  {userSelect?.profile_image ? <img src={userSelect?.profile_image} alt="" className='w-10 h-10 rounded-[50%]' /> : <span className="text-5xl"><PiUserSwitchFill /></span>}
 
                   <span className={`w-2 h-2 ${userSelect ? 'bg-green-600' : ''}  rounded-[50%] absolute  right-0 bottom-1`}></span>
                </figure>}

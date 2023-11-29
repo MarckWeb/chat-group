@@ -4,6 +4,7 @@ import uuid from 'react-uuid';
 import { useContextComments } from '../service/CommentContext.jsx';
 import { useContextMembers } from '../service/MemberContext.jsx';
 import { useContextImages } from '../service/ImagesContext.jsx';
+import { useContextUsers } from '../service/UserContext.jsx';
 import EmojiPicker from 'emoji-picker-react';
 //icons
 import { IoMdSend } from "react-icons/io";
@@ -20,6 +21,7 @@ const BoxComent = ({ userSelect, channelTitle }) => {
    const { handleComments } = useContextComments()
    const { handleMembers } = useContextMembers()
    const { handleImages } = useContextImages()
+   const { handleUsers } = useContextUsers()
 
    // Función para manejar la selección de emojis.
    const onEmojiClick = (emojiObject) => {
@@ -108,6 +110,7 @@ const BoxComent = ({ userSelect, channelTitle }) => {
                handleMemberChannel(newIdRandom)
                handleComments()
                handleSendImageComment(newIdRandom)
+               handleUsers()
             }
 
             if (resData.ok === false) {
@@ -157,8 +160,6 @@ const BoxComent = ({ userSelect, channelTitle }) => {
 }
 
 export default BoxComent
-
-//el evento en react funciona con ref capturas un contenedor y le dives con top que quieres que se mueva en forma vertival y busca la altura del contenedor y se ajusta a ello0
 
 
 

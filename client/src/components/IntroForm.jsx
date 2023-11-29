@@ -4,7 +4,7 @@ import Button from './Button'
 const IntroForm = ({ className, title, description, toggle, statusOfForm }) => {
    return (
       <section className={className}>
-         <h4 className='text-xl font-bold md:text-4xl '>{title}</h4>
+         <h4 className='text-xl font-bold lg:text-4xl '>{title}</h4>
          <p className='text-lg lg:w-[600px]  lg:text-2xl '>{description}</p>
          <Button
             value={toggle ? 'Registrarme' : 'Iniciar Sesion'}

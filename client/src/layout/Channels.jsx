@@ -44,7 +44,7 @@ const Channels = ({ showMembers, setShowMembers, userLogin, setChannelTitle, set
    }
 
    return (
-      <article className={` w-full max-w-xs h-screen bg-primary text-customText flex flex-col  fixed top-0 left-0 ${showMembers ? 'transform translate-x-[-120%] transition-transform duration-500 ease-in-out' : ''} z-10 lg:fixed lg:transform-none  `}>
+      <article className={` w-full max-w-xs h-screen bg-primary text-customText flex flex-col  fixed top-0 left-0 transition duration-1000 ease-linear ${showMembers ? 'transform translate-x-[-120%] transition-transform duration-500 ease-in-out' : ''} z-10 lg:fixed lg:transform-none  `}>
 
          <header
             className=' flex flex-row justify-start items-center w-full h-16 p-3  relative border-collapse border-b-2'>
@@ -75,7 +75,7 @@ const Channels = ({ showMembers, setShowMembers, userLogin, setChannelTitle, set
                   onClick={showMembersOrChannel}><IoClose /></span>
                : ''}
          </header>
-         <section className='px-7 h-full border border-yellow-300'>
+         <section className='px-7 h-full'>
             {showChannel && channels
                ? <>
                   <h3 className='uppercase font-bold py-4'>{channelTitle ? channelTitle.name : channels[0].name}</h3>
@@ -91,7 +91,7 @@ const Channels = ({ showMembers, setShowMembers, userLogin, setChannelTitle, set
                      name='channel'
                      placeholder='Search' />
                </div>}
-            <ul className='h-full max-h-[350px]  overflow-auto p-4 scrollbar-hidden'>
+            <ul className='h-full max-h-[450px]  overflow-auto p-4 scrollbar-hidden'>
                {showChannel && channelTitle === ''
                   ? <>
                      {members?.filter(member => member.channel_id === 1)
@@ -104,7 +104,7 @@ const Channels = ({ showMembers, setShowMembers, userLogin, setChannelTitle, set
 
                                  <img
                                     className='w-10 h-10 border border-black  rounded-[50%]'
-                                    src={user?.image}
+                                    src={user?.profile_image}
                                     alt="" />
 
                                  <span
@@ -126,7 +126,7 @@ const Channels = ({ showMembers, setShowMembers, userLogin, setChannelTitle, set
                               <figure >
                                  <img
                                     className='w-10 h-10 border border-black rounded-[50%]'
-                                    src={user?.image}
+                                    src={user?.profile_image}
                                     alt="" />
                               </figure>
 
