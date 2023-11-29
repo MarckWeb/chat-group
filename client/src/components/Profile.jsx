@@ -9,7 +9,6 @@ import { PiUserSwitchFill } from "react-icons/pi";
 const VITE_URL = import.meta.env.VITE_URL;
 
 const Profile = ({ userSelect, handleUserSelect, setIsAutenticated }) => {
-   console.log(userSelect)
    const [showProfile, setShowProfile] = useState(false)
    const [profileFile, setProfileFile] = useState(null)
    const [selectedFile, setSelectedFile] = useState(null);
@@ -64,7 +63,7 @@ const Profile = ({ userSelect, handleUserSelect, setIsAutenticated }) => {
    }
 
    return (
-      <section className={`w-full max-w-xs transition-all duration-50000 ease-linear  ${showProfile ? 'h-36 flex flex-col justify-between items-center' : 'h-20'} mt-auto bg-black  px-5 py-2`} >
+      <section className={`absolute bottom-0 left-0  w-full max-w-xs transition-all duration-50000 ease-linear  ${showProfile ? 'h-36 flex flex-col justify-between items-center' : 'h-20'} mt-auto bg-black  px-5 py-2`} >
          {showProfile
             ? <section className="w-full h-20 ">
                <div className="flex flex-row justify-around items-center">
@@ -104,7 +103,7 @@ const Profile = ({ userSelect, handleUserSelect, setIsAutenticated }) => {
             {showProfile
                ? ''
                : <figure className='relative'>
-                  {userSelect?.profile_image ? <img src={userSelect?.profile_image} alt="" className='w-10 h-10 rounded-[50%]' /> : <span className="text-5xl"><PiUserSwitchFill /></span>}
+                  {userSelect?.image ? <img src={userSelect?.image} alt="" className='w-10 h-10 rounded-[50%]' /> : <span className="text-5xl"><PiUserSwitchFill /></span>}
 
                   <span className={`w-2 h-2 ${userSelect ? 'bg-green-600' : ''}  rounded-[50%] absolute  right-0 bottom-1`}></span>
                </figure>}

@@ -1,5 +1,4 @@
 import pool from "../db/connection.js";
-import { uploadImage } from '../libs/clodudinary.js'
 
 //GET
 const getComments = async (req, res) => {
@@ -15,7 +14,6 @@ const getComments = async (req, res) => {
 const createComment = async (req, res) => {
    try {
       const { id, content, userId, channelId } = req.body
-
       const [resultComment] = await pool.execute('INSERT INTO comments (id, content, user_id, channel_id) VALUES (?, ?, ?, ?)', [id, content, userId, channelId]);
 
       if (resultComment.affectedRows > 0) {

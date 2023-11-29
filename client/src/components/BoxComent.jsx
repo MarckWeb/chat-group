@@ -158,6 +158,8 @@ const BoxComent = ({ userSelect, channelTitle }) => {
 
 export default BoxComent
 
+//el evento en react funciona con ref capturas un contenedor y le dives con top que quieres que se mueva en forma vertival y busca la altura del contenedor y se ajusta a ello0
+
 
 
 

@@ -12,7 +12,7 @@ CREATE TABLE user (
    PRIMARY KEY (id),
    UNIQUE KEY email (email),
    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
 --agregar columana
@@ -26,7 +26,7 @@ show tables;
 describe user;
 
 INSERT INTO user VALUES
-(1, 'John', 'Doe', 'doe123', 'doe@gamil.com', '12345' );
+(52, 'John', 'Doe', 'doe@gamil.com', '12345' );
 
 -- tabla de canales
 CREATE TABLE channel (
@@ -80,7 +80,7 @@ CREATE TABLE comment_images (
 );
 
 INSERT INTO channel ( name, description, creator_id) 
-VALUES (Comunidad JavaScript, Bienvenidos al canal, hablamso sobre codigos js noticas y mucho mas, 73);
+VALUES (Comunidad JavaScript, Bienvenidos al canal, hablamso sobre codigos js noticas y mucho mas, 615);
 
 --add column
 ALTER TABLE comment_images
@@ -117,7 +117,9 @@ ALTER TABLE comments
 ADD COLUMN id VARCHAR(100) NOT NULL,
 ADD PRIMARY KEY (id);
 
----eliminar tabla y crear otra
+
+ALTER TABLE user
+ADD COLUMN image_id VARCHAR(255);
 
 
 

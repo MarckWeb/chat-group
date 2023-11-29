@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { jwtDecode } from "jwt-decode";
 import { useContextChannels } from '../service/Channel.config.context';
+import { toast } from 'react-toastify';
 
 const VITE_URL = import.meta.env.VITE_URL;
 
@@ -40,11 +41,11 @@ const CreateChannel = ({ setAddChannel }) => {
             setDescriptionChannel('')
             setAddChannel(false)
             handleChannels()
-            return alert(resData.message)
+            return toast.info(resData.message)
          }
 
          if (resData.ok === false) {
-            return alert(resData.message)
+            return toast.error(resData.message)
          }
       } catch (error) {
          console.error('Error al registrar usuario:', error);
