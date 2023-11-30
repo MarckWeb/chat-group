@@ -41,7 +41,7 @@ app.use(passport.initialize(), passport.session());
 // Rutas
 app.use('/api/user', user);
 app.use('/api/auth', authUser);
-app.use('/api/auth/google', authGoogle)
+app.use('/auth/google', authGoogle)
 //app.use('/auth/facebook', authFacebook);
 app.use('/api/channel', channel);
 app.use('/api/members', members);
