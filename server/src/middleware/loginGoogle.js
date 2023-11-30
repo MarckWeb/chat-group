@@ -15,6 +15,8 @@ const configureGoogleStrategy = () => {
    },
       async (accessToken, refreshToken, profile, cb) => {
          try {
+
+            console.log(profile)
             // Buscar al usuario en la base de datos por su correo electrónico
             const [result] = await pool.execute('SELECT * FROM user WHERE email=?', [profile.emails[0].value]);
 
