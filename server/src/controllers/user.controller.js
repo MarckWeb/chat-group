@@ -21,6 +21,8 @@ const getUser = async (req, res) => {
 const getUsers = async (req, res) => {
    try {
       const [users] = await pool.query('SELECT * FROM user')
+
+      console.log(users)
       res.send(users)
    } catch (e) {
       console.error(e);
