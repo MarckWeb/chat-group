@@ -4,8 +4,6 @@ import mysql from 'mysql2/promise';
 
 import { DB_HOST, DB_DATABASE, DB_PASSWORD, DB_PORT, DB_USER } from '../config.js';
 
-//https://www.youtube.com/watch?v=xqZdVpBYVy0
-
 const pool = mysql.createPool({
    host: DB_HOST, //seria el ip del atlasDB
    user: DB_USER,

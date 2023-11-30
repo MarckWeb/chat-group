@@ -3,14 +3,14 @@ import pool from '../db/connection.js';
 import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
 // import { Strategy as FacebookTokenStrategy } from 'passport-facebook-token';
 
-import { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET } from '../config.js'//importar facebbokk
+import { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, GOOGLE_CLIENT_CALLBACK } from '../config.js'//importar facebbokk
 
 // Configuración de la estrategia de Google para Passport
 const configureGoogleStrategy = () => {
    passport.use(new GoogleStrategy({
       clientID: GOOGLE_CLIENT_ID,
       clientSecret: GOOGLE_CLIENT_SECRET,
-      callbackURL: "http://localhost:3000/auth/google/callback",
+      callbackURL: GOOGLE_CLIENT_CALLBACK,
       state: true
    },
       async (accessToken, refreshToken, profile, cb) => {
