@@ -1,4 +1,4 @@
-import passport from 'passport';
+import passport, { use } from 'passport';
 import pool from '../db/connection.js';
 import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
 // import { Strategy as FacebookTokenStrategy } from 'passport-facebook-token';
@@ -16,12 +16,15 @@ const configureGoogleStrategy = () => {
       async (accessToken, refreshToken, profile, cb) => {
          try {
 
-            console.log(profile)
+
             // Buscar al usuario en la base de datos por su correo electrónico
             const [result] = await pool.execute('SELECT * FROM user WHERE email=?', [profile.emails[0].value]);
 
+            console.log(result)
+
             // Si el usuario ya existe, retornar el usuario encontrado
             if (result.length > 0) {
+               console.log('el usuario ya existe')
                return cb(null, result[0]);
             } else {
                // Si el usuario no existe, crear un nuevo usuario con la información de Google
@@ -43,6 +46,8 @@ const configureGoogleStrategy = () => {
                   image: profileImage
                };
 
+               console.log('creando el nuevo usuario', newUser)
+
                return cb(null, newUser);
             }
          } catch (err) {
@@ -63,15 +68,18 @@ const configureGoogleStrategy = () => {
 // };
 
 passport.serializeUser((user, cb) => {
+   console.log('en el serializer', user)
    cb(null, user);
 });
 
 passport.deserializeUser(async (user, cb) => {
    try {
+      console.log('en el deserializer', user)
       // Buscar al usuario en la base de datos por su ID
       const [result] = await pool.execute('SELECT * FROM user WHERE id = ?', [user.id])
 
       // Si el usuario se encuentra, retornar el usuario
+      console.log('si el usuario esta retornar', result)
       if (result.length > 0) {
          return cb(null, result[0]);
       }
