@@ -1,4 +1,4 @@
-import passport, { use } from 'passport';
+import passport from 'passport';
 import pool from '../db/connection.js';
 import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
 // import { Strategy as FacebookTokenStrategy } from 'passport-facebook-token';
