@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Form from '../components/Form'
 import IntroForm from '../components/IntroForm'
 import { peeople, group } from '../assets/index.js'
@@ -12,6 +12,10 @@ const Login = ({ setIsAutenticated }) => {
       e.preventDefault()
       setToggle(!toggle)
    }
+
+   // useEffect(() => {
+   //    https://back-2r4n.onrender.com/api/user
+   // })
 
    return (
       <div className={` w-full h-screen before:w-[2000px] before:h-[2000px] before:rounded-[50%] before:bg-gradient-to-r from-red-500 via-orange-500 to-yellow-500 before:absolute before:top-[0] before:left-[50%] before:z-10 before:transform  before:translate-x-[-50%] before:transition-transform  before:duration-1000 before:ease-linear relative overflow-hidden 
