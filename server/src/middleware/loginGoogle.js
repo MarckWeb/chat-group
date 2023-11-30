@@ -10,7 +10,7 @@ const configureGoogleStrategy = () => {
    passport.use(new GoogleStrategy({
       clientID: GOOGLE_CLIENT_ID,
       clientSecret: GOOGLE_CLIENT_SECRET,
-      callbackURL: GOOGLE_CLIENT_CALLBACK,
+      callbackURL: 'https://back-2r4n.onrender.com/auth/google/callback',
       state: true
    },
       async (accessToken, refreshToken, profile, cb) => {

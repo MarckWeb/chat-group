@@ -18,7 +18,6 @@ function App() {
 
   //verificamos si exo¡iste un token o cookies para autorizar al chat
   useEffect(() => {
-
     try {
 
       console.log('entra y que psas')
