@@ -144,7 +144,7 @@ const Form = ({ setIsAutenticated, toggle, setToggle }) => {
          <p>o inicia sesion con redes</p>
 
          <div className='flex flex-row gap-4 text-4xl'>
-            <a href="http://localhost:3000/auth/google/"><ImGoogle2 /></a>
+            <a href="https://front-gcdr.onrender.com/auth/google/"><ImGoogle2 /></a>
             <a href=""><ImFacebook2 /></a>
             <a href=""><ImLinkedin /></a>
          </div>
