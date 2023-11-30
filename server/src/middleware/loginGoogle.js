@@ -1,7 +1,6 @@
 import passport from 'passport';
 import pool from '../db/connection.js';
 import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
-import tokenSing from '../helpers/generateToken.js';
 // import { Strategy as FacebookTokenStrategy } from 'passport-facebook-token';
 
 import { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET } from '../config.js'//importar facebbokk
@@ -16,7 +15,6 @@ const configureGoogleStrategy = () => {
    },
       async (accessToken, refreshToken, profile, cb) => {
          try {
-            console.log(profile)
             // Buscar al usuario en la base de datos por su correo electrónico
             const [result] = await pool.execute('SELECT * FROM user WHERE email=?', [profile.emails[0].value]);
 
@@ -32,7 +30,7 @@ const configureGoogleStrategy = () => {
                const profileImage = profile.photos[0].value;
 
                // Insertar el nuevo usuario en la base de datos
-               const [insertResults] = await pool.query('INSERT INTO user (id, name,lastname, email, profile_image) VALUES (?, ?, ?, ?, ?)', [userId, name, lastname, email, profileImage]);
+               const [insertResults] = await pool.query('INSERT INTO user (id, name,lastname, email, image) VALUES (?, ?, ?, ?, ?)', [userId, name, lastname, email, profileImage]);
 
                // Crear un objeto con la información del nuevo usuario
                const newUser = {
@@ -43,11 +41,9 @@ const configureGoogleStrategy = () => {
                   image: profileImage
                };
 
-               // Retornar el nuevo usuario creado
                return cb(null, newUser);
             }
          } catch (err) {
-            // Manejar errores durante el proceso de autenticación con Google
             console.error('Error en la estrategia de Google:', err);
             return cb(err, null);
          }
@@ -64,12 +60,10 @@ const configureGoogleStrategy = () => {
 //    ));
 // };
 
-// Serializar al usuario para almacenar en la sesión
 passport.serializeUser((user, cb) => {
    cb(null, user);
 });
 
-// Deserializar al usuario basado en la información de la sesión
 passport.deserializeUser(async (user, cb) => {
    try {
       // Buscar al usuario en la base de datos por su ID
@@ -77,17 +71,12 @@ passport.deserializeUser(async (user, cb) => {
 
       // Si el usuario se encuentra, retornar el usuario
       if (result.length > 0) {
-         console.log('resul deserializer', result[0])
-         //const tokenSession = await tokenSing(result[0])
-
          return cb(null, result[0]);
       }
    } catch (error) {
-      // Manejar errores durante la deserialización del usuario
       console.log(error)
    }
 });
 
-// Exportar la función de configuración de la estrategia de Google
 export { configureGoogleStrategy };
 

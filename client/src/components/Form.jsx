@@ -69,7 +69,7 @@ const Form = ({ setIsAutenticated, toggle, setToggle }) => {
       e.preventDefault()
       const { email, password } = inputValues
       if (!email && !password) {
-         return alert('Ingrese los datos')
+         return toast.info('Campos vacios')
       }
       const data = {
          method: 'POST',

@@ -1,7 +1,6 @@
 import React from 'react'
 
 const ListComments = ({ userImage, name, lastname, date, comment, image }) => {
-   console.log(userImage)
 
    return (
       <section className=' mb-4 flex flex-row gap-3 m-5 bg-gray-200 shadow-lg p-3 rounded-lg '>

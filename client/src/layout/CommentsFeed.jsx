@@ -22,7 +22,6 @@ const CommentsFeed = ({ showMembers, setShowMembers, channelTitle, userSelect })
       return dayjs(isoDate).locale('es').format("dddd [a las] h:mm A");
    };
 
-
    // Efecto secundario para desplazar el contenedor hacia abajo cuando hay nuevos comentarios
    useEffect(() => {
       const container = ref.current;
@@ -46,8 +45,6 @@ const CommentsFeed = ({ showMembers, setShowMembers, channelTitle, userSelect })
          const commentImage = images?.find(image => image.comment_id === comment.id);
          const user = users?.find(user => user.id === comment.user_id);
 
-         console.log(user)
-
          // Obtener el día actual del comentario
          const currentDay = dayjs(comment.created_at).format('dddd');
 
@@ -65,7 +62,7 @@ const CommentsFeed = ({ showMembers, setShowMembers, channelTitle, userSelect })
                {daySeparator}
 
                <ListComments
-                  userImage={user?.profile_image}
+                  userImage={user?.image}
                   name={user?.name}
                   lastname={user?.lastname}
                   date={formatDate(comment.created_at)}

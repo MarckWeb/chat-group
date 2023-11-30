@@ -1,16 +1,12 @@
 import jwt from 'jsonwebtoken';
+import { JWT_SECRET } from '../config.js';
 
 
 const tokenSing = async (user) => {
-   return jwt.sign({
-      id: user.id,
-   },
-      //process.env.JWT_SECRET,
-      'secret_key',
-      {
-         //tiempo de expiracion del token
-         expiresIn: '2h',
-      }
+   return jwt.sign(
+      { id: user.id },
+      JWT_SECRET,
+      { expiresIn: '2h', }
    )
 }
 

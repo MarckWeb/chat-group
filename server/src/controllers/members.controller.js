@@ -18,18 +18,17 @@ const createMember = async (req, res) => {
 
       const [membersVeriry] = await pool.execute('SELECT * FROM members WHERE user_id=?', [userId])
 
-      console.log('canal que se registrara', membersVeriry)
       const existingUser = membersVeriry
          .filter(member => member.user_id === userId)
          .filter(member => member.channel_id === channelId)
 
+      //pruebas
       if (existingUser.length > 0) {
          existingUser.forEach(element => {
             console.log(element.channel_id, element.user_id)
          });
-         return console.log(`ya existe el usuario`)
+         return console.info(`usuario registrado en el canal`)
       }
-
 
       const [resultMembers] = await pool.execute('INSERT INTO members ( user_id, channel_id) VALUES ( ?, ?)', [userId, channelId]);
 

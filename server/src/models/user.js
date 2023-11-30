@@ -13,9 +13,6 @@ class UserModel {
       if (!this.name || !this.lastname || !this.email || !this.password) {
          errors.push('Faltan campos obligatorios');
       }
-
-      // Agrega otras validaciones según tus requerimientos, como la validación de direcciones de correo electrónico
-
       return errors.length === 0 ? null : errors;
    }
 }

@@ -1,7 +1,6 @@
 import { Router } from 'express';
 import googleAuthController from '../controllers/googleAuthController.js';
 
-
 const authGoogle = Router();
 
 authGoogle.route('/')

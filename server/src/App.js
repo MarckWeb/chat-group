@@ -38,7 +38,6 @@ app.use(fileUpload({
 app.use(passport.initialize(), passport.session());
 
 
-
 // Rutas
 app.use('/api/user', user);
 app.use('/api/auth', authUser);
@@ -51,7 +50,7 @@ app.use('/api/comments/image', commentsImages)
 
 // Configurar la estrategia de autenticación con Google
 configureGoogleStrategy();
-//configureFacebookStrategy(); //vendra de facebook strategy
+//configureFacebookStrategy();
 
 // Manejo de Endpoint no encontrado
 app.use((req, res) => {

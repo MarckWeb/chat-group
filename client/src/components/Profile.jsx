@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { CiSettings } from "react-icons/ci";
 
 import { toast } from 'react-toastify';
@@ -9,7 +9,6 @@ import { PiUserSwitchFill } from "react-icons/pi";
 const VITE_URL = import.meta.env.VITE_URL;
 
 const Profile = ({ userSelect, handleUserSelect, setIsAutenticated }) => {
-   console.log(userSelect)
    const [showProfile, setShowProfile] = useState(false)
    const [profileFile, setProfileFile] = useState(null)
    const [selectedFile, setSelectedFile] = useState(null);
@@ -17,6 +16,7 @@ const Profile = ({ userSelect, handleUserSelect, setIsAutenticated }) => {
 
    const handleCloseSesion = () => {
       localStorage.removeItem('token')
+      document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
       setIsAutenticated('')
    }
 
@@ -42,7 +42,6 @@ const Profile = ({ userSelect, handleUserSelect, setIsAutenticated }) => {
 
    const sendImageFileFromProfile = async (e) => {
       e.preventDefault()
-      console.log(userSelect.id)
       const fileImage = new FormData()
       if (selectedFile) {
          fileImage.append('image', selectedFile);
@@ -104,7 +103,9 @@ const Profile = ({ userSelect, handleUserSelect, setIsAutenticated }) => {
             {showProfile
                ? ''
                : <figure className='relative'>
-                  {userSelect?.profile_image ? <img src={userSelect?.profile_image} alt="" className='w-10 h-10 rounded-[50%]' /> : <span className="text-5xl"><PiUserSwitchFill /></span>}
+                  {userSelect?.image
+                     ? <img src={userSelect?.image} alt="imagen de perfil" className='w-10 h-10 rounded-[50%]' />
+                     : <span className="text-5xl"><PiUserSwitchFill /></span>}
 
                   <span className={`w-2 h-2 ${userSelect ? 'bg-green-600' : ''}  rounded-[50%] absolute  right-0 bottom-1`}></span>
                </figure>}

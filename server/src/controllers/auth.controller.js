@@ -72,7 +72,6 @@ const createUser = async (req, res) => {
 
       //verificamos que no exita un usuario con el mismo email
       const [userVerify] = await pool.execute('SELECT * FROM user WHERE email=?', [email])
-      console.log(userVerify)
 
       if (userVerify[0]) {
 
@@ -95,12 +94,9 @@ const createUser = async (req, res) => {
          //generamos la contraseña encriptada
          const passwordHash = await encryptPassword(password);
 
-         console.log(passwordHash)
-
          //insertamos el usuario a al base de datos
          const row = "INSERT INTO user (id, name, lastname, email, password) VALUES (?, ?, ?, ?, ?)";
          const values = [id, name, lastname, email, passwordHash];
-         console.log('values par alamacenar', values)
 
          const result = await pool.execute(row, values);
          // console.log(result[0].affectedRows)

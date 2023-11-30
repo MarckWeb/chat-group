@@ -3,7 +3,7 @@ import { jwtDecode } from "jwt-decode";
 
 import CommentsFeed from '../layout/CommentsFeed'
 import Channels from '../layout/Channels'
-import CreateChannel from '../components/createChannel'
+import CreateChannel from '../components/CreateChannel.jsx'
 
 const VITE_URL = import.meta.env.VITE_URL;
 

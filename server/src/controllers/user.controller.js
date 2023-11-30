@@ -32,13 +32,6 @@ const updateUser = async (req, res) => {
    try {
       const { id } = req.params
       const { name, lastname, email } = req.body
-      console.log('entrando al update controller')
-      console.log(req.files)
-      console.log(req.files.image)
-
-      // if (!req.files || !name && !email && !lastname) {
-      //    return res.send({ message: 'campos vacios' })
-      // }
 
       const [updateUser] = await pool.query('SELECT * FROM user WHERE id = ?', [id])
 
@@ -53,12 +46,7 @@ const updateUser = async (req, res) => {
 
       if (req.files && req.files.image) {
          const fileImage = req.files.image
-         console.log('entrando a la condicion')
-         console.log(fileImage)
          const result = await uploadImage(fileImage.tempFilePath)
-
-         console.log(result)
-
          if (updateUser[0].image && updateUser[0].image_id) {
             await deleteImage(updateUser[0].image_id);
          }
@@ -67,9 +55,9 @@ const updateUser = async (req, res) => {
          imageId = result.public_id
       }
 
-      const [user] = await pool.query('UPDATE user SET name = ?, lastname = ?, email = ?, profile_image=?, image_id =? WHERE id = ?', [name || updateUser[0].name, lastname || updateUser[0].lastname, email || updateUser[0].email, avatar, imageId, id])
+      const [user] = await pool.query('UPDATE user SET name = ?, lastname = ?, email = ?, image=?, image_id =? WHERE id = ?', [name || updateUser[0].name, lastname || updateUser[0].lastname, email || updateUser[0].email, avatar, imageId, id])
 
-      console.log(user)
+
       if (user.affectedRows <= 0) {
          return req.status(404).send({
             message: 'Usuario no actualizado',

@@ -97,14 +97,13 @@ const Channels = ({ showMembers, setShowMembers, userLogin, setChannelTitle, set
                      {members?.filter(member => member.channel_id === 1)
                         .map(member => {
                            const user = users?.find((user) => user.id === member.user_id);
-                           console.log(user)
                            return (
                               <li className='pl-4 p-1 rounded bg-gray-300 flex flex-row items-center gap-5 mb-4 text-black shadow-4xl'
                                  key={member.id}>
 
                                  <img
                                     className='w-10 h-10 border border-black  rounded-[50%]'
-                                    src={user?.profile_image}
+                                    src={user?.image}
                                     alt="" />
 
                                  <span
@@ -126,7 +125,7 @@ const Channels = ({ showMembers, setShowMembers, userLogin, setChannelTitle, set
                               <figure >
                                  <img
                                     className='w-10 h-10 border border-black rounded-[50%]'
-                                    src={user?.profile_image}
+                                    src={user?.image}
                                     alt="" />
                               </figure>
 
@@ -140,11 +139,13 @@ const Channels = ({ showMembers, setShowMembers, userLogin, setChannelTitle, set
                   : <>
                      {
                         channels?.map(channel => {
-                           return <li
-                              key={channel.id}
+                           return <li key={channel.id}
                               className='cursor-pointer mt-4 hover:bg-[#3C393F] h-10 flex flex-row items-center p-2'
                               onClick={() => handleChannelSelected(channel.id)}>
-                              <span className='bg-[#3C393F] w-10 h-10 rounded uppercase flex justify-center items-center'>{channel.name.charAt('0')}</span>
+                              <span
+                                 className='bg-[#3C393F] w-10 h-10 rounded uppercase flex justify-center items-center'>
+                                 {channel.name.charAt('0')}
+                              </span>
                               <span className='ml-3'>{channel.name}</span>
                            </li>
                         })
@@ -163,5 +164,3 @@ const Channels = ({ showMembers, setShowMembers, userLogin, setChannelTitle, set
 }
 
 export default Channels
-
-//AL PRINCIPIO NO ESTA FUNCIONANDO EL USER FILTER DE CHANNEL Y COMMENT

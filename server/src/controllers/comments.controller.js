@@ -40,7 +40,6 @@ const deleteComments = async (req, res) => {
    try {
 
       const [comments] = await pool.query('DELETE FROM comments WHERE id = ?', [req.params.id])
-      console.log('delete comments', comments)
       if (comments.affectedRows <= 0) return res.status(404).send({
          message: 'comentario no encontrado',
          state: 404
