@@ -10,7 +10,7 @@ const googleAuthController = {
 
       const token = await tokenSing(user);
       res.cookie('token', token);
-      res.redirect('https://front-gcdr.onrender.com/home');
+      res.redirect('https://front-gcdr.onrender.com');
    },
 };
 

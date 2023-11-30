@@ -93,6 +93,9 @@ const Form = ({ setIsAutenticated, toggle, setToggle }) => {
             return toast.info('Bienvenido disfruta del grupo')
 
          }
+         if (resData.ok === false) {
+            return toast.error(resData.message)
+         }
       } catch (e) {
          console.error(e)
       }
