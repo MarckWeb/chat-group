@@ -27,6 +27,7 @@ const Form = ({ setIsAutenticated, toggle, setToggle }) => {
    const handleGoogleLoginClick = (e) => {
       e.preventDefault();
       const token = document.cookie.split('=')[1];
+      console.log(token)
       console.log('Google login clicked');
 
       // Realizar la redirección a la URL de Google
