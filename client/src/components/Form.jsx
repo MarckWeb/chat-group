@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
+import { Link, useHistory } from 'react-router-dom';
 import Inputs from './Inputs'
 import Button from './Button';
 
@@ -22,6 +23,16 @@ const Form = ({ setIsAutenticated, toggle, setToggle }) => {
       email: '',
       password: ''
    })
+
+   const history = useHistory();
+
+   const handleGoogleLoginClick = (e) => {
+      e.preventDefault();
+      console.log('Google login clicked');
+
+      // Realizar la redirección a la URL de Google
+      window.location.href = 'https://back-2r4n.onrender.com/auth/google/';
+   };
 
    //almacena datos del formulario
    const hanldeValuesInput = (e) => {
@@ -147,7 +158,8 @@ const Form = ({ setIsAutenticated, toggle, setToggle }) => {
          <p>o inicia sesion con redes</p>
 
          <div className='flex flex-row gap-4 text-4xl'>
-            <a onClick={(e) => { e.preventDefault(); console.log('Google login clicked'); }} href="https://back-2r4n.onrender.com/auth/google/"><ImGoogle2 /></a>
+            <Link onClick={handleGoogleLoginClick} to="https://back-2r4n.onrender.com/auth/google/"><ImGoogle2 /></Link>
+            {/* <a onClick={(e) => { e.preventDefault(); console.log('Google login clicked'); }} href="https://back-2r4n.onrender.com/auth/google/"><ImGoogle2 /></a> */}
             <a href=""><ImFacebook2 /></a>
             <a href=""><ImLinkedin /></a>
          </div>
