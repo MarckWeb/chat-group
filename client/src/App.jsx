@@ -19,6 +19,7 @@ function App() {
   //verificamos si exo¡iste un token o cookies para autorizar al chat
   useEffect(() => {
     try {
+      console.log('Todas las cookies:', document.cookie);
       // Intentar obtener el token de localStorage
       const localStorageToken = localStorage.getItem('token');
 
@@ -27,9 +28,8 @@ function App() {
         setIsAutenticated(localStorageToken);
       } else {
         // Si no hay token en localStorage, intentar obtenerlo de las cookies
-        const cookies = document.cookie.split(';').map(cookie => cookie.trim());
-        const tokenCookie = cookies.find(cookie => cookie.startsWith('token='));
-        const token = tokenCookie ? tokenCookie.split('=')[1] : null;
+
+        const token = document.cookie.split(';').map(cookie => cookie.trim()).find(cookie => cookie.startsWith('token='));
 
         if (token) {
           console.log('Token encontrado en cookies:', token);
