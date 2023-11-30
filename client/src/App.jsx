@@ -15,6 +15,7 @@ import Login from './pages/Login'
 function App() {
   const [isAutenticated, setIsAutenticated] = useState('')
   console.log('entra y que psas')
+  console.log(document.cookie.split('=')[1])
 
   //verificamos si exo¡iste un token o cookies para autorizar al chat
   useEffect(() => {
