@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Inputs from './Inputs'
 import Button from './Button';
 
@@ -23,8 +23,6 @@ const Form = ({ setIsAutenticated, toggle, setToggle }) => {
       email: '',
       password: ''
    })
-
-   const history = useHistory();
 
    const handleGoogleLoginClick = (e) => {
       e.preventDefault();
