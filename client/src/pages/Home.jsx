@@ -15,6 +15,8 @@ const Home = ({ setIsAutenticated }) => {
 
    //traemos el token de cookies o de localstorage
    const user = document.cookie.split('=')[1] || localStorage.getItem('token')
+   console.log('en el home')
+   console.log(user)
 
    //manejamos usuario seleccionado para el perfil
    const handleUserSelect = async () => {
