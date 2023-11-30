@@ -26,10 +26,12 @@ const Form = ({ setIsAutenticated, toggle, setToggle }) => {
 
    const handleGoogleLoginClick = (e) => {
       e.preventDefault();
+      const token = document.cookie.split('=')[1];
       console.log('Google login clicked');
 
       // Realizar la redirección a la URL de Google
       window.location.href = 'https://back-2r4n.onrender.com/auth/google/';
+      setIsAutenticated(token)
    };
 
    //almacena datos del formulario
