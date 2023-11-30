@@ -18,20 +18,28 @@ function App() {
 
   //verificamos si exo¡iste un token o cookies para autorizar al chat
   useEffect(() => {
-    console.log('entra y que psas')
-    console.log(document.cookie)
 
-    const token = localStorage.getItem('token') || document.cookie.split('=')[1];
-    if (token) {
-      console.log('if')
-      console.log(token)
-      setIsAutenticated(token)
+    try {
+
+      console.log('entra y que psas')
+      console.log(document.cookie)
+
+      const token = localStorage.getItem('token') || document.cookie.split('=')[1];
+      if (token) {
+        console.log('if')
+        console.log(token)
+        setIsAutenticated(token)
+      }
+      else {
+        console.log('else')
+        console.log(token)
+        setIsAutenticated('')
+      }
+
+    } catch (error) {
+      console.error('Error al obtener el token', error)
     }
-    else {
-      console.log('else')
-      console.log(token)
-      setIsAutenticated('')
-    }
+
   }, [])
 
   return (
