@@ -29,7 +29,7 @@ function App() {
       } else {
         // Si no hay token en localStorage, intentar obtenerlo de las cookies
 
-        const token = document.cookie.split(';').map(cookie => cookie.trim()).find(cookie => cookie.startsWith('token='));
+        const token = document.cookie.split('=')[0];
 
         if (token) {
           console.log('Token encontrado en cookies:', token);

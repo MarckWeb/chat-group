@@ -13,7 +13,6 @@ const getComments = async (req, res) => {
 
 const createComment = async (req, res) => {
    try {
-      console.log(req.body)
       const { id, content, userId, channelId } = req.body
       const [resultComment] = await pool.execute('INSERT INTO comments (id, content, user_id, channel_id) VALUES (?, ?, ?, ?)', [id, content, userId, channelId]);
 
