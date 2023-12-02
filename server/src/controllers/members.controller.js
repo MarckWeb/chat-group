@@ -1,6 +1,5 @@
 import pool from '../db/connection.js';
 
-
 //GET
 const getMembers = async (req, res) => {
    try {
