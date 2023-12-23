@@ -11,6 +11,12 @@ Esta aplicación Chat Group es una plataforma fullstack que redefine la interacc
 
 [Ver Proyecto en Vivo](https://front-gcdr.onrender.com)
 
+## Tecnologías Utilizadas
+
+- **Frontend:** Desarrollado con React con vite para una interfaz de usuario dinámica y Tailwind CSS para estilos modernos y responsivos.
+  
+- **Backend:** Node.js y Express para el servidor, con MySql como base de datos para gestionar los productos y pedidos.
+
 ## Herramientas Utilizadas
 
 - [Vite](https://vitejs.dev/)
@@ -26,4 +32,9 @@ Esta aplicación Chat Group es una plataforma fullstack que redefine la interacc
 1. Clone el repositorio: `git clone https://github.com/MarckWeb/chat-group`
 2. Navegue al directorio del proyecto: `cd chat_group`
 3. Instale las dependencias: `npm install`
+
+4. ## Contribuciones
+¡Las contribuciones son bienvenidas! Si encuentras errores o tienes sugerencias, puedes enviarme un mensaje por linkedin .
+-  [david](https://www.linkedin.com/in/david-marca/)
+
 
