@@ -17,16 +17,6 @@ Esta aplicación Chat Group es una plataforma fullstack que redefine la interacc
   
 - **Backend:** Node.js y Express para el servidor, con MySql como base de datos para gestionar los productos y pedidos.
 
-## Herramientas Utilizadas
-
-- [Vite](https://vitejs.dev/)
-- [TailwindCSS](https://tailwindcss.com/)
-- [React](https://es.react.dev/)
-- - [cloudinary](https://cloudinary.com/)
-- [NodeJS](https://nodejs.org/en)
-- [Expressja](https://expressjs.com/)
--  [Mysql](https://www.mysql.com/)
-
 ## Instalación
 
 1. Clone el repositorio: `git clone https://github.com/MarckWeb/chat-group`
