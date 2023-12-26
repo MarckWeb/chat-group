@@ -44,7 +44,7 @@ function App() {
         <AppProviderMembers>
           <AppProviderComments>
             <AppProviderImages>
-              <div className="">
+              <div class="font-primary ">
                 {isAutenticated
                   ? <Home
                     setIsAutenticated={setIsAutenticated} />

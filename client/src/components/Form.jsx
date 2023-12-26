@@ -102,7 +102,7 @@ const Form = ({ setIsAutenticated, toggle, setToggle }) => {
    };
 
    return (
-      <form className=' text-xl lg:text-2xl w-full flex flex-col justify-center items-center gap-4 p-5'>
+      <form className='w-full flex flex-col justify-center items-center gap-4 p-5 lg:text-2xl'>
          <h2 className='lg:text-3xl font-bold'>{toggle ? 'Iniciar Sesion' : 'Registrarme'}</h2>
          {toggle ? '' : <>
             <Inputs

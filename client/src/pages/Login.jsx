@@ -13,12 +13,9 @@ const Login = ({ setIsAutenticated }) => {
       setToggle(!toggle)
    }
 
-   // useEffect(() => {
-   //    https://back-2r4n.onrender.com/api/user
-   // })
 
    return (
-      <div className={` w-full h-screen before:w-[2000px] before:h-[2000px] before:rounded-[50%] before:bg-gradient-to-r from-red-500 via-orange-500 to-yellow-500 before:absolute before:top-[0] before:left-[50%] before:z-10 before:transform  before:translate-x-[-50%] before:transition-transform  before:duration-1000 before:ease-linear relative overflow-hidden 
+      <div className={`w-full h-screen before:w-[2000px] before:h-[2000px] before:rounded-[50%] before:bg-gradient-to-r from-red-500 via-orange-500 to-yellow-500 before:absolute before:top-[0] before:left-[50%] before:z-10 before:transform  before:translate-x-[-50%] before:transition-transform  before:duration-1000 before:ease-linear relative overflow-hidden 
       ${toggle
             ? 'before:translate-y-[-88%] md:before:translate-x-[-60%] md:before:translate-y-[-88%] lg:before:translate-y-[-50%] lg:before:translate-x-[-100%]'
             : 'before:translate-y-[28%] md:before:translate-x-[-60%] md:before:translate-y-[25%] lg:before:translate-x-[0%] lg:before:translate-y-[-50%]'}`}>
@@ -41,7 +38,6 @@ const Login = ({ setIsAutenticated }) => {
                ? 'top-[100%] translate-y-[-120%] lg:left-[75%] lg:translate-x-[-35%]'
                : 'top-0  translate-y-[0] lg:left-[2%] lg:translate-x-[10%]'}  
                 `}>
-
             <Form setIsAutenticated={setIsAutenticated}
                toggle={toggle} />
          </div>
