@@ -19,8 +19,8 @@ const Form = ({ setIsAutenticated, toggle, setToggle }) => {
    const [inputValues, setInputValues] = useState({
       name: '',
       lastname: '',
-      email: '',
-      password: ''
+      email: 'marca@example.com',
+      password: '12345'
    })
 
    //almacena datos del formulario
@@ -51,8 +51,8 @@ const Form = ({ setIsAutenticated, toggle, setToggle }) => {
             setInputValues({
                name: '',
                lastname: '',
-               email: 'marca@example.com',
-               password: '12345'
+               email: '',
+               password: ''
             })
             return toast.info(resData.message)
          }
