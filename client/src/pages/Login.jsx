@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react'
+import { toast } from 'react-toastify';
+
 import Form from '../components/Form'
 import IntroForm from '../components/IntroForm'
 import { peeople, group } from '../assets/index.js'
@@ -12,6 +14,10 @@ const Login = ({ setIsAutenticated }) => {
       e.preventDefault()
       setToggle(!toggle)
    }
+
+   useEffect(() => {
+      toast.info('Bienvenido has una pruba a la aplicacion con los datos de este Usuario, o sino puedes crear tu propio usuario. ;)')
+   }, [])
 
 
    return (
