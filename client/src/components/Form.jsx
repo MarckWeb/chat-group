@@ -51,8 +51,8 @@ const Form = ({ setIsAutenticated, toggle, setToggle }) => {
             setInputValues({
                name: '',
                lastname: '',
-               email: '',
-               password: ''
+               email: 'marca@example.com',
+               password: '12345'
             })
             return toast.info(resData.message)
          }
