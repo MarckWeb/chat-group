@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { jwtDecode } from "jwt-decode";
+import { toast } from 'react-toastify';
 
 import CommentsFeed from '../layout/CommentsFeed'
 import Channels from '../layout/Channels'
@@ -31,6 +32,7 @@ const Home = ({ setIsAutenticated }) => {
    }
 
    useEffect(() => {
+      toast.info('Prueba la aplicacion con los datos de este Usuario, o sino puedes crear tu propio usuario')
       handleUserSelect()
    }, [])
 
