@@ -16,9 +16,8 @@ const Login = ({ setIsAutenticated }) => {
    }
 
    useEffect(() => {
-      toast.info('Bienvenido has una pruba a la aplicacion con los datos de este Usuario, o sino puedes crear tu propio usuario. ;)')
+      toast.info('¡Bienvenido a nuestra aplicación de prueba! Explora sin límites y descubre todas las increíbles funciones que tenemos para ti. ¡Disfruta la experiencia!, usa este USUARIO o crea uno')
    }, [])
-
 
    return (
       <div className={`w-full h-screen before:w-[2000px] before:h-[2000px] before:rounded-[50%] before:bg-gradient-to-r from-red-500 via-orange-500 to-yellow-500 before:absolute before:top-[0] before:left-[50%] before:z-10 before:transform  before:translate-x-[-50%] before:transition-transform  before:duration-1000 before:ease-linear relative overflow-hidden 
