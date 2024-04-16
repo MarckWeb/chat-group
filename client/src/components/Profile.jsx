@@ -47,6 +47,8 @@ const Profile = ({ userSelect, handleUserSelect, setIsAutenticated }) => {
          fileImage.append('image', selectedFile);
       }
 
+      console.log(fileImage)
+
       const data = {
          method: 'PUT',
          body: fileImage,
